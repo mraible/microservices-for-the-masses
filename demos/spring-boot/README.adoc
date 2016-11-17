@@ -1,0 +1,11 @@
+= Spring Boot Demo
+
+Steps to reproduce from scratch
+
+1. Create application using https://start.spring.io[start.spring.io]
+
+  http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,remote-shell,security -d
+
+2. Run application with `mvn spring-boot:run`. If you'd like to use the Maven Wrapper, run `mvn -N io.takari:maven:wrapper`, followed by `./mvnw`.
+
+
