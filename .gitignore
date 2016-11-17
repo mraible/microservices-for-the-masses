@@ -4,6 +4,5 @@
 /.idea/
 /dist/
 /node_modules/
-/src/images/concepts/
-/src/images/originals/
 yarn.lock
+/src/notes/script.html
