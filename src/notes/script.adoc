@@ -20,6 +20,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :warning-caption: :warning:
 endif::[]
+:toc:
 
 [duration=1m]
 // tag::title[]
@@ -28,9 +29,9 @@ Welcome everyone!
 // My name is Matt Raible and I'm a hick from the sticks. I grew up in the backwoods of Montana with no electricity or running
 // water. My sister and I had to walk two miles to school everyday, and yes, it was uphill both ways.
 
-Today, we're going to look at how you can write microservices and communicate between them.
+Today, we're going to learn about microservices, their history, how to create them, and communicate between them.
 
-//But first, I'd like to share the story of a microservices migration from my company, Stormpath.
+But first, I'd like to share the story of microservices and how they came to be.
 // end::title[]
 
 [duration=5m]
@@ -65,6 +66,18 @@ Any organization that designs a system (defined broadly) will produce a design w
 [[img-conways-law]]
 .Conway's Law
 image::conways-law.png[Conway's Law, 560, scaledwidth=100%, align=center]
+
+// The more interesting story:
+
+Dr. Peter Rodgers introduced the term "Micro-Web-Services" during a presentation at Cloud Computing Expo in 2005.
+Juval Löwy had similar precursor ideas about classes being granular services, as the next evolution of Microsoft architecture in 2007.
+"Services are composed using Unix-like pipelines (the Web meets Unix = true loose-coupling). Services can call services (+multiple language run-times). Complex service-assemblies are abstracted behind simple URI interface. Any service, at any granularity, can be exposed."
+
+He described how a well-designed service platform "applies the underlying architectural principles of the Web and Web services together with Unix-like scheduling and pipelines to provide radical flexibility and improved simplicity by providing a platform to apply service-oriented architecture throughout your application environment".[ The design, which originated in a research project at Hewlett Packard Labs, aims to make code less brittle and to make large-scale, complex software systems robust to change. To make "Micro-Web-Services" work, one has to question and analyze the foundations of architectural styles (such as SOA) and the role of messaging between software components in order to arrive at a new general computing abstraction. In this case, one can think of resource-oriented computing (ROC) as a generalized form of the Web abstraction. If in the Unix abstraction "everything is a file", in ROC, everything is a "Micro-Web-Service". It can contain information, code or the results of computations so that a service can be either a consumer or producer in a symmetrical and evolving architecture.
+
+=== Microservices Philosophy
+
+The philosophy of a microservices architecture essentially equals to the Unix philosophy of "Do one thing and do it well".
 
 === Characteristics of a Microservices Architecture
 
@@ -114,7 +127,7 @@ https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate
 * Microservices enable unique opportunities.
 
 [duration=10m]
-== Stormpath's Microservices Migration
+== Personal Story: Stormpath’s Microservices Migration
 
 .What Is Stormpath?
 ****
@@ -230,14 +243,14 @@ The Yeoman workflow is made up of three types of tools to enhance your productiv
 * the build tool (Grunt, Gulp, etc.), and
 * the package manager (Bower, npm, etc.)
 
-// tag::title[]
+// tag::jhipster[]
 * Spring Boot + AngularJS application generator
 * Fully Open Source
 * +250 contributors
 * +5300 Github stars
 * +320,000 installations
 * +100 companies officially using it
-// end::title[]
+// end::jhipster[]
 
 === JHipster Toolchain / Workflow
 
@@ -434,6 +447,8 @@ Show JWT communicate and explain key registration
 
 [duration=20m]
 == JHipster in Production
+
+https://docs.google.com/presentation/d/1qUSulPZ0l21SXJYnhrRvJqIAp1YYJwvcXPX0Ekye9Io/edit#slide=id.g17ca1f35d0_0_110
 
 Talk about Docker Compose
 Show Kubernetes

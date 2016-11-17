@@ -18,6 +18,211 @@ Brought to you by https://twitter.com/mraible[Matt Raible]
 include::{uri-script}[tag=title]
 ****
 
+== The History of Microservices
+//== !
+// image::some-image-here.jpg[role=contain]
+
+[.cue]
+****
+include::{uri-script}[tag=microservices-history]
+****
+
+== Microservices Philosophy
+
+// image::some-image-here.jpg[role=contain]
+
+[.cue]
+****
+include::{uri-script}[tag=microservices-history]
+****
+
+== Characteristics of a Microservices Architecture
+
+[.cue]
+****
+include::{uri-script}[tag=microservices-arch-characteristics]
+****
+
+== Are Microservices the future?
+
+[.cue]
+****
+include::{uri-script}[tag=future]
+****
+
+== Why Microservices?
+
+[.cue]
+****
+include::{uri-script}[tag=why]
+****
+
+== Personal Story: Stormpath’s Microservices Migration
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-story-intro]
+****
+
+== Communication between services
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-communication]
+****
+
+== Architecture Diagram
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-architecture]
+****
+
+== Deployment Orchestration
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-deployment]
+****
+
+== Lessons Learned
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-lessons-learned]
+****
+
+== Spring Boot
+
+[.cue]
+****
+include::{uri-script}[tag=spring-boot]
+****
+
+== JHipster
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster]
+****
+
+== JHipster Toolchain / Workflow
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster-toolchain]
+****
+
+== What's Generated
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster-application]
+****
+
+== JHipster Demo
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster-demo]
+****
+
+== Microservices with JHipster
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster-microservices]
+****
+
+== Securing your API
+
+[.cue]
+****
+include::{uri-script}[tag=securing-api]
+****
+
+////
+HTTPS Even for internal
+Docker containers can have vulnerability
+OAuth 2
+Open ID Connect
+JWT
+JHipster Security Options
+Demo
+////
+
+== JHipster in Production
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster-production]
+****
+
+== Heroku
+
+[.cue]
+****
+include::{uri-script}[tag=heroku]
+****
+
+== Kubernetes
+
+[.cue]
+****
+include::{uri-script}[tag=kubernetes]
+****
+
+== Docker
+
+// Docker Swarm
+
+[.cue]
+****
+include::{uri-script}[tag=docker]
+****
+
+== ELK
+
+[.cue]
+****
+include::{uri-script}[tag=elk]
+****
+
+== JHipster.next
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster-next]
+****
+
+== Conclusion
+
+[.cue]
+****
+include::{uri-script}[tag=conclusion]
+****
+
+== Action!
+
+[.cue]
+****
+include::{uri-script}[tag=action]
+****
+
+== Questions?
+
+[.cue]
+****
+include::{uri-script}[tag=questions]
+****
+
+== Resources
+
+[.cue]
+****
+include::{uri-script}[tag=resources]
+****
+
 == Image Credits
 
 include::{imagesdir}/_credits.adoc[tag=list]
