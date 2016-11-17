@@ -99,12 +99,11 @@ class BlogController {
 [NOTE]
 You can change the user's password by adding `security.user.password=user` in `application.properties`.
 +
-9. Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
-
+. Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
 // change prefix with `spring.data.rest.basePath=/api`
-
-10. Integrate Stormpath with Spring Security by creating a `com.example.SecurityConfiguration` class.
-
++
+. Integrate Stormpath with Spring Security by creating a `com.example.SecurityConfiguration` class.
++
 [source,java]
 ----
 @Configuration
@@ -115,9 +114,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 }
 ----
-
++
 Navigate to http://localhost:8080/blogs, login and see JSON in your browser. Can also view from the command line using:
-
++
 ----
 http localhost:8080/blogs --auth <stormpath-user>:<password>
 ----
@@ -129,3 +128,23 @@ http.apply(stormpath()).and()
     .antMatchers("/api/**").fullyAuthenticated()
     .antMatchers("/**").permitAll();
 ////
+
+== Deploy to Cloud Foundry
+
+. Sign up for https://run.pivotal.io/[Pivotal Web Services].
+. Download and install the https://console.run.pivotal.io/tools[Cloud Foundry CLI].
+. Login from the command line:
+----
+cf login -a api.run.pivotal.io
+----
+. Create a `manifest.yml` in the root directory
+----
+---
+applications:
+  - name: blog-demo
+    buildpack: java_buildpack
+    path: target/demo-0.0.1-SNAPSHOT.jar
+----
+. Run `cf push` to deploy.
+. This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
+. Restart your application and view it at http://blog-demo.cfapps.io/ (or something similar).
