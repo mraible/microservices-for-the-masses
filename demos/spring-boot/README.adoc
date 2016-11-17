@@ -2,10 +2,130 @@
 
 Steps to reproduce from scratch
 
-1. Create application using https://start.spring.io[start.spring.io]
+. Create application using https://start.spring.io[start.spring.io]
++
+  http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,devtools,remote-shell,security -d
++
+. Run application with `mvn spring-boot:run`. If you'd like to use the Maven Wrapper, run `mvn -N io.takari:maven:wrapper`, followed by `./mvnw`.
+. Create an entity class.
++
+[source,java]
+----
+@Entity
+class Blog {
 
-  http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,remote-shell,security -d
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
 
-2. Run application with `mvn spring-boot:run`. If you'd like to use the Maven Wrapper, run `mvn -N io.takari:maven:wrapper`, followed by `./mvnw`.
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+----
++
+. Create a JPA Repository.
++
+[source,java]
+----
+interface BlogRepository extends JpaRepository<Blog, Long> {
+}
+----
++
+. Create a CommandLineRunner to populate the database.
++
+[source,java]
+----
+@Component
+class BlogCommandLineRunner implements CommandLineRunner {
+
+    @Override
+    public void run(String... strings) throws Exception {
+        System.out.println(repository.findAll());
+    }
+
+    @Autowired
+    private BlogRepository repository;
+}
+----
++
+. Create `src/main/resources/data.sql` and populate it with same data.
++
+[source,sql]
+----
+insert into blog (name) values ('First');
+insert into blog (name) values ('Second');
+----
++
+. Create `BlogController` for your REST API.
++
+[source,java]
+----
+@RestController
+class BlogController {
+
+    @RequestMapping("/blogs")
+    Collection<Blog> list() {
+        return repository.findAll();
+    }
+
+    @Autowired
+    BlogRepository repository;
+}
+----
++
+. Access the API using `http localhost:8080/blogs --auth user:<password>`.
+[NOTE]
+You can change the user's password by adding `security.user.password=user` in `application.properties`.
++
+9. Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
+
+// change prefix with `spring.data.rest.basePath=/api`
+
+10. Integrate Stormpath with Spring Security by creating a `com.example.SecurityConfiguration` class.
+
+[source,java]
+----
+@Configuration
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.apply(stormpath());
+    }
+}
+----
+
+Navigate to http://localhost:8080/blogs, login and see JSON in your browser. Can also view from the command line using:
+
+----
+http localhost:8080/blogs --auth <stormpath-user>:<password>
+----
+
+////
+Protect only /api with:
+http.apply(stormpath()).and()
+    .authorizeRequests()
+    .antMatchers("/api/**").fullyAuthenticated()
+    .antMatchers("/**").permitAll();
+////
