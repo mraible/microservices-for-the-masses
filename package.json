@@ -1,0 +1,50 @@
+{
+  "name": "microservices-for-the-masses",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mraible/microservices-for-the-masses.git"
+  },
+  "author": "Matt Raible",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/stormpath/microservices-for-the-masses/issues"
+  },
+  "homepage": "https://github.com/stormpath/microservices-for-the-masses#readme",
+  "devDependencies": {
+    "bespoke": "^1.1.0",
+    "bespoke-bullets": "^1.1.0",
+    "bespoke-classes": "^1.0.0",
+    "bespoke-extern": "^1.0.0",
+    "bespoke-hash": "^1.0.2",
+    "bespoke-multimedia": "^1.1.0",
+    "bespoke-nav": "^1.0.2",
+    "bespoke-notes": "^2.1.2",
+    "bespoke-onstage": "github:opendevise/bespoke-onstage",
+    "bespoke-overview": "^1.0.4",
+    "bespoke-progress": "^1.0.0",
+    "bespoke-scale": "^1.0.1",
+    "bespoke-theme-nebula": "^1.0.1",
+    "browserify": "^13.0.1",
+    "del": "^2.2.1",
+    "gh-pages": "^0.11.0",
+    "git-rev-sync": "^1.8.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-csso": "^2.0.0",
+    "gulp-exec": "^2.1.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.5.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "normalizecss": "^3.0.0",
+    "through": "^2.3.8",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=4.5.0"
+  }
+}

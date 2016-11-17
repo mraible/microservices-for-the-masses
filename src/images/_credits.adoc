@@ -1,0 +1,8 @@
+= Image Credits
+
+// tag::list[]
+
+* Fountain of colours - https://www.flickr.com/photos/134741223@N04/23393614091[Paulius Malinovskis on Flickr]
+* Conway's Law - http://martinfowler.com/articles/microservices.html#OrganizedAroundBusinessCapabilities[Martin Fowler and James Lewis on Microservices]
+
+// end::list[]

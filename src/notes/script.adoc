@@ -1,0 +1,247 @@
+= Microservices for the Masses: Script
+
+[duration=1m]
+// tag::title[]
+Welcome everyone!
+
+// My name is Matt Raible and I'm a hick from the sticks. I grew up in the backwoods of Montana with no electricity or running
+// water. My sister and I had to walk two miles to school everyday, and yes, it was uphill both ways.
+
+Today, we're going to look at how you can write microservices and communicate between them.
+
+//But first, I'd like to share the story of a microservices migration from my company, Stormpath.
+// end::title[]
+
+[duration=5m]
+== The History of Microservices
+
+https://en.wikipedia.org/wiki/Microservices#History
+
+// summary of above
+The term "microservice" was first used a common architecture style at a workshop of software architects near Venice
+in May 2011. In May 2012, the same group decided "microservices" was a more appropriate name.
+
+James Lewis presented some of the ideas behind microservices in March 2012 at 33rd Degree in Kraków. His talk
+was called Microservices - Java, the Unix Way. https://github.com/fredgeorge[Fred George] is credited with for sharing
+similar ideas at the same time.
+
+https://www.linkedin.com/in/adriancockcroft[Adrian Cockcroft], who was at Netflix at the time, describing this architecture
+as "fine grained SOA". He pioneered the style at web scale, as did Joe Walnes, Dan North, Evan Bottcher and Graham Tackley.
+
+Martin Fowler and James Lewis wrote an article titled simply http://martinfowler.com/articles/microservices.html[Microservices]
+on March 25, 2014. Years later, this is still considered the definitive article that defines microservices.
+
+Technology have traditionally been organized into technology layers: UI team, database team, operations team.
+When teams are separated along these lines, even simple changes can lead to a cross-team project taking time and
+budgetary approval.
+
+A smart team will optimise around this and choose the lesser of two evils; forcing the logic into whichever application
+they have access to. This is an example of http://www.melconway.com/Home/Committees_Paper.html[Conway's Law] in action.
+
+[quote, Melvyn Conway, 1967]
+Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure.
+
+[[img-conways-law]]
+.Conway's Law
+image::conways-law.png[Conway's Law, 560, scaledwidth=100%, align=center]
+
+=== Characteristics of a Microservices Architecture
+
+* Componentization via Services
+* Organized around Business Capabilities
+* Products not Projects
+* Smart endpoints and dumb pipes
+* Decentralized Governance
+* Decentralized Data Management
+* Infrastructure Automation
+* Design for failure
+* Evolutionary Design
+// ESB's are smart pipes because of sophisticated facilities for message routing, choreography, transformation, and applying business rules
+// The two protocols used most commonly are HTTP request-response with resource API's and lightweight messaging, binary protocols at scale
+
+=== Are Microservices the future?
+
+Architecture decisions are usually only evident several years after you make them. Microservices have been successful
+at companies like LinkedIn, Twitter, Facebook, Amazon, and Netflix. But that doesn't mean they'll be successful for
+your organization. Component boundaries are hard to define. If you're not able to create your components cleanly,
+you're just shifting complexity from inside a component to the connections between the components. Also, team
+capabilities is something to consider. A poor team will always create a poor system.
+
+[quote, Martin Fowler]
+You shouldn't start with a microservices architecture. Instead begin with a monolith, keep it modular, and split it into microservices once the monolith becomes a problem.
+
+[duration=5m]
+== Why Microservices?
+
+It's easier to work on small "do one thing well" services. No single program represents the whole application, so services
+can change frameworks (or even languages) without a massive cost. As long as the services use a language agnostic protocol (HTTP or lightweight messaging),
+can application can be written in several different platforms - Java, Ruby, Node, Go, .NET, etc. - without issues.
+
+Platform-as-a-Service (PaaS) providers and containers have made it easy to deploy microservices. All the technologies needed to support a monolith
+(e.g. load balancing, discovery, process monitoring) are provided by the PaaS, outside of your container. Deployment effort becomes
+close to zero.
+
+// https://blog.heroku.com/why_microservices_matter
+
+Neal Ford, 4 reasons why microservices resonate
+https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate
+
+* Microservices are the first post-DevOps revolution architecture.
+* Microservices make change less expensive.
+* Microservices are complex.
+// Simon Brown, famously notes that “If you can`'t build a monolith, what makes you think microservices are the answer?”
+* Microservices enable unique opportunities.
+
+[duration=10m]
+== Stormpath's Microservices Migration
+
+.What Is Stormpath?
+****
+Stormpath is an API service that allows developers to create, edit, and securely store user accounts and user account data,
+and connect them with one or multiple applications.  We make user account management a lot easier, more secure, and
+infinitely scalable. To get started https://api.stormpath.com/register[register for a free account].
+****
+
+Stormpath`'s microservices implementation is based on http://cassandra.apache.org/[Cassandra], https://kafka.apache.org/[Kafka]
+(for async communication between services), http://samza.apache.org/[Samza] (for real time processing), https://zookeeper.apache.org/[Zookeeper]
+(to coordinate Kafka and Samza) and https://www.elastic.co/products/elasticsearch[Elasticsearch]. All these services are
+served up using https://projects.spring.io/spring-boot/[Spring Boot] and have been from day one.
+
+Had to rewrite a lot of Samza to work because it was based on Yarn for deployment and used Kafka for its coordination. Changed
+it to use Spring Boot and Zookeeper. Samza is better than Spring`'s Kafka consumer because it has local storage. Spring`'s
+Kafka consumer support didn`'t exist when Stormpath was building their system.
+
+https://github.com/stormpath/samza-spring-boot-starter
+
+https://stormpath.com/blog/spring-boot-migration
+
+Our application was a traditional Spring app secured by Apache Shiro and configured with both XML and Java Config. When we added Spring Boot, it didn`'t replace Spring of course (since Spring Boot is built on top of Spring), but it simplified much of our architecture by adding a layer that helps automate configuration and deployment while making it easier to implement features, as well as prime our architecture for modular microservices (more on that later).
+
+Because we have thousands of customers in production and are constantly developing new features, we did extensive testing to make sure everything still worked as expected. We also built some custom Spring Boot Starters, including a nifty one for real-time stream messaging with Apache Samza. And even though our software stack is a few years old and involves a lot of business edge cases and intricate code paths, we were able to make the transition in just three weeks.
+
+
+In the process, we tried to use as much of the Spring Boot and Spring Cloud ecosystem to remove as much custom code as possible. Spring Boot allows us to do that in a clean, plugin-oriented way. Here`'s what we did:
+
+* XML Config to Java Config
+// Java-based config allows our IDEs to spot problems and give us warnings when our configurations don’t line up. (XML also did that, but in Java, the relationships are a little cleaner and easier to see.)
+* Boot Dictates Where Your Config Files Reside
+// This reduces the guesswork and effort around overriding default settings when the product moves to production. Used to have a custom-built config mechanism. Boot implementation is more idiomatic.
+* Auto-Configuration in Spring Boot
+// defaults are sensible, only had to override defaults with values relevant to production infrastructure
+
+Spring Boot Starters
+
+The Spring Boot Starter ecosystem gives us a huge amount of out-of-the-box functionality that traditionally we used to build ourselves. Instead of defining beans and wiring them ourselves, we’re using Spring Boot Starters wherever possible.
+
+We use the ecosystem integrations for Zookeeper, Kafka, Cassandra, JMS messaging, SMTP mail servers and many others. Historically, we’ve had to build, integrate and configure these services ourselves, but now we just drop in the necessary starter dependency, and boom: the starter is enabled and auto-configured!
+
+We developed a https://github.com/stormpath/samza-spring-boot-starter[Spring Boot Starter for Apache Samza], which we open-sourced under the Apache 2.0 license. Samza is a real-time streaming product that traditionally requires https://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/YARN.html[YARN], a complex infrastructure to launch JVMs and manage memory across them. I was frustrated by how complicated it is to deploy Samza, so we reverse engineered the parts that launch a Samza container, and turned it into a Spring Boot Starter.
+
+// Hadoop YARN: Yet Another Resource Negotiator
+
+Now, anytime we have a Samza microservice that consumes Kafka events, we can skip the complex deployment process (unzipping a tarball, running a shell script to launch the process and connecting to a YARN environment, etc.). It’s now just a simple Spring Boot application that can be launched from the command line, and it changed our entire microservices architecture in a week’s worth of work.
+
+Simplified Deployment
+
+Webserver Embedded in Boot, Not a WAR File
+// It’s one less piece of server infrastructure to configure, maintain, and update manually, leaving Ops free to rely on the software engineering team, as well as our Continuous Integration pipeline to upgrade processes.
+One JAR File to Rule Them All
+//  To start the application, you just run a simple command to start up that JAR file. Easy to distribute.
+All Spring Boot Services All Launch with One Command
+// Once you know how to launch one app, you know how to launch all of them. No more learning half a dozen options to launch a product.
+
+Spring Cloud – The Infrastructure Ecosystem
+When you deploy a complex application to the cloud, your configuration management, messaging options, service discovery, load balancing, and routing, etc all need to play nicely with each other, and traditionally, it’s a lot of work to coordinate and debug.
+
+The Spring team has started to automate these common SaaS patterns in the form of Spring Cloud projects, each of which is a group of Spring Boot starters. We would have had to build all this automation – now we can configure a good chunk of all of these critical services as simple application name/value properties.
+
+=== Communication between services
+
+Use asynchronous messaging, not http
+HTTP is synchronous (is HTTP/2?)
+Microservices communicate with each other using JWTs.
+
+Most microservices execute in sub-50ms. Amazon Lambda took seconds to execute when they tried it.
+
+=== Architecture Diagram
+
+=== Deployment Orchestration
+
+Automation is the key to microservices. They introduce so much more complexity from a logging, monitoring and deployment standpoint. Microservices are not free, so be prepared to build a lot of this stuff.
+
+Orchestration is key. Stormpath uses Docker and Amazon ECS. Had to write Surge. Services are in separate repos and are continuously deployed when you commit to master branch.
+
+=== Lessons Learned
+
+Define your exit criteria (e.g. maximum time for a request to execute) before implementing your microservices infrastructure. You’re likely going to have to custom build some things, so be prepared for that. Trial a few different platforms and then pick the one that meets your criteria and is the easiest to develop with. Don’t develop half of your system on one platform and then try moving to another.
+
+Make sure and record the request id in all logging events for traceability.
+
+If you have less than 20 people, start with a monolith, but build in async messaging asap. Use it for things like mail, notifications, logging, and archiving. Debugging, deployment, logging is much easier with a monolith.
+
+[duration=5m]
+== Spring Boot
+
+// JPA, REST and Stormpath demo
+
+[duration=5m]
+== JHipster
+
+// overview
+
+=== JHipster Toolchain / Workflow
+
+[duration=30m]
+== JHipster Demo
+
+=== Microservices with JHipster
+
+// https://docs.google.com/document/d/1Wxo43oJgp4XP-C72pIbT-cjV0S4OlAHHAxxt7bgXFHw/edit#heading=h.ph7yfcmesusl
+
+[duration=20m]
+== Securing your API
+
+// token-based auth
+
+=== HTTPS Even for internal
+
+Let's Encrypt
+
+=== Docker containers can have vulnerability
+https://github.com/coreos/clair
+
+=== OAuth 2
+
+=== Open ID Connect
+
+=== JWT
+
+// csrf demo?
+
+=== How Stormpath uses JWT
+
+=== JHipster Security Options
+
+// Zuul with JHipster Registry/Consul?
+// JHipster UAA
+
+[duration=20m]
+== JHipster in Production
+
+=== Heroku
+=== Kubernetes
+=== Docker / Docker Swarm
+=== ELK for Logging
+
+[duration=2]
+== Conclusion
+
+Microservices aren't free, but they're cheaper if you start with JHipster!
+
+[duration=1m]
+== Action!
+
+[duration=5m]
+== Questions?
+
+

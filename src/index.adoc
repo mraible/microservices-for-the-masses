@@ -1,0 +1,23 @@
+= Microservices for the Masses: With Spring Boot, JHipster, and JWT
+:author: Matt Raible
+:position: Developer Evangelist
+:email: matt.raible@stormpath.com
+:organization: Stormpath
+:twitter: @mraible
+:!sectids:
+:icons: font
+:imagesdir: images
+:uri-script: notes/script.adoc
+
+image::fountain-of-colors.jpg[Fountain of colors,1024,400,role=cover canvas]
+
+Brought to you by https://twitter.com/mraible[Matt Raible]
+
+[.cue]
+****
+include::{uri-script}[tag=title]
+****
+
+== Image Credits
+
+include::{imagesdir}/_credits.adoc[tag=list]
