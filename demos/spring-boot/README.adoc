@@ -147,4 +147,7 @@ applications:
 ----
 . Run `cf push` to deploy.
 . This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
-. Restart your application and view it at http://blog-demo.cfapps.io/ (or something similar).
+. Restart your application and view it at https://blog-demo.cfapps.io/ (or something similar).
+
+[CAUTION]
+If you're using Stormpath, make sure and use HTTPS when accessing your app. If you use HTTP, you won't be able to login.
