@@ -37,11 +37,9 @@ But first, I'd like to share the story of microservices and how they came to be.
 [duration=5m]
 == The History of Microservices
 
-https://en.wikipedia.org/wiki/Microservices#History
-
-// summary of above
-The term "microservice" was first used a common architecture style at a workshop of software architects near Venice
-in May 2011. In May 2012, the same group decided "microservices" was a more appropriate name.
+According to https://en.wikipedia.org/wiki/Microservices#History[Wikipedia], the term "microservice" was first used a
+common architecture style at a workshop of software architects near Venice in May 2011. In May 2012, the same group
+decided "microservices" was a more appropriate name.
 
 James Lewis presented some of the ideas behind microservices in March 2012 at 33rd Degree in Kraków. His talk
 was called Microservices - Java, the Unix Way. https://github.com/fredgeorge[Fred George] is credited with for sharing
@@ -71,9 +69,22 @@ image::conways-law.png[Conway's Law, 560, scaledwidth=100%, align=center]
 
 Dr. Peter Rodgers introduced the term "Micro-Web-Services" during a presentation at Cloud Computing Expo in 2005.
 Juval Löwy had similar precursor ideas about classes being granular services, as the next evolution of Microsoft architecture in 2007.
-"Services are composed using Unix-like pipelines (the Web meets Unix = true loose-coupling). Services can call services (+multiple language run-times). Complex service-assemblies are abstracted behind simple URI interface. Any service, at any granularity, can be exposed."
+"Services are composed using Unix-like pipelines (the Web meets Unix = true loose-coupling). Services can call services
+(+multiple language run-times). Complex service-assemblies are abstracted behind simple URI interface. Any service, at any
+granularity, can be exposed."
 
-He described how a well-designed service platform "applies the underlying architectural principles of the Web and Web services together with Unix-like scheduling and pipelines to provide radical flexibility and improved simplicity by providing a platform to apply service-oriented architecture throughout your application environment".[ The design, which originated in a research project at Hewlett Packard Labs, aims to make code less brittle and to make large-scale, complex software systems robust to change. To make "Micro-Web-Services" work, one has to question and analyze the foundations of architectural styles (such as SOA) and the role of messaging between software components in order to arrive at a new general computing abstraction. In this case, one can think of resource-oriented computing (ROC) as a generalized form of the Web abstraction. If in the Unix abstraction "everything is a file", in ROC, everything is a "Micro-Web-Service". It can contain information, code or the results of computations so that a service can be either a consumer or producer in a symmetrical and evolving architecture.
+////
+He described how a well-designed service platform "applies the underlying architectural principles of the Web and Web
+services together with Unix-like scheduling and pipelines to provide radical flexibility and improved simplicity by
+providing a platform to apply service-oriented architecture throughout your application environment".
+The design, which originated in a research project at Hewlett Packard Labs, aims to make code less brittle and to
+make large-scale, complex software systems robust to change. To make "Micro-Web-Services" work, one has to question
+and analyze the foundations of architectural styles (such as SOA) and the role of messaging between software components
+in order to arrive at a new general computing abstraction. In this case, one can think of resource-oriented computing
+(ROC) as a generalized form of the Web abstraction. If in the Unix abstraction "everything is a file", in ROC,
+everything is a "Micro-Web-Service". It can contain information, code or the results of computations so that
+a service can be either a consumer or producer in a symmetrical and evolving architecture.
+////
 
 === Microservices Philosophy
 
