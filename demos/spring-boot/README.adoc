@@ -1,0 +1,153 @@
+= Spring Boot Demo
+
+Steps to reproduce from scratch
+
+. Create application using https://start.spring.io[start.spring.io]
++
+  http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,devtools,remote-shell,security -d
++
+. Run application with `mvn spring-boot:run`. If you'd like to use the Maven Wrapper, run `mvn -N io.takari:maven:wrapper`, followed by `./mvnw`.
+. Create an entity class.
++
+[source,java]
+----
+@Entity
+class Blog {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+----
++
+. Create a JPA Repository.
++
+[source,java]
+----
+interface BlogRepository extends JpaRepository<Blog, Long> {
+}
+----
++
+. Create a CommandLineRunner to populate the database.
++
+[source,java]
+----
+@Component
+class BlogCommandLineRunner implements CommandLineRunner {
+
+    @Override
+    public void run(String... strings) throws Exception {
+        System.out.println(repository.findAll());
+    }
+
+    @Autowired
+    private BlogRepository repository;
+}
+----
++
+. Create `src/main/resources/data.sql` and populate it with same data.
++
+[source,sql]
+----
+insert into blog (name) values ('First');
+insert into blog (name) values ('Second');
+----
++
+. Create `BlogController` for your REST API.
++
+[source,java]
+----
+@RestController
+class BlogController {
+
+    @RequestMapping("/blogs")
+    Collection<Blog> list() {
+        return repository.findAll();
+    }
+
+    @Autowired
+    BlogRepository repository;
+}
+----
++
+. Access the API using `http localhost:8080/blogs --auth user:<password>`.
+[NOTE]
+You can change the user's password by adding `security.user.password=user` in `application.properties`.
++
+. Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
+// change prefix with `spring.data.rest.basePath=/api`
++
+. Integrate Stormpath with Spring Security by creating a `com.example.SecurityConfiguration` class.
++
+[source,java]
+----
+@Configuration
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.apply(stormpath());
+    }
+}
+----
++
+Navigate to http://localhost:8080/blogs, login and see JSON in your browser. Can also view from the command line using:
++
+----
+http localhost:8080/blogs --auth <stormpath-user>:<password>
+----
+
+////
+Protect only /api with:
+http.apply(stormpath()).and()
+    .authorizeRequests()
+    .antMatchers("/api/**").fullyAuthenticated()
+    .antMatchers("/**").permitAll();
+////
+
+== Deploy to Cloud Foundry
+
+. Sign up for https://run.pivotal.io/[Pivotal Web Services].
+. Download and install the https://console.run.pivotal.io/tools[Cloud Foundry CLI].
+. Login from the command line:
+----
+cf login -a api.run.pivotal.io
+----
+. Create a `manifest.yml` in the root directory
+----
+---
+applications:
+  - name: blog-demo
+    buildpack: java_buildpack
+    path: target/demo-0.0.1-SNAPSHOT.jar
+----
+. Run `cf push` to deploy.
+. This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
+. Restart your application and view it at https://blog-demo.cfapps.io/ (or something similar).
+
+[CAUTION]
+If you're using Stormpath, make sure and use HTTPS when accessing your app. If you use HTTP, you won't be able to login.
