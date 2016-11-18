@@ -1,0 +1,41 @@
+
+<div>
+    <h2><span data-translate="blogApp.entry.detail.title">Entry</span> {{vm.entry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="blogApp.entry.title">Title</span></dt>
+        <dd>
+            <span>{{vm.entry.title}}</span>
+        </dd>
+        <dt><span data-translate="blogApp.entry.content">Content</span></dt>
+        <dd>
+            <span>{{vm.entry.content}}</span>
+        </dd>
+        <dt><span data-translate="blogApp.entry.date">Date</span></dt>
+        <dd>
+            <span>{{vm.entry.date | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="blogApp.entry.blog">Blog</span></dt>
+        <dd>
+            <a ui-sref="blog-detail({id:vm.entry.blog.id})">{{vm.entry.blog.name}}</a>
+        </dd>
+        <dt><span data-translate="blogApp.entry.tag">Tag</span></dt>
+        <dd>
+            <span ng-repeat="tag in vm.entry.tags">
+                <a ui-sref="tag-detail({id: tag.id})">{{tag.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="entry-detail.edit({id:vm.entry.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

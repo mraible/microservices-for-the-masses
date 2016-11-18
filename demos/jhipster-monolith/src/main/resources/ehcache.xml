@@ -37,5 +37,25 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="org.jhipster.domain.Blog"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="org.jhipster.domain.Entry"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="org.jhipster.domain.Entry.tags"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="org.jhipster.domain.Tag"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="org.jhipster.domain.Tag.entries"
+        timeToLiveSeconds="3600">
+    </cache>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </ehcache>
