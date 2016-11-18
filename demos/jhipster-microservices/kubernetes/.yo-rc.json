@@ -1,0 +1,13 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "blog",
+      "store"
+    ],
+    "directoryPath": "../",
+    "jwtSecretKey": "3aacecf040240d1b0ff276cada0f3c72a073e77a",
+    "dockerRepositoryName": "mraible",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "default"
+  }
+}

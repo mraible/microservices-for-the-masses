@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="blogApp.blog.detail.title">Blog</span> {{vm.blog.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="blogApp.blog.name">Name</span></dt>
+        <dd>
+            <span>{{vm.blog.name}}</span>
+        </dd>
+        <dt><span data-translate="blogApp.blog.handle">Handle</span></dt>
+        <dd>
+            <span>{{vm.blog.handle}}</span>
+        </dd>
+        <dt><span data-translate="blogApp.blog.user">User</span></dt>
+        <dd>
+            {{vm.blog.user.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="blog-detail.edit({id:vm.blog.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

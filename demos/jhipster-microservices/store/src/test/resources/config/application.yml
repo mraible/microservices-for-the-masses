@@ -1,0 +1,84 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration is used for unit/integration tests.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+eureka:
+    client:
+        enabled: false
+    instance:
+        appname: store
+        instanceId: store:${spring.application.instance_id:${random.value}}
+
+spring:
+    application:
+        name: store
+    jackson:
+        serialization.write_dates_as_timestamps: false
+    cloud:
+        stream:
+            kafka:
+                binder:
+                    brokers: localhost
+                    zk-nodes: localhost
+            bindings:
+                output:
+                    destination: topic-jhipster
+    data:
+        mongodb:
+            host: localhost
+            port: 27117
+            database: store
+    mail:
+        host: localhost
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        mode: XHTML
+
+liquibase:
+    contexts: test
+
+security:
+    basic:
+        enabled: false
+
+server:
+    port: 10344
+    address: localhost
+
+# ===================================================================
+# JHipster specific properties
+# ===================================================================
+
+jhipster:
+    async:
+        corePoolSize: 2
+        maxPoolSize: 50
+        queueCapacity: 10000
+    security:
+        authentication:
+            jwt:
+                secret: 70d1a72b65845e944318dfa14810cf98ced724d0
+                # Token is valid 24 hours
+                tokenValidityInSeconds: 86400
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+    swagger:
+        title: store API
+        description: store API documentation
+        version: 0.0.1
+        termsOfServiceUrl:
+        contactName:
+        contactUrl:
+        contactEmail:
+        license:
+        licenseUrl:

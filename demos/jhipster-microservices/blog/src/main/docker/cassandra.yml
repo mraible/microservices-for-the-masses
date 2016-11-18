@@ -1,0 +1,21 @@
+version: '2'
+services:
+    blog-cassandra:
+        container_name: blog-cassandra
+        image: cassandra:2.2.7
+        # volumes:
+        #     - ~/volumes/jhipster/blog/cassandra/:/var/lib/cassandra/data
+        ports:
+            - 7000:7000
+            - 7001:7001
+            - 7199:7199
+            - 9042:9042
+            - 9160:9160
+    blog-cassandra-migration:
+        extends:
+            file: cassandra-migration.yml
+            service: blog-cassandra-migration
+        links:
+            - blog-cassandra
+        environment:
+            - CREATE_KEYSPACE_SCRIPT=create-keyspace.cql
