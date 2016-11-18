@@ -1,5 +1,5 @@
 = JHipster Monolith Demo
-:imagesdir: ../../presentation/images
+:imagesdir: ../../presentation/src/images
 
 To reproduce this demo, delete everything in this directory except for this file. If you leave `.yo-rc.json` intact, you won't need to answer all the questions again.
 
