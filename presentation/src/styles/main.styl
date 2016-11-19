@@ -44,7 +44,10 @@ ol
 
 ul
   list-style none
-  padding 0
+  padding-left 0
+
+  ul
+    padding-left 40px
 
 blockquote
   font-size 1.3334rem
@@ -61,6 +64,11 @@ aside[role=note]
 
 figure
   margin 0
+
+  &.image.left
+      position absolute
+      left 10px
+      margin-top -80px
 
 img, video
   vertical-align middle
@@ -266,10 +274,27 @@ figure.contain
     color black
 
 .white
-  background-color: white
+  background-color white
+  h2
+    color black
 
 .big
   font-size 48px
   a
     color white
     text-decoration none
+
+.m-lg
+  margin-top 40px
+
+.title-top
+  h2
+    position absolute
+    top 0
+
+.image-credits
+  h2
+    margin-bottom 10px
+
+  li
+    font-size 14px
