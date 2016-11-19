@@ -1,227 +1,141 @@
-= Microservices for the Masses: With Spring Boot, JHipster, and JWT
+= Microservices for the Masses: Spring Boot &middot; JWT &middot; JHipster
 :author: Matt Raible
 :position: Developer Evangelist
 :email: matt.raible@stormpath.com
 :organization: Stormpath
-:twitter: @mraible
+:twitter: https://twitter.com/mraible
 :!sectids:
 :icons: font
 :imagesdir: images
+:uri-demos: ../../../demos
 :uri-script: notes/script.adoc
 
 image::fountain-of-colors.jpg[Fountain of colors,1024,400,role=cover canvas]
 
-Brought to you by https://twitter.com/mraible[Matt Raible]
+Brought to you by {twitter}[{author}] and https://stormpath.com[Stormpath]
 
+[duration=5m]
+// Intro
 [.cue]
 ****
+Welcome everyone!
+
+Today, we're going to learn about microservices, their history, how to create them, and communicate between them.
+
+But first, let's learn a little more about each other.
+
+My name is Matt Raible and I'm a hick from the sticks. I grew up in the backwoods of Montana with no electricity or running
+water. My sister and I had to walk two miles to school everyday, and yes, it was uphill both ways.
+
+I've lived in Denver since 1992 ... ramble on a bit
+
 include::{uri-script}[tag=title]
 ****
 
-== The History of Microservices
-//== !
-// image::some-image-here.jpg[role=contain]
+== !
+image::good-morning-denver.jpg[Good Morning Denver,role=cover canvas]
 
 [.cue]
 ****
-include::{uri-script}[tag=microservices-history]
+What about you?
+Where are you from?
 ****
 
-== Microservices Philosophy
+== !
+image::history.jpg[History,role=cover canvas]
+[.cue]
+****
+include::{uri-script}[tag=history]
+****
 
-// image::some-image-here.jpg[role=contain]
+== !
+// microservices visionaries
+[cols="2*"]
+|===
+a|image::james-lewis.jpg[James Lewis,200]
+a|image::martin-fowler.jpg[Martin Fowler,200]
+
+a|image::adrian-cockcroft.jpg[Adrian Crockfort,200]
+a|image::joe-walnes.jpg[Joe Walnes,200]
+|===
+
+== !
+image::conways-law.png[Conway's Law, 300, align=center]
 
 [.cue]
 ****
-include::{uri-script}[tag=microservices-history]
+include::{uri-script}[tag=conways-law]
 ****
 
-== Characteristics of a Microservices Architecture
+== Conway's Law
+[quote, Melvyn Conway, 1967]
+Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure.
 
 [.cue]
 ****
-include::{uri-script}[tag=microservices-arch-characteristics]
+include::{uri-script}[tag=real-history]
 ****
 
-== Are Microservices the future?
+[.unix]
+== !
+
+image::chacala-sunset.jpg[Chacala Sunset,role=cover canvas]
+
+"Do one thing and do it well."
+
+[.cue]
+****
+include::{uri-script}[tag=ms-philosophy]
+
+include::{uri-script}[tag=why]
+****
+
+[.future]
+== The Future?
+
+// Are microservices the future
+image::future.jpg[Future,role=cover canvas]
 
 [.cue]
 ****
 include::{uri-script}[tag=future]
 ****
 
-== Why Microservices?
+== !
 
-[.cue]
-****
-include::{uri-script}[tag=why]
-****
+[quote, Martin Fowler, March 2014]
+You shouldn't start with a microservices architecture. Instead begin with a monolith, keep it modular, and split it into microservices once the monolith becomes a problem.
 
-== Personal Story: Stormpath’s Microservices Migration
 
-[.cue]
-****
-include::{uri-script}[tag=stormpath-story-intro]
-****
-
-== Communication between services
-
-[.cue]
-****
-include::{uri-script}[tag=stormpath-communication]
-****
-
-== Architecture Diagram
-
-[.cue]
-****
-include::{uri-script}[tag=stormpath-architecture]
-****
-
-== Deployment Orchestration
-
-[.cue]
-****
-include::{uri-script}[tag=stormpath-deployment]
-****
-
-== Lessons Learned
-
-[.cue]
-****
-include::{uri-script}[tag=stormpath-lessons-learned]
-****
-
-== Spring Boot
-
-[.cue]
-****
-include::{uri-script}[tag=spring-boot]
-****
-
-== JHipster
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster]
-****
-
-== JHipster Toolchain / Workflow
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster-toolchain]
-****
-
-== What's Generated
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster-application]
-****
-
-== JHipster Demo
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster-demo]
-****
-
-== Microservices with JHipster
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster-microservices]
-****
-
-== Securing your API
-
-[.cue]
-****
-include::{uri-script}[tag=securing-api]
-****
 
 ////
-HTTPS Even for internal
-Docker containers can have vulnerability
-OAuth 2
-Open ID Connect
-JWT
-JHipster Security Options
+Spring Boot
+Graph of downloads
+Stormpath Story
+Microservices aren't free! (Again)
+Boot Demo
+Spring is hip, Angular is hip, wouldn't it be cool?
+Mention Radar
+They Did!
+Intro JHipster
+JHipster Demo
+Compare JH and Radar
+Securing your API
+JWT Overview
+Diagram of Micah Demo
+Link to GitHub Repo
+OAuth, Open ID Connect, SAML, Social
+Microservices Architecture
 Demo
+Async Messaging or other non-blocking with automatic back pressure
+Stormpath lessons learned
+Not free, but you get a deep discount with JHipster - 50% off sale!
+JHipster.next
+JHipster Book
+Philosophy
+Cheers!
 ////
 
-== JHipster in Production
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster-production]
-****
-
-== Heroku
-
-[.cue]
-****
-include::{uri-script}[tag=heroku]
-****
-
-== Kubernetes
-
-[.cue]
-****
-include::{uri-script}[tag=kubernetes]
-****
-
-== Docker
-
-// Docker Swarm
-
-[.cue]
-****
-include::{uri-script}[tag=docker]
-****
-
-== ELK
-
-[.cue]
-****
-include::{uri-script}[tag=elk]
-****
-
-== JHipster.next
-
-[.cue]
-****
-include::{uri-script}[tag=jhipster-next]
-****
-
-== Conclusion
-
-[.cue]
-****
-include::{uri-script}[tag=conclusion]
-****
-
-== Action!
-
-[.cue]
-****
-include::{uri-script}[tag=action]
-****
-
-== Questions?
-
-[.cue]
-****
-include::{uri-script}[tag=questions]
-****
-
-== Resources
-
-[.cue]
-****
-include::{uri-script}[tag=resources]
-****
 
 == Image Credits
 

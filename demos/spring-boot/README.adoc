@@ -1,6 +1,6 @@
 = Spring Boot Demo
 
-Steps to reproduce from scratch
+//Steps to reproduce from scratch
 
 . Create application using https://start.spring.io[start.spring.io]
 +

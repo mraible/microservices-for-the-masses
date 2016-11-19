@@ -14,6 +14,8 @@ We’ll use JHipster (a Yeoman generator) to create Angular + Spring Boot apps o
 https://mraible.github.io/microservices-for-the-masses[Slides]
 &middot;
 https://github.com/mraible/microservices-for-the-masses/blob/{branch}/src/notes/script.adoc[Script]
+&middot;
+http://www.slideshare.net/mraible/microservices-for-the-masses[SlideShare]
 
 === Demos
 
@@ -22,15 +24,15 @@ Demos are contained in the `demos` directory and consist of:
 1. Spring Boot
   * JPA, H2, REST API
   * Stormpath Authentication
+  * Deploy to Cloud Foundry
 1. JHipster Monolith
   * Blog Application with MySQL, Elasticsearch, i18n
   * Entities for Blog, Entry and Tags
-  * Business logic changed to restrict user access
-  * Deployed to Heroku
+  * Business logic to restrict user access
+  * Deploy to Heroku
 1. JHipster Microservices
-  * Monolith changed to Gateway
-  * Store application created as microservice
-  * Entities generated using JDL-Studio
-  * Integrated with UAA
-  * Deployed to Google Cloud with Kubernetes
+  * Convert blog to gateway
+  * Create store microservice
+  * Product entity for store, generate UI on gateway
+  * Deploy to Kubernetes
 
