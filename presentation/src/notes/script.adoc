@@ -146,4 +146,131 @@ https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate
 * Microservices are complex.
 // Simon Brown, famously notes that “If you can`'t build a monolith, what makes you think microservices are the answer?”
 * Microservices enable unique opportunities.
-s
+
+== Personal Story: Stormpath’s Microservices Migration
+
+.What Is Stormpath?
+****
+// tag::plug[]
+Stormpath is an API service that allows developers to create, edit, and securely store user accounts and user account data,
+and connect them with one or multiple applications.  We make user account management a lot easier, more secure, and
+infinitely scalable. To get started https://api.stormpath.com/register[register for a free account].
+// end::plug[]
+****
+
+// tag::stormpath[]
+Stormpath`'s microservices implementation is based on http://cassandra.apache.org/[Cassandra], https://kafka.apache.org/[Kafka]
+(for async communication between services), http://samza.apache.org/[Samza] (for real time processing), https://zookeeper.apache.org/[Zookeeper]
+(to coordinate Kafka and Samza) and https://www.elastic.co/products/elasticsearch[Elasticsearch]. All these services are
+served up using https://projects.spring.io/spring-boot/[Spring Boot] and have been from day one.
+
+Had to rewrite a lot of Samza to work because it was based on Yarn for deployment and used Kafka for its coordination. Changed
+it to use Spring Boot and Zookeeper. Samza is better than Spring`'s Kafka consumer because it has local storage. Spring`'s
+Kafka consumer support didn`'t exist when Stormpath was building their system.
+// end::stormpath[]
+
+https://github.com/stormpath/samza-spring-boot-starter
+
+https://stormpath.com/blog/spring-boot-migration
+
+// tag::stormpath-migration-to-boot[]
+Our application was a traditional Spring app secured by Apache Shiro and configured with both XML and Java Config. When we added Spring Boot, it didn`'t replace Spring of course (since Spring Boot is built on top of Spring), but it simplified much of our architecture by adding a layer that helps automate configuration and deployment while making it easier to implement features, as well as prime our architecture for modular microservices (more on that later).
+
+Because we have thousands of customers in production and are constantly developing new features, we did extensive testing to make sure everything still worked as expected. We also built some custom Spring Boot Starters, including a nifty one for real-time stream messaging with Apache Samza. And even though our software stack is a few years old and involves a lot of business edge cases and intricate code paths, we were able to make the transition in just three weeks.
+// end::stormpath-migration-to-boot[]
+
+// tag::stormpath-migration-how[]
+In the process, we tried to use as much of the Spring Boot and Spring Cloud ecosystem to remove as much custom code as possible. Spring Boot allows us to do that in a clean, plugin-oriented way. Here`'s what we did:
+
+* XML Config to Java Config
+// Java-based config allows our IDEs to spot problems and give us warnings when our configurations don’t line up. (XML also did that, but in Java, the relationships are a little cleaner and easier to see.)
+* Boot Dictates Where Your Config Files Reside
+// This reduces the guesswork and effort around overriding default settings when the product moves to production. Used to have a custom-built config mechanism. Boot implementation is more idiomatic.
+* Auto-Configuration in Spring Boot
+// defaults are sensible, only had to override defaults with values relevant to production infrastructure
+// end::stormpath-migration-how[]
+
+Spring Boot Starters
+
+// tag::stormpath-migration-ecosystem[]
+The Spring Boot Starter ecosystem gives us a huge amount of out-of-the-box functionality that traditionally we used to build ourselves. Instead of defining beans and wiring them ourselves, we’re using Spring Boot Starters wherever possible.
+
+We use the ecosystem integrations for Zookeeper, Kafka, Cassandra, JMS messaging, SMTP mail servers and many others. Historically, we’ve had to build, integrate and configure these services ourselves, but now we just drop in the necessary starter dependency, and boom: the starter is enabled and auto-configured!
+// end::stormpath-migration-ecosystem[]
+
+We developed a https://github.com/stormpath/samza-spring-boot-starter[Spring Boot Starter for Apache Samza], which we open-sourced under the Apache 2.0 license. Samza is a real-time streaming product that traditionally requires https://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/YARN.html[YARN], a complex infrastructure to launch JVMs and manage memory across them. I was frustrated by how complicated it is to deploy Samza, so we reverse engineered the parts that launch a Samza container, and turned it into a Spring Boot Starter.
+
+// Hadoop YARN: Yet Another Resource Negotiator
+
+Now, anytime we have a Samza microservice that consumes Kafka events, we can skip the complex deployment process (unzipping a tarball, running a shell script to launch the process and connecting to a YARN environment, etc.). It’s now just a simple Spring Boot application that can be launched from the command line, and it changed our entire microservices architecture in a week’s worth of work.
+
+Simplified Deployment
+
+Webserver Embedded in Boot, Not a WAR File
+// It’s one less piece of server infrastructure to configure, maintain, and update manually, leaving Ops free to rely on the software engineering team, as well as our Continuous Integration pipeline to upgrade processes.
+One JAR File to Rule Them All
+//  To start the application, you just run a simple command to start up that JAR file. Easy to distribute.
+All Spring Boot Services All Launch with One Command
+// Once you know how to launch one app, you know how to launch all of them. No more learning half a dozen options to launch a product.
+
+Spring Cloud – The Infrastructure Ecosystem
+When you deploy a complex application to the cloud, your configuration management, messaging options, service discovery, load balancing, and routing, etc all need to play nicely with each other, and traditionally, it’s a lot of work to coordinate and debug.
+
+The Spring team has started to automate these common SaaS patterns in the form of Spring Cloud projects, each of which is a group of Spring Boot starters. We would have had to build all this automation – now we can configure a good chunk of all of these critical services as simple application name/value properties.
+
+== Stormpath Lesson's Learned
+
+Use asynchronous messaging, not http
+HTTP is synchronous (is HTTP/2?)
+Most microservices execute in sub-50ms. Amazon Lambda took seconds to execute when they tried it.
+
+// Architecture Diagram
+
+=== Deployment Orchestration
+
+Automation is the key to microservices. They introduce so much more complexity from a logging, monitoring and deployment standpoint. Microservices are not free, so be prepared to build a lot of this stuff.
+
+Orchestration is key. Stormpath uses Docker and Amazon ECS. Had to write Surge. Services are in separate repos and are continuously deployed when you commit to master branch.
+
+=== Lessons Learned
+
+// tag::lessons-learned[]
+Automation and orchestration are key for deployment.
+
+Define your exit criteria (e.g. maximum time for a request to execute) before implementing your microservices infrastructure. You’re likely going to have to custom build some things, so be prepared for that. Trial a few different platforms and then pick the one that meets your criteria and is the easiest to develop with. Don’t develop half of your system on one platform and then try moving to another.
+
+Make sure and record the request id in all logging events for traceability.
+
+If you have less than 20 people, start with a monolith, but build in async messaging asap. Use it for things like mail, notifications, logging, and archiving. Debugging, deployment, logging is much easier with a monolith.
+
+Async Messaging or other non-blocking with automatic back pressure
+
+// end::lessons-learned[]
+
+[duration=20m]
+== JHipster in Production
+
+https://docs.google.com/presentation/d/1qUSulPZ0l21SXJYnhrRvJqIAp1YYJwvcXPX0Ekye9Io/edit#slide=id.g17ca1f35d0_0_110
+
+Talk about Docker Compose
+Show Kubernetes
+Deploy with Kubernetes
+
+include::{uri-demos}/jhipster-microservices/README.adoc[tag=deploy]
+
+=== Heroku
+=== Kubernetes
+=== Docker / Docker Swarm
+=== ELK for Logging
+
+== JHipster.next
+
+// tag::jhipster.next[]
+[build=items]
+* HTTP/2
+* Kafka
+* Spring 5 and Reactive
+* RxJava 2.0 and RxJS
+* Reactive Streams
+* Reactive Sockets
+// end::jhipster.next[]

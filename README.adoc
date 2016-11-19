@@ -21,16 +21,16 @@ http://www.slideshare.net/mraible/microservices-for-the-masses[SlideShare]
 
 Demos are contained in the `demos` directory and consist of:
 
-1. Spring Boot
+. Spring Boot
   * JPA, H2, REST API
   * Stormpath Authentication
   * Deploy to Cloud Foundry
-1. JHipster Monolith
+. JHipster Monolith
   * Blog Application with MySQL, Elasticsearch, i18n
   * Entities for Blog, Entry and Tags
   * Business logic to restrict user access
   * Deploy to Heroku
-1. JHipster Microservices
+. JHipster Microservices
   * Convert blog to gateway
   * Create store microservice
   * Product entity for store, generate UI on gateway

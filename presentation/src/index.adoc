@@ -93,11 +93,12 @@ include::{uri-script}[tag=why]
 [.future]
 == The Future?
 
-// Are microservices the future
 image::future.jpg[Future,role=cover canvas]
 
 [.cue]
 ****
+Are microservices the future?
+
 include::{uri-script}[tag=future]
 ****
 
@@ -106,36 +107,255 @@ include::{uri-script}[tag=future]
 [quote, Martin Fowler, March 2014]
 You shouldn't start with a microservices architecture. Instead begin with a monolith, keep it modular, and split it into microservices once the monolith becomes a problem.
 
+// Spring Boot
+== !
 
+image::spring-boot.png[Spring Boot, 200]
+
+[.cue]
+****
+However, if you have a monolith and want to migrate to microservices, you should definitely check out Spring Boot.
+It's a project that's simplified Spring configurations so they barely exist anymore. With smart defaults and auto-configuration,
+it allows you to create highly configurable applications that deploy easily.
+
+And don't just take my word for it...
+****
+
+[.white]
+== !
+
+image::spring-boot-2016.png[Spring Boot Downloads 2016, 300]
+
+[.cue]
+****
+Sales of Spring Boot skyrocked in 2015!
+****
+
+== !
+
+image::spring-boot-logo.png[Spring Boot, 200]
+
+[.cue]
+****
+Spring Boot has become the on/off switch of Enterprise Java. Everyone's using it and loves it.
+
+* Create stand-along Spring applications
+* Embeds Tomcat, Jetty, or Undertow
+* Provides opinionated, pre-configured starter poms
+* Maven/Gradle and devtools
+****
+
+== !
+
+image::tis-spring.jpg[`Tis spring, therefore thou shalt surely mow!,role=cover canvas]
+
+[.big]
+http://start.spring.io[start.spring.io]
+
+[.cue]
+****
+If you're going to start using Spring Boot, you should first visit start.spring.io. As Josh
+Long likes to say, it's one of the happiest places a Java developer can be. You're creating
+a new app, maybe playing with new technology. Whee!
+****
+== !
+
+image::spring-initializr.png[Spring Initializr,width=500]
+
+// Stormpath Story
+== !
+
+image::stormpath-white-logo.png[Stormpath,width=400]
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath]
+
+include::{uri-script}[tag=plug]
+****
+
+// Migration to Spring Boot
+== !
+
+image::spring-boot-in-3-weeks.png[How We Migrated Our Backend to Spring Boot in 3 Weeks,width=500]
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-migration-to-boot]
+****
+
+== !
+
+image::spring-boot-in-3-weeks.png[How We Migrated Our Backend to Spring Boot in 3 Weeks,width=500]
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-migration-ecosystem]
+****
+
+== !
+
+image::spring-boot-in-3-weeks.png[How We Migrated Our Backend to Spring Boot in 3 Weeks,width=500]
+
+[.cue]
+****
+include::{uri-script}[tag=stormpath-migration-how]
+****
+
+// Microservices are not free!
+== !
+
+[quote, Les Hazlewood, Stormpath CTO]
+Microservices are awesome, but they're not free.
+
+[.cue]
+****
+Managing microservices requires a lot of organization changes and automation to be successful. Think of products, not projects!
+****
+
+== !
+
+image::spring-boot-demo.jpg[Spring Boot Demo,role=cover canvas]
+
+[.white]
+== !
+
+image::hip-if.jpg[Wouldn't it be hit if...?,role=cover canvas]
+
+[.white]
+== !
+
+image::greetings-jhipster.jpg[Greetings, Java JHipster!,role=cover canvas]
+
+== !
+
+image::jhipster-demo-goals.jpg[Demo Goals,role=cover canvas]
+
+== !
+
+image::jhipster-demo-diagram.jpg[Demo Entity Diagram,role=cover canvas]
+
+== !
+
+image::jhipster-demo.jpg[JHipster Demo,role=cover canvas]
+
+[.cue]
+****
+ThoughtWorks Radar recently came out and had a bit to say about languages, platforms, techniques, and tools.
+Let's see how JHipster stacks up!
+****
+
+== !
+
+image::radar-2016-11-languages.png[ThoughtWorks Radar, November 2016, Languages and Frameworks,width=350]
+
+[.cue]
+****
+Notice who's at the top? Spring Boot baby! JHipster has that!
+It's interesting there's no Angular on this list.
+****
+
+== !
+
+image::radar-2016-11-platforms.png[ThoughtWorks Radar, November 2016, Platforms,width=350]
+
+[.cue]
+****
+JHipster has support for Docker, Kubernetes, Cloud Foundry, Cassandra (carefully?)
+****
+
+== !
+
+image::radar-2016-11-techniques.png[ThoughtWorks Radar, November 2016, Techniques,width=350]
+
+== !
+
+image::radar-2016-11-tools.png[ThoughtWorks Radar, November 2016, Tools,width=350]
+
+[.cue]
+****
+JHipster has support for Consul, Kafka, Let's Encrypt, and Webpack.
+Not too bad, eh?
+****
 
 ////
-Spring Boot
-Graph of downloads
-Stormpath Story
-Microservices aren't free! (Again)
-Boot Demo
-Spring is hip, Angular is hip, wouldn't it be cool?
-Mention Radar
-They Did!
-Intro JHipster
-JHipster Demo
-Compare JH and Radar
 Securing your API
 JWT Overview
 Diagram of Micah Demo
 Link to GitHub Repo
 OAuth, Open ID Connect, SAML, Social
-Microservices Architecture
-Demo
-Async Messaging or other non-blocking with automatic back pressure
-Stormpath lessons learned
-Not free, but you get a deep discount with JHipster - 50% off sale!
-JHipster.next
-JHipster Book
-Philosophy
-Cheers!
 ////
 
+//Microservices Architecture
+[.white]
+== !
+
+image::jhipster-microservices-architecture.png[JHipster Microservice Architecture,width=500]
+
+[.cue]
+****
+In this diagram, green represents JHipster-generated components while blue are the registry and console applications.
+
+You first generate a gateway that handles web traffic and serves up an Angular UI.
+
+The JHipster Registry is a standalone application that you install, rather than generate. All microservices register with this application and get their configuration from it. This application is based on Netflix’s Eureka and Spring Cloud Config.
+
+Microservices are JHipster-generated stateless applications that handle REST requests.
+
+To monitor this architecture you can use JHipster Console, which is based on the ELK Stack (Elasticsearch, Logstash, Kibana).
+****
+
+[.white]
+== !
+
+image::jhipster-gen-microservice.png[JHipster Microservices Demo,width=400]
+
+[.cue]
+****
+* Convert blog to gateway
+* Create store microservice
+* Product entity for store, generate UI on gateway
+* Deploy to Kubernetes and Docker
+****
+
+== !
+
+image::san-fran-night.jpg[Stormpath Lessons Learned,role=cover canvas]
+
+[.cue]
+****
+include::{uri-script}[tag=lessons-learned]
+****
+
+== !
+[quote, Matt Raible]
+Microservices are not free, but you get a deep discount on microservices with JHipster. __It's like a 50% off sale!__
+
+== JHipster.next
+
+include::{uri-script}[tag=jhipster.next]
+
+[.cue]
+****
+HTTP/2, Kafka, Spring 5, Angular 2 - we got it! We just need help - scratch - time.
+****
+
+// JHipster Book
+[.white]
+== !
+
+image::jhipster-mini-book.jpg[JHipster Mini-Book,role=cover canvas]
+
+// Philosophy
+== !
+
+"Do one thing and do it well."
+
+// Cheers!
+[.white]
+== !
+
+image::questions.jpg[Questions?,role=cover canvas]
 
 == Image Credits
 
