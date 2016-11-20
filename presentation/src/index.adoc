@@ -384,7 +384,7 @@ include::{uri-script}[tag=securing-your-api-more]
 
 == !
 
-image::secure-ui-jwt.jpg[Secure UIs with JWT,role=cover canvas]
+image::secure-UI-jwt.jpg[Secure UIs with JWT,role=cover canvas]
 
 [.cue]
 ****
