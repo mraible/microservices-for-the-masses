@@ -1,13 +1,13 @@
 // tag::main[]
 = JHipster Microservices Demo
+:imagesdir: ../../presentation/src/images
 
 To reproduce this demo, delete everything in this directory except for this file.
 
-. Copy `jhipster-monolith` and paste it to `jhipster-microservices/blog`. Change the following values in `.yo-rc.json`:
+. Copy `jhipster-monolith` and paste it to `jhipster-microservices/blog`. Change the following value in `.yo-rc.json`:
 +
 [source,json]
 ----
-"authenticationType": "jwt",
 "applicationType": "gateway"
 ----
 . Regenerate application using `yo jhipster --yarn --with-entities.
@@ -28,21 +28,8 @@ To reproduce this demo, delete everything in this directory except for this file
 * Gradle: `./gradlew bootRepackage -Pprod buildDocker`
 . Create a `docker-compose` directory and run `yo jhipster:docker-compose` from it.
 . Start Docker.
-. Run `docker-compose up` to run everything.
+. Run `docker-compose up -d` to run everything.
 . Start Kitematic and view Docker applications.
-
-////
-ERROR: for store-mongodb-config  Image 'mongo:mongo:3.2.10' not found
-Traceback (most recent call last):
-  File "<string>", line 3, in <module>
-  File "compose/cli/main.py", line 62, in main
-  File "compose/cli/main.py", line 114, in perform_command
-  File "compose/cli/main.py", line 835, in up
-  File "compose/project.py", line 400, in up
-  File "compose/parallel.py", line 64, in parallel_execute
-compose.service.NoSuchImageError: Image 'mongo:mongo:3.2.10' not found
-docker-compose returned -1
-////
 
 == Kubernetes
 . Install https://docs.docker.com/engine/installation/[Docker] and http://kubernetes.io/docs/user-guide/prereqs/[kubectl].
@@ -50,13 +37,13 @@ docker-compose returned -1
 . Create Docker images of the `blog` and `store` applications:
 * Maven: `./mvnw package -Pprod docker:build`
 * Gradle: `./gradlew bootRepackage -Pprod buildDocker`
-. Tag the images and push them to Docker Hub. Yes, it should be possible to deploy images locally, but I haven't figured how to yet. ;)
+. Tag the images and push them to Docker Hub. Yes, it should be possible to deploy images locally, but I haven't figured how to yet. image:emojis/confused-face.png[confused-face,24]
 +
 ----
-  docker tag blog mraible/blog
-  docker push mraible/blog
-  docker tag store mraible/store
-  docker push mraible/store
+docker tag blog mraible/blog
+docker push mraible/blog
+docker tag store mraible/store
+docker push mraible/store
 ----
 . Create a `kubernetes` directory and run `yo jhipster:kubernetes` from it.
 . Start Minikube using `minikube start`.
@@ -75,3 +62,6 @@ eval $(minikube docker-env)
 [TIP]
 If you run `minikube delete` and have trouble running `minikube start` afterward, run `rm -rf ~/.minikube`. See https://github.com/kubernetes/minikube/issues/290[this issue] for more information.
 // end::deploy[]
+
+// todo: figure out how to deploy Docker containers to Amazon ECS - https://aws.amazon.com/blogs/aws/cloud-container-management/
+// todo: figure out how to deploy with Kubernetes to Google Cloud - https://cloud.google.com/container-engine/docs/
