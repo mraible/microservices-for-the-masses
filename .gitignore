@@ -1,4 +1,5 @@
 /.idea/
+/demos/.idea/
 /demos/spring-boot/demo.iml
 /demos/spring-boot/.idea
 /demos/spring-boot/target
