@@ -1,0 +1,300 @@
+@import './fonts.css'
+@import 'normalizecss/normalize.css'
+
+*, ::before, ::after
+  box-sizing inherit
+
+html
+  box-sizing border-box
+
+body
+  background #000
+  font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+  font-size 18px
+
+  a
+    color #00CC6D
+
+h1
+  font-family: 'SohoGothic', Helvetica
+
+h2
+  font-family: 'SohoGothic', Helvetica
+  font-size 2rem
+  white-space nowrap
+  color #FFFFFF
+
+header
+  h2
+    font-size 1.6667rem
+    text-align center
+    margin-top 160px
+  h3
+    font-size 3rem
+    margin 0
+
+p, li
+  line-height 1.6
+
+p
+  margin 0 0 1rem 0
+
+ol
+  padding 0 0 0 20px
+
+ul
+  list-style none
+  padding-left 0
+
+  ul
+    padding-left 40px
+
+blockquote
+  font-size 1.3334rem
+  font-weight 400
+  border-left 0.15em solid rgb(77,77,77)
+  padding-left 1em
+  + figcaption
+    font-weight 400
+    padding-left calc(40px + 1.3334em)
+    color #a0a0a0
+
+aside[role=note]
+  display none
+
+figure
+  margin 0
+
+  &.image.left
+      position absolute
+      left 10px
+      margin-top -80px
+
+img, video
+  vertical-align middle
+
+pre, code
+  font-family Inconsolata, Menlo, Monaco, Consolas, Courier, monospace
+  font-weight 400
+
+span.underline
+  background-image linear-gradient(to bottom, transparent 96%, rgb(51,51,51) 96%, rgb(51,51,51) 100%)
+  background-position 0 1.1em
+
+.deck
+  overflow hidden
+  color rgb(255,255,255)
+  font-weight 500
+  font-feature-settings "kern" 1
+  text-rendering optimizeLegibility
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  // NOTE hide deck and slide content until Bespoke.js classes have been added
+  &:not(.bespoke-parent), section:not(.bespoke-slide)
+    display none
+
+.bespoke-parent, .bespoke-scale-parent
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  left 0
+
+.bespoke-scale-parent, .bespoke-slide
+  pointer-events none
+
+.bespoke-slide
+  overflow hidden
+  // NOTE force opacity to start at 0 to avoid transition on load when using bespoke-scale
+  opacity 0
+  position absolute
+  top 50%
+  left 50%
+  width 640px
+  margin-left -(@width / 2)
+  //height 480px
+  height 360px
+  margin-top -(@height / 2)
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  transition opacity 200ms ease-in-out 150ms
+  // center background images on the slide
+  background-position center center
+
+.bespoke-active
+  pointer-events auto
+  opacity 1
+  // NOTE Webkit requires z-index to be 1 for elements to receive focus (may no longer apply)
+  z-index 1
+
+.bespoke-inactive
+  transition-delay 0
+
+.bespoke-bullet
+  //transition opacity 200ms ease-in-out
+  &-inactive
+    visibility hidden
+
+.spotlight
+  .bespoke-bullet-inactive
+    visibility visible
+  .bespoke-bullet:not(.bespoke-bullet-current)
+    opacity 0.25
+
+section.title
+  h1
+    font-size 2.5rem
+    text-align center
+    color rgba(0,99,255,1)
+  p.author
+    display none
+
+section.topic
+  h2
+    font-size 5rem
+    font-weight 600
+    margin 0
+    line-height 1
+    -webkit-text-stroke 0.015em rgb(77,77,77)
+    -webkit-text-fill-color rgb(234,115,115)
+    text-shadow 0.015em 0.01em rgba(77,77,77,.85)
+  p.context
+    margin 0
+    position absolute
+    bottom 5%
+    left 0
+    right 0
+    text-align center
+    font-size 1.25rem
+    .icon:not(.active)
+      opacity 0.25
+
+section.subject
+  background-color rgb(51,51,51)
+  h2
+    //font-size 3.75rem
+    font-weight 400
+    color #fff
+    margin 0
+    line-height 1
+
+section.agenda
+  ul
+    font-size 2rem
+    margin 0
+
+section.axis
+  & > ul
+    display flex
+    flex-direction row
+    justify-content center
+    align-items stretch
+    text-align center
+    margin 0
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    & > li
+      font-size 3rem
+      font-weight 600
+      display flex
+      flex-direction column
+      flex 1
+      align-items center
+      justify-content center
+      line-height 1.1
+    ul
+      font-weight 400
+      font-size 1.5rem
+      text-align center
+  &.contrast > ul > li:first-child
+    color #fff
+    background-color #333
+
+
+section.overlay
+  h2
+    font-size 2.5rem
+    color #fff
+    -webkit-text-stroke 0.025em #fff
+    -webkit-text-fill-color transparent
+
+pre.source
+  font-size 0.8rem
+  margin 0
+  overflow hidden
+  section.sheet &
+    font-size 0.6667rem
+    background-color rgb(234,224,208)
+    color rgb(31,31,31)
+    padding 0.6667rem
+    line-height 1.3
+    min-width 66.6667%
+    height 100%
+
+figure.contain
+  display flex
+  flex-direction column
+  width 100%
+  height 100%
+  & > img
+    // by inheriting width and height, larger images will be scaled down
+    width inherit
+    height inherit
+    flex 1
+    object-fit contain
+  figcaption
+    position absolute
+    //top 0
+    bottom 0
+    right 0
+    background-color rgba(0, 0, 0, 0.8)
+    padding: .25em .5em
+    font-size: 1.6667rem
+    color #fff
+    line-height 1
+    transform rotate(90deg) translate(0%, 50%)
+    transform-origin 100% 50%
+
+.tableblock
+  .image
+    margin 10px 10px
+
+.unix
+  p
+    margin-top: 70px
+    font-size: 1.5em
+
+.future
+  h2
+    color black
+
+.white
+  background-color white
+  h2
+    color black
+
+.big
+  font-size 48px
+  a
+    color white
+    text-decoration none
+
+.m-lg
+  margin-top 40px
+
+.title-top
+  h2
+    position absolute
+    top 0
+
+.image-credits
+  h2
+    margin-bottom 10px
+
+  li
+    font-size 14px

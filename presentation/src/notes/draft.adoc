@@ -1,0 +1,75 @@
+// token-based auth
+
+=== HTTPS Even for internal
+
+Let's Encrypt
+
+=== Docker containers can have vulnerability
+
+https://github.com/coreos/clair
+
+=== OAuth 2
+
+https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2
+
+=== Open ID Connect
+
+https://www.youtube.com/watch?v=Kb56GzQ2pSk&feature=youtu.be
+
+=== JWT
+
+https://stormpath.com/blog/beginners-guide-jwts-in-java
+https://stormpath.com/blog/jwt-the-right-way
+https://stormpath.com/blog/build-secure-user-interfaces-using-jwts
+https://stormpath.com/blog/jwt-authentication-angularjs
+
+// Micah's demo
+https://www.youtube.com/watch?v=QSYK4OCmycIs
+
+// Mention how Stormpath uses JWT
+
+==== JWT Tools
+
+https://github.com/jwtk/jjwt[JJWT] is an easy to use tool for developers to create and verify JWTs in Java. Like many libraries Stormpath supports, JJWT is completely free and open source (Apache License, Version 2.0), so everyone can see what it does and how it does it. Do not hesitate to report any issues, suggest improvements, and even submit some code!
+
+https://www.jsonwebtoken.io/[JSONwebtoken.io] is a developer tool we created to make it easy to decode JWTs. Simple paste an existing JWT into the appropriate field to decode its header, payload, and signature. JSONWebToken.io is powered by nJWT, the cleanest free and open source (Apache License, Version 2.0) JWT library for Node.js developers.
+
+https://www.jwtinspector.io/[JWT Inspector] is the new kid on the block; it's an open source Chrome extension that allows developers to inspect and debug JWTs directly in-browser. The JWT Inspector will discover JWTs on your site (in cookies, local/session storage, and headers) and make them easily accessible through your navigation bar and DevTools panel.
+
+=== JHipster Security Options
+
+* Session-based authentication
+** Stateful
+** Classical “form-based” authentication with Spring Security
+** Improved remember-me over the standard Spring Security implementation
+* OAuth2
+** Stateless
+** Needs a specific back-end, only works with SQL and MongoDB
+* JWT
+** Stateless
+** Very good for microservices
+
+
+// Zuul with JHipster Registry/Consul?
+// JHipster UAA
+
+=== Demo
+
+Create a UAA service for Auth
+Show JWT communicate and explain key registration
+
+
+[duration=2]
+== Conclusion
+
+Microservices aren't free, but they're cheaper if you start with JHipster!
+
+[duration=1m]
+== Action!
+
+[duration=5m]
+== Questions?
+
+== Resources
+
+https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage

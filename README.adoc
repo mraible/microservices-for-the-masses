@@ -1,0 +1,38 @@
+= Microservices for the Masses with Spring Boot, JHipster, and JWT
+Matt Raible <https://github.com/mraible[@mraible]>
+:branch: master
+
+[abstract]
+--
+Microservices are all the rage and being deployed by many Java Hipsters. If you’re working on a large team that needs different release cycles for product components, microservices can be a blessing. If you’re working at your VW Restoration Shop and running its online store with your own software, having five services to manage and deploy can be a real pain. Share your knowledge and experience about microservices in this informative and code-heavy talk.
+
+We’ll use JHipster (a Yeoman generator) to create Angular + Spring Boot apps on separate instances with a unified front-end. I’ll also show you options for securing your API gateway and individual applications using JWT. Heroku, Kubernetes, Docker, ELK, Spring Cloud, Stormpath; there will be plenty of interesting demos to see!
+--
+
+== View presentation online
+
+https://mraible.github.io/microservices-for-the-masses[Slides]
+&middot;
+https://github.com/mraible/microservices-for-the-masses/blob/{branch}/src/notes/script.adoc[Script]
+&middot;
+http://www.slideshare.net/mraible/microservices-for-the-masses[SlideShare]
+
+=== Demos
+
+Demos are contained in the `demos` directory and consist of:
+
+. Spring Boot
+  * JPA, H2, REST API
+  * Stormpath Authentication
+  * Deploy to Cloud Foundry
+. JHipster Monolith
+  * Blog Application with MySQL, Elasticsearch, i18n
+  * Entities for Blog, Entry and Tags
+  * Business logic to restrict user access
+  * Deploy to Heroku
+. JHipster Microservices
+  * Convert blog to gateway
+  * Create store microservice
+  * Product entity for store, generate UI on gateway
+  * Deploy to Kubernetes
+

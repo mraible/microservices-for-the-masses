@@ -1,0 +1,479 @@
+= Microservices for the Masses: Script
+Matt Raible <https://github.com/mraible>
+// Settings:
+:idprefix:
+:idseparator: -
+ifndef::env-github[]
+:icons: font
+endif::[]
+ifdef::env-github,env-browser[]
+:toc: preamble
+:toclevels: 2
+endif::[]
+ifdef::env-github[]
+:status:
+:outfilesuffix: .adoc
+:!toc-title:
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:toc:
+:uri-demos: ./../../../demos
+
+// tag::title[]
+Welcome everyone!
+
+// My name is Matt Raible and I'm a hick from the sticks. I grew up in the backwoods of Montana with no electricity or running
+// water. My sister and I had to walk two miles to school everyday, and yes, it was uphill both ways.
+
+Today, we're going to learn about microservices, their history, how to create them, and communicate between them.
+
+But first, I'd like to share the story of microservices and how they came to be.
+// end::title[]
+
+== The History of Microservices
+// tag::history[]
+According to https://en.wikipedia.org/wiki/Microservices#History[Wikipedia], the term "microservice" was first used a
+common architecture style at a workshop of software architects near Venice in May 2011. In May 2012, the same group
+decided "microservices" was a more appropriate name.
+// end::history[]
+
+// tag::visionaries[]
+James Lewis presented some of the ideas behind microservices in March 2012 at 33rd Degree in Kraków. His talk
+was called Microservices - Java, the Unix Way. https://github.com/fredgeorge[Fred George] is credited with for sharing
+similar ideas at the same time.
+
+https://www.linkedin.com/in/adriancockcroft[Adrian Cockcroft], who was at Netflix at the time, describing this architecture
+as "fine grained SOA". He pioneered the style at web scale, as did Joe Walnes, Dan North, Evan Bottcher and Graham Tackley.
+
+Martin Fowler and James Lewis wrote an article titled simply http://martinfowler.com/articles/microservices.html[Microservices]
+on March 25, 2014. Years later, this is still considered the definitive article that defines microservices.
+// end::visionaries[]
+
+// The more interesting story:
+// tag::real-history[]
+Dr. Peter Rodgers introduced the term "Micro-Web-Services" during a presentation at Cloud Computing Expo in 2005.
+Juval Löwy had similar precursor ideas about classes being granular services, as the next evolution of Microsoft architecture in 2007.
+"Services are composed using Unix-like pipelines (the Web meets Unix = true loose-coupling). Services can call services
+(+multiple language run-times). Complex service-assemblies are abstracted behind simple URI interface. Any service, at any
+granularity, can be exposed."
+// end::real-history[]
+
+////
+He described how a well-designed service platform "applies the underlying architectural principles of the Web and Web
+services together with Unix-like scheduling and pipelines to provide radical flexibility and improved simplicity by
+providing a platform to apply service-oriented architecture throughout your application environment".
+The design, which originated in a research project at Hewlett Packard Labs, aims to make code less brittle and to
+make large-scale, complex software systems robust to change. To make "Micro-Web-Services" work, one has to question
+and analyze the foundations of architectural styles (such as SOA) and the role of messaging between software components
+in order to arrive at a new general computing abstraction. In this case, one can think of resource-oriented computing
+(ROC) as a generalized form of the Web abstraction. If in the Unix abstraction "everything is a file", in ROC,
+everything is a "Micro-Web-Service". It can contain information, code or the results of computations so that
+a service can be either a consumer or producer in a symmetrical and evolving architecture.
+////
+
+// tag::conways-law[]
+Technology have traditionally been organized into technology layers: UI team, database team, operations team.
+When teams are separated along these lines, even simple changes can lead to a cross-team project taking time and
+budgetary approval.
+
+A smart team will optimise around this and choose the lesser of two evils; forcing the logic into whichever application
+they have access to. This is an example of http://www.melconway.com/Home/Committees_Paper.html[Conway's Law] in action.
+// end::conways-law[]
+
+[quote, Melvyn Conway, 1967]
+Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure.
+
+[[img-conways-law]]
+.Conway's Law
+image::conways-law.png[Conway's Law, 560, scaledwidth=100%, align=center]
+
+=== Microservices Philosophy
+
+// tag::ms-philosophy[]
+The philosophy of a microservices architecture essentially equals to the Unix philosophy of "Do one thing and do it well".
+// end::ms-philosophy[]
+
+=== Characteristics of a Microservices Architecture
+
+// tag::ms-features[]
+[build=items]
+* Componentization via Services
+* Organized around Business Capabilities
+* Products not Projects
+* Smart endpoints and dumb pipes
+* Decentralized Governance
+* Decentralized Data Management
+* Infrastructure Automation
+* Design for failure
+* Evolutionary Design
+// end:ms-features[]
+
+[duration=5m]
+== Why Microservices?
+// tag::why[]
+It's easier to work on small "do one thing well" services. No single program represents the whole application, so services
+can change frameworks (or even languages) without a massive cost. As long as the services use a language agnostic protocol (HTTP or lightweight messaging),
+can application can be written in several different platforms - Java, Ruby, Node, Go, .NET, etc. - without issues.
+
+Platform-as-a-Service (PaaS) providers and containers have made it easy to deploy microservices. All the technologies needed to support a monolith
+(e.g. load balancing, discovery, process monitoring) are provided by the PaaS, outside of your container. Deployment effort becomes
+close to zero.
+// end::why[]
+
+== Are Microservices the future?
+
+// tag::future[]
+Architecture decisions are usually only evident several years after you make them. Microservices have been successful
+at companies like LinkedIn, Twitter, Facebook, Amazon, and Netflix. But that doesn't mean they'll be successful for
+your organization. Component boundaries are hard to define. If you're not able to create your components cleanly,
+you're just shifting complexity from inside a component to the connections between the components. Also, team
+capabilities is something to consider. A poor team will always create a poor system.
+// end::future[]
+
+[quote, Martin Fowler]
+You shouldn't start with a microservices architecture. Instead begin with a monolith, keep it modular, and split it into microservices once the monolith becomes a problem.
+
+// https://blog.heroku.com/why_microservices_matter
+
+Neal Ford, 4 reasons why microservices resonate
+https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate
+
+* Microservices are the first post-DevOps revolution architecture.
+* Microservices make change less expensive.
+* Microservices are complex.
+// Simon Brown, famously notes that “If you can`'t build a monolith, what makes you think microservices are the answer?”
+* Microservices enable unique opportunities.
+
+== Personal Story: Stormpath’s Microservices Migration
+
+.What Is Stormpath?
+****
+// tag::plug[]
+Stormpath is an API service that allows developers to create, edit, and securely store user accounts and user account data,
+and connect them with one or multiple applications.  We make user account management a lot easier, more secure, and
+infinitely scalable. To get started https://api.stormpath.com/register[register for a free account].
+// end::plug[]
+****
+
+// tag::stormpath[]
+Stormpath`'s microservices implementation is based on http://cassandra.apache.org/[Cassandra], https://kafka.apache.org/[Kafka]
+(for async communication between services), http://samza.apache.org/[Samza] (for real time processing), https://zookeeper.apache.org/[Zookeeper]
+(to coordinate Kafka and Samza) and https://www.elastic.co/products/elasticsearch[Elasticsearch]. All these services are
+served up using https://projects.spring.io/spring-boot/[Spring Boot] and have been from day one.
+
+Had to rewrite a lot of Samza to work because it was based on Yarn for deployment and used Kafka for its coordination. Changed
+it to use Spring Boot and Zookeeper. Samza is better than Spring`'s Kafka consumer because it has local storage. Spring`'s
+Kafka consumer support didn`'t exist when Stormpath was building their system.
+// end::stormpath[]
+
+https://github.com/stormpath/samza-spring-boot-starter
+
+https://stormpath.com/blog/spring-boot-migration
+
+// tag::stormpath-migration-to-boot[]
+Our application was a traditional Spring app secured by Apache Shiro and configured with both XML and Java Config. When we added Spring Boot, it didn`'t replace Spring of course (since Spring Boot is built on top of Spring), but it simplified much of our architecture by adding a layer that helps automate configuration and deployment while making it easier to implement features, as well as prime our architecture for modular microservices (more on that later).
+
+Because we have thousands of customers in production and are constantly developing new features, we did extensive testing to make sure everything still worked as expected. We also built some custom Spring Boot Starters, including a nifty one for real-time stream messaging with Apache Samza. And even though our software stack is a few years old and involves a lot of business edge cases and intricate code paths, we were able to make the transition in just three weeks.
+
+In the process, we tried to use as much of the Spring Boot and Spring Cloud ecosystem to remove as much custom code as possible. Spring Boot allows us to do that in a clean, plugin-oriented way. Here`'s what we did:
+
+* XML Config to Java Config
+// Java-based config allows our IDEs to spot problems and give us warnings when our configurations don’t line up. (XML also did that, but in Java, the relationships are a little cleaner and easier to see.)
+* Boot Dictates Where Your Config Files Reside
+// This reduces the guesswork and effort around overriding default settings when the product moves to production. Used to have a custom-built config mechanism. Boot implementation is more idiomatic.
+* Auto-Configuration in Spring Boot
+// defaults are sensible, only had to override defaults with values relevant to production infrastructure
+// end::stormpath-migration-how[]
+
+//=== Spring Boot Starters
+
+The Spring Boot Starter ecosystem gives us a huge amount of out-of-the-box functionality that traditionally we used to build ourselves. Instead of defining beans and wiring them ourselves, we’re using Spring Boot Starters wherever possible.
+
+We use the ecosystem integrations for Zookeeper, Kafka, Cassandra, JMS messaging, SMTP mail servers and many others. Historically, we’ve had to build, integrate and configure these services ourselves, but now we just drop in the necessary starter dependency, and boom: the starter is enabled and auto-configured!
+// end::stormpath-migration-to-boot[]
+
+We developed a https://github.com/stormpath/samza-spring-boot-starter[Spring Boot Starter for Apache Samza], which we open-sourced under the Apache 2.0 license. Samza is a real-time streaming product that traditionally requires https://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/YARN.html[YARN], a complex infrastructure to launch JVMs and manage memory across them. I was frustrated by how complicated it is to deploy Samza, so we reverse engineered the parts that launch a Samza container, and turned it into a Spring Boot Starter.
+
+// Hadoop YARN: Yet Another Resource Negotiator
+
+Now, anytime we have a Samza microservice that consumes Kafka events, we can skip the complex deployment process (unzipping a tarball, running a shell script to launch the process and connecting to a YARN environment, etc.). It’s now just a simple Spring Boot application that can be launched from the command line, and it changed our entire microservices architecture in a week’s worth of work.
+
+Simplified Deployment
+
+Webserver Embedded in Boot, Not a WAR File
+// It’s one less piece of server infrastructure to configure, maintain, and update manually, leaving Ops free to rely on the software engineering team, as well as our Continuous Integration pipeline to upgrade processes.
+One JAR File to Rule Them All
+//  To start the application, you just run a simple command to start up that JAR file. Easy to distribute.
+All Spring Boot Services All Launch with One Command
+// Once you know how to launch one app, you know how to launch all of them. No more learning half a dozen options to launch a product.
+
+Spring Cloud – The Infrastructure Ecosystem
+When you deploy a complex application to the cloud, your configuration management, messaging options, service discovery, load balancing, and routing, etc all need to play nicely with each other, and traditionally, it’s a lot of work to coordinate and debug.
+
+The Spring team has started to automate these common SaaS patterns in the form of Spring Cloud projects, each of which is a group of Spring Boot starters. We would have had to build all this automation – now we can configure a good chunk of all of these critical services as simple application name/value properties.
+
+[duration=10m]
+== Spring Boot
+
+// JPA, REST, Stormpath and Cloud Foundry demo
+
+////
+1. Create new project with start.spring.io, choose Web, JPA and DevTools
+1. @Entity, @Id, @GeneratedValue / toString / getters and setters - **boot.entity**
+1. interface BlogRepository extends JpaRepository<Blog, Long> {} - **boot.repository**
+1. implements CommandLineRunner, println repository.findAll() - **boot.command**
+1. Add JDBC Driver to pom.xml: **boot.h2**
+1. create data.sql, insert into blog (name) values ('First'); - **boot.sql**
+1. @RestController, @RequestMapping, return repository.findAll() - **boot.controller**
+////
+
+include::{uri-demos}/spring-boot/README.adoc[]
+
+== Stormpath Lesson's Learned
+
+Use asynchronous messaging, not http
+HTTP is synchronous (is HTTP/2?)
+Most microservices execute in sub-50ms. Amazon Lambda took seconds to execute when they tried it.
+
+// Architecture Diagram
+
+=== Deployment Orchestration
+
+Automation is the key to microservices. They introduce so much more complexity from a logging, monitoring and deployment standpoint. Microservices are not free, so be prepared to build a lot of this stuff.
+
+Orchestration is key. Stormpath uses Docker and Amazon ECS. Had to write Surge. Services are in separate repos and are continuously deployed when you commit to master branch.
+
+=== Lessons Learned
+
+// tag::lessons-learned[]
+Automation and orchestration are key for deployment.
+
+Define your exit criteria (e.g. maximum time for a request to execute) before implementing your microservices infrastructure. You’re likely going to have to custom build some things, so be prepared for that. Trial a few different platforms and then pick the one that meets your criteria and is the easiest to develop with. Don’t develop half of your system on one platform and then try moving to another.
+
+Make sure and record the request id in all logging events for traceability.
+
+If you have less than 20 people, start with a monolith, but build in async messaging asap. Use it for things like mail, notifications, logging, and archiving. Debugging, deployment, logging is much easier with a monolith.
+
+Async Messaging or other non-blocking with automatic back pressure
+
+// end::lessons-learned[]
+
+[duration=5m]
+== JHipster
+
+// tag::jhipster[]
+https://jhipster.github.io/[JHipster] is one of those open-source projects you stumble upon and immediately think, "`Of course!`" It combines three very successful frameworks in web development: Bootstrap, AngularJS, and Spring Boot. Bootstrap was one of the first dominant web-component frameworks. Its largest appeal was that it only required a bit of HTML and it worked! All the efforts we made in the Java community to develop web components were shown a better path by Bootstrap. It leveled the playing field in HTML/CSS development, much like Apple's Human Interface Guidelines did for iOS apps.
+
+JHipster was started by Julien Dubois in October 2013 (Julien's first commit was on https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436[October 21, 2013]). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 110 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 16 developers and over 250 contributors. You can find its homepage at http://jhipster.github.io/[http://jhipster.github.io]. Its https://www.openhub.net/p/generator-jhipster[Open HUB profile] shows it's mostly written in JavaScript (50%) and Java (35%).
+
+At its core, JHipster is a http://yeoman.io/[Yeoman] generator. Yeoman is a code generator that you run with a `yo` command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the "`Yeoman workflow`". This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.
+// end::jhipster[]
+
+////
+The Yeoman workflow is made up of three types of tools to enhance your productivity and satisfaction when building a webapp:
+
+* the scaffolding tool (yo),
+* the build tool (Grunt, Gulp, etc.), and
+* the package manager (Bower, npm, etc.)
+////
+
+==== JHipster Statistics
+// tag::jhipster-stats[]
+* +250 contributors
+* +5400 Github stars
+* +320,000 installations
+* +100 companies officially using it
+// end::jhipster-stats[]
+
+=== JHipster Toolchain / Workflow
+
+// tag::jhipster-usage[]
+To https://jhipster.github.io/installation/[install] JHipster, you run an npm command:
+
+----
+$ npm install -g generator-jhipster
+----
+
+//You also skip installation and use the project's https://hub.docker.com/r/jhipster/jhipster/[Official JHipster Docker image] or https://github.com/jhipster/jhipster-devbox[JHipster Devbox] instead.
+
+//Next, you run `yo jhipster` to create an application. You will be presented with a number of questions. Your answers will generate an application tailored to your needs.
+
+----
+$ mkdir myapp && cd myapp
+$ yo jhipster
+----
+// end::jhipster-usage[]
+
+The JHipster documentation includes https://jhipster.github.io/configuring-ide/[guides] for configuring Eclipse, IntelliJ IDEA, Visual Studio Code, and NetBeans. Not only that, but Spring Boot has a https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html[devtools plugin] that's configured by default in a generated JHipster application. This plugin allows hot-reloading of your application when you recompile classes.
+
+https://www.jetbrains.com/idea/[IntelliJ IDEA], which brings these same features to Java development, is a truly amazing IDE. If you're only writing JavaScript, their https://www.jetbrains.com/webstorm/[WebStorm IDE] will likely become your best friend. Both IntelliJ products have excellent CSS support and accept plugins for many web languages/frameworks. See https://github.com/jhipster/generator-jhipster/issues/4258[this tip] to learn how to make IDEA auto-compile on save, like Eclipse does.
+
+The http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon1[Eclipse IDE for Java Developers] is a free alternative to IntelliJ IDEA. Its error highlighting (via auto-compile), code assist, and refactoring support is excellent. When I started using it back in 2002, it blew away the competition. It was the first Java IDE that was fast and efficient to use. Unfortunately, it fell behind in the JavaScript MVC era and lacks good support for JavaScript or CSS.
+
+NetBeans has a https://github.com/GeertjanWielenga/SpringBootTools4NetBeans[Spring Boot plugin]. The NetBeans team has been doing a lot of work on web-tools support; they have good JavaScript/AngularJS support and there's a https://chrome.google.com/webstore/detail/netbeans-connector/hafdlehgocfcodbgjnpecfajgkeejnaa?hl=en[NetBeans Connector] plugin for Chrome that allows two-way editing in NetBeans and Chrome.
+
+https://code.visualstudio.com[Visual Studio Code] is an open source text editor made by Microsoft. It's become a popular editor for TypeScript and has plugins for Java development.
+
+The beauty of Spring Boot is you can run it as a simple Java process. This means you can right-click on your `*Application.java` class and run it (or debug it) from your IDE. When debugging, you'll be able to set breakpoints in your Java classes and see what variables are being set to before a process executes.
+
+To learn about profiling a Java application, I recommend you watch Nitsan Wakart's https://www.youtube.com/watch?v=_6vJyciXkwo["`Java Profiling from the Ground Up!`"] To learn more about memory and JavaScript applications, I recommend Addy Osmani's http://addyosmani.com/blog/video-javascript-memory-management-masterclass/["`JavaScript Memory Management Masterclass`"].
+
+=== What's Generated?
+
+// tag::jhipster-generates[]
+[build=items]
+* Spring Boot application
+* AngularJS application
+* Liquibase changelog files
+* Configuration files
+// end::jhipster-generates[]
+
+==== Generated Screens for Security
+
+// tag::jhipster-screens[]
+[build=items]
+* Several generated screens
+** Login, logout, forgot password
+** Account management
+** User management
+* Useful for most applications
+** Pages must be tweaked
+** User roles will be added/extended
+* Provides good examples of working screens
+** Forms, directives, validation...
+// end::jhipster-screens[]
+
+==== Generated Screens for Administration
+
+// tag::jhipster-admin[]
+[build=items]
+* Monitoring
+* Health
+** Spring Boot configuration
+** Spring Security audits
+** Log management
+* Very useful in production
+//* Will likely be a separate module in JHipster 4
+// end::jhipster-admin[]
+
+==== Liquibase
+
+// tag::jhipster-liquibase[]
+* Liquibase manages database updates
+** Using changelogs
+* Great for working in team
+** After a “git pull”, your database is always up-to-date!
+* Tables, relationships, data are created by JHipster at generation time; applied when the application starts
+// end::jhipster-liquibase[]
+
+==== Many other features!
+// tag::jhipster-other-features[]
+* Maven or Gradle
+* Docker and Docker Compose
+* SQL and NoSQL databases
+* MongoDB and Cassandra
+* Elasticsearch
+* Kafka
+* Internationalization
+* Swagger
+* WebSockets
+* CRUD Generation
+* Modules and Marketplace
+
+Be Productive with JHipster by Julien Dubois and Deepu K
+https://www.youtube.com/watch?v=dzdjP3CPOCs
+// end::jhipster-other-features[]
+
+[duration=30m]
+== JHipster Demo
+
+JHipster provides a flow-invoking developer experience.
+
+* “Developer Experience” is very important for JHipster
+* Hot reload should work everywhere
+* IDEs should work automatically
+* Docker Compose for all 3rd-party tools, so they are easy to manage
+
+A lot of credit goes to Spring Boot devtools!
+
+* Automatically reloads the application when a compilation occurs
+** The application classloader gets refreshed
+** The JVM and third-party libraries are not refreshed
+* Hot reload is very quick: 2 to 4 seconds depending on your setup
+* Liquibase being managed by JHipster, the database schema is also automatically updated
+
+[TIP]
+Configure your IDE to do automatic compilation, and everything is updated automatically!
+
+////
+// JHipster blog demo howto (use yarn)
+Lock it down so people can’t see each other’s data
+Modify tests so they pass
+Show Liquibase:diff
+Commit to GitHub as you go
+Deploy to Heroku
+////
+include::{uri-demos}/jhipster-monolith/README.adoc[]
+
+[duration=20m]
+== Securing your API
+// tag::securing-your-api[]
+[build=items]
+* Choose the Right API Security Protocol
+** Basic API Authentication w/ TLS (formlerly known as SSL)
+** OAuth1.0a, OAuth2
+* API Keys vs. Username/Password Authentication
+** Store Your API Security Key securely
+* Use globally unique IDs (e.g. Url62)
+* Avoid sessions, especially in URLs
+// end::securing-your-api[]
+
+// tag::securing-your-api-more[]
+Learn more https://stormpath.com/blog/secure-your-rest-api-right-way[on the Stormpath blog]
+// end::securing-your-api-more[]
+
+=== Microservices with JHipster
+
+// https://docs.google.com/document/d/1Wxo43oJgp4XP-C72pIbT-cjV0S4OlAHHAxxt7bgXFHw/edit#heading=h.ph7yfcmesusl
+
+What about Microservices?
+Show architecture diagram from Devoxx
+
+Fire up JHipster Registry (:8761)
+Change it to be a gateway and re-generate
+Create a new micro services app with a store
+Use JDL Studio and import to generate entities
+
+include::{uri-demos}/jhipster-microservices/README.adoc[tag=main]
+
+[duration=20m]
+== JHipster in Production
+
+https://docs.google.com/presentation/d/1qUSulPZ0l21SXJYnhrRvJqIAp1YYJwvcXPX0Ekye9Io/edit#slide=id.g17ca1f35d0_0_110
+
+Talk about Docker Compose
+Show Kubernetes
+Deploy with Kubernetes
+
+include::{uri-demos}/jhipster-microservices/README.adoc[tag=deploy]
+
+=== Heroku
+=== Kubernetes
+=== Docker / Docker Swarm
+=== ELK for Logging
+
+== JHipster.next
+
+// tag::jhipster.next[]
+[build=items]
+* HTTP/2
+* Apache Kafka
+* Spring 5 and Reactive
+* RxJava 2.0 and RxJS
+* Reactive Streams
+* Reactive Sockets
+// end::jhipster.next[]

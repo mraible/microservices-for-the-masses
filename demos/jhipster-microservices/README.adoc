@@ -1,0 +1,77 @@
+// tag::main[]
+= JHipster Microservices Demo
+
+To reproduce this demo, delete everything in this directory except for this file.
+
+. Copy `jhipster-monolith` and paste it to `jhipster-microservices/blog`. Change the following values in `.yo-rc.json`:
++
+[source,json]
+----
+"authenticationType": "jwt",
+"applicationType": "gateway"
+----
+. Regenerate application using `yo jhipster --yarn --with-entities.
+. Using Git, re-apply business logic changes.
+. Create a new directory called `store` and run `yo jhipster` in it to create a "store" microservice. Use a MongoDB database.
+. Generate a `product` entity with a name and a price.
+. Generate the UI for the store using `yo jhipster:entity product` from the `blog` directory.
+. Clone JHipster Registry: `git clone git@github.com:jhipster/jhipster-registry.git`.
+. Start all the applications and make sure they can communicate.
+
+// end::main[]
+
+// tag::deploy[]
+== Docker Compose
+. Install https://docs.docker.com/engine/installation/[Docker] and https://docs.docker.com/compose/install/[Docker Compose].
+. Create Docker images of the `blog` and `store` applications:
+* Maven: `./mvnw package -Pprod docker:build`
+* Gradle: `./gradlew bootRepackage -Pprod buildDocker`
+. Create a `docker-compose` directory and run `yo jhipster:docker-compose` from it.
+. Start Docker.
+. Run `docker-compose up` to run everything.
+. Start Kitematic and view Docker applications.
+
+////
+ERROR: for store-mongodb-config  Image 'mongo:mongo:3.2.10' not found
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "compose/cli/main.py", line 62, in main
+  File "compose/cli/main.py", line 114, in perform_command
+  File "compose/cli/main.py", line 835, in up
+  File "compose/project.py", line 400, in up
+  File "compose/parallel.py", line 64, in parallel_execute
+compose.service.NoSuchImageError: Image 'mongo:mongo:3.2.10' not found
+docker-compose returned -1
+////
+
+== Kubernetes
+. Install https://docs.docker.com/engine/installation/[Docker] and http://kubernetes.io/docs/user-guide/prereqs/[kubectl].
+. Install https://www.virtualbox.org/wiki/Downloads[VirtualBox] and https://github.com/kubernetes/minikube/releases[Minikube].
+. Create Docker images of the `blog` and `store` applications:
+* Maven: `./mvnw package -Pprod docker:build`
+* Gradle: `./gradlew bootRepackage -Pprod buildDocker`
+. Tag the images and push them to Docker Hub. Yes, it should be possible to deploy images locally, but I haven't figured how to yet. ;)
++
+----
+  docker tag blog mraible/blog
+  docker push mraible/blog
+  docker tag store mraible/store
+  docker push mraible/store
+----
+. Create a `kubernetes` directory and run `yo jhipster:kubernetes` from it.
+. Start Minikube using `minikube start`.
+. Run the following commands to deploy to Minikube. Run `minikube dashboard` to see the deployed containers.
+----
+kubectl apply -f registry
+kubectl apply -f blog
+kubectl apply -f store
+----
+. To be able to work with the docker daemon, run the `docker-env` command in your shell:
+----
+eval $(minikube docker-env)
+----
+. Run `minikube service blog` to view the blog application.
+
+[TIP]
+If you run `minikube delete` and have trouble running `minikube start` afterward, run `rm -rf ~/.minikube`. See https://github.com/kubernetes/minikube/issues/290[this issue] for more information.
+// end::deploy[]

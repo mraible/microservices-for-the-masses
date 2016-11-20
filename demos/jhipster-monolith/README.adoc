@@ -1,0 +1,105 @@
+= JHipster Monolith Demo
+:imagesdir: ../../presentation/src/images
+
+To reproduce this demo, delete everything in this directory except for this file. If you leave `.yo-rc.json` intact, you won't need to answer all the questions again.
+
+. Run `yo jhipster --yarn` to create a new application. When prompted, use `blog` for a name and `org.jhipster` for the Java package name. You can see the rest of the settings in the screenshot below.
++
+[[yo-jhipster]]
+.Running yo jhipster
+image::yo-jhipster.png[Running yo jhipster, 1186, scaledwidth=100%, align=center]
++
+. Open the application in IntelliJ and run it. Run `gulp itest` to prove everything works.
+// Give an overview of project structure and configuration
+. http://bit.ly/jhipster-blog-jdl[Download blog entities JDL] from https://jhipster.github.io/jdl-studio/[JDL-Studio].
+. Generate entities using `yo jhipster:import-jdl path/to/jhipster-jdl.jh`.
+// Show demo and enter sample data. Show how users and admins can see each other's blogs
+. To prevent users from seeing one another's blogs, modify `BlogResource.java` and change its `getAllBlogs()` method from `blogRepository.findAll()` to `blogRepository.findByUserIsCurrentUser()`.
+// Create multiple entries, the 2nd with a date after the first.
+. To prevent users from seeing one another's entries, modify `EntryResource.java` and change its `getAllEntries()` method from using `entryRepository.findAll(pageable)` to the following:s
+// jhip.findBy live template
++
+[source,java]
+----
+Page<Entry> page = entryRepository.findByBlogUserLoginOrderByDateDesc(SecurityUtils.getCurrentUserLogin(), pageable);
+----
+. Use your IDE to create this method in `EntryRepository.java`. Compile the modified Java files and verify you can only see the current user's entries.
+. Try to enter HTML in a blog entry. Notice how it's escaped in the entries table after modifying the record.
+. Open `entries.html` and change `<td>{{entry.content}}</td>` to be:
++
+[source,html]
+----
+<td ng-bind-html="entry.content"></td>
+----
+. Notice how nothing renders in this table cell and the console says `Attempting to use an unsafe value in a safe context.`.
+. Modify `app.module.js` and add `ngSanitize` to the list of modules. Notice how the HTML is now rendered in the table.
+. Open `entry-dialog.html` and change `vm.entry.content` to use a `<textarea>`.
++
+[source,html]
+----
+<textarea type="text" class="form-control" name="content" id="field_content"
+        ng-model="vm.entry.content" rows="5"
+        required></textarea>
+----
+. Open `entry-dialog-controller.js` and create the timestamp automatically for new entries.
+// jhip.date live template
++
+[source,js]
+----
+vm.entry = entity;
+if (!vm.entry.date) {
+    vm.entry.date = new Date();
+}
+----
+. Change `entries.html` to use a layout like a blog rather than a table. Replace `<div class="table-responsive">...</div>` with the following:
+// jhip.entries live template
++
+[source,html]
+----
+<div infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+    <div ng-repeat="entry in vm.entries track by entry.id">
+        <h2>{{entry.title}}</h2>
+        <small>Posted on {{entry.date | date: 'short'}} by {{entry.blog.user.login}}</small>
+        <div ng-bind-html="entry.content"></div>
+        <div class="btn-group" style="margin-top: 10px">
+            <button type="submit"
+                    ui-sref="entry.edit({id:entry.id})"
+                    class="btn btn-xs btn-primary">
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                translate="entity.action.edit"> Edit</span>
+            </button>
+            <button type="submit"
+                    ui-sref="entry.delete({id:entry.id})"
+                    class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+            </button>
+        </div>
+    </div>
+</div>
+----
+
+== Deploy to Heroku
+Before running the sub-generator, you must install the https://toolbelt.heroku.com/[Heroku toolbelt], and have a Heroku account created.
+
+You must also http://signup.heroku.com/[create a Heroku account] and log in with the toolbelt by running the following command:
+
+----
+$ heroku login
+Enter your Heroku credentials.
+Email: YOUR_EMAIL
+Password (typing will be hidden): YOUR_PASSWORD
+Authentication successful.
+----
+
+To deploy your application to Heroku, run this command:
+
+`yo jhipster:heroku`
+
+After it finishes, run `heroku open` to view your application.
+
+== Run Gatling Tests
+Start your local server, then run Gatling using `./gradlew gatlingRun`.
+
+[CAUTION]
+If you're using JHipster 3.11.0, you may encounter https://github.com/jhipster/generator-jhipster/issues/4493[this issue].
+

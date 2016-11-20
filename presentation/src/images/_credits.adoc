@@ -1,0 +1,15 @@
+= Image Credits
+
+// tag::list[]
+* Fountain of colours - https://www.flickr.com/photos/134741223@N04/23393614091[Paulius Malinovskis on Flickr]
+* Ponte dell'Accademia at Sunrise - https://stuckincustoms.smugmug.com/Portfolio/i-ZQRWmQf/A[Trey Ratcliff on Stuck in Customs]
+* Conway's Law - http://martinfowler.com/articles/microservices.html#OrganizedAroundBusinessCapabilities[Martin Fowler and James Lewis on Microservices]
+* Good Morning Denver - https://www.flickr.com/photos/sheila_sund/8903465080[Sheila Sund on Flickr]
+//* History - https://www.flickr.com/photos/harrypammer/19648084380[Harry Pammer on Flickr]
+* Monoliths - https://www.flickr.com/photos/archesnps/9565405646[Arches National Park on Flickr]
+* Mexico - http://www.mcginityphoto.com/Portfolio/TravelandLeisure/Mexico/i-3VbXnWW/A[Trish McGinity on McGinity Photo]
+* Future - https://www.flickr.com/photos/vivianhir/4484911909[vivianhir on Flickr]
+* Spring Runoff - https://www.flickr.com/photos/31246066@N04/4620052369[Ian Sane on Flickr]
+* The memory Seeker, Santa Monica Pier, CA - https://www.flickr.com/photos/pachecophotography/11087502255[Pacheco on Flickr]
+* San Francisco By Night - http://www.mcginityphoto.com/Portfolio/TravelandLeisure/California/i-PNzRJZj/A[Trish McGinity on McGinity Photo]
+// end::list[]
