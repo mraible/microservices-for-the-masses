@@ -5,6 +5,7 @@ var pkg = require('./package.json'),
   browserify = require('browserify'),
   buffer = require('vinyl-buffer'),
   connect = require('gulp-connect'),
+  csso = require('gulp-csso'),
   del = require('del'),
   exec = require('gulp-exec'),
   ghpages = require('gh-pages'),
@@ -103,7 +104,7 @@ gulp.task('clean:images', function() {
 });
 
 gulp.task('connect', ['build'], function() {
-  connect.server({ root: 'dist', port: 8080, livereload: true });
+  connect.server({ root: 'dist', port: 2000, livereload: true });
 });
 
 gulp.task('watch', function() {
