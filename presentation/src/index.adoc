@@ -7,6 +7,8 @@
 :!sectids:
 :icons: font
 :imagesdir: images
+:source-highlighter: coderay
+:coderay-css: style
 :uri-demos: ../../../demos
 :uri-script: notes/script.adoc
 
