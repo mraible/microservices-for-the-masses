@@ -14,8 +14,14 @@ We’ll use JHipster (a Yeoman generator) to create Angular + Spring Boot apps o
 == View online
 
 https://mraible.github.io/microservices-for-the-masses[Slides]
-&middot;
-https://github.com/mraible/microservices-for-the-masses/blob/{branch}/src/notes/script.adoc[Script]
+//&middot;
+//https://github.com/mraible/microservices-for-the-masses/blob/{branch}/src/notes/script.adoc[Script]
+
+=== Demos
+
+* https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/spring-boot/README.adoc[Spring Boot]
+* https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/jhipster-monolith/README.adoc[JHipster Monolith]
+* https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/jhipster-microservices/README.adoc[JHipster Microservices]
 
 == Build and view slides locally
 
@@ -42,3 +48,22 @@ Next, install dependencies (if not already installed by the generator):
 Finally, build and serve the presentation!
 
  $ gulp serve
+
+== Building the static version
+
+You can build a static version of the slides using the following command:
+
+ $ gulp
+
+The files are built into the _dist_ directory.
+You can then view the slides by navigating to _dist/index.html_ in your browser.
+
+== Deploy static version
+
+You can publish to GitHub pages by running the following command:
+
+  $ gulp deploy
+
+== Tips and Tricks
+
+You can export the presentation to PDF using https://github.com/astefanutti/decktape[DeckTape].
