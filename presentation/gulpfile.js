@@ -40,8 +40,7 @@ gulp.task('js', ['clean:js'], function() {
 });
 
 gulp.task('static', function() {
-  return gulp.src(['src/*.html','src/styles/onstage.css,src/fonts'])
-    .pipe(isDist ? through() : plumber())
+  return gulp.src(['src/*.html','src/styles/onstage.css','src/fonts'])
     .pipe(gulp.dest('dist'))
     .pipe(connect.reload());
 });

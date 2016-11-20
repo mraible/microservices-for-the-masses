@@ -117,7 +117,8 @@
   Dz.getUrl = function () {
     var u = window.location.hash.split("#")[1];
     if (!u) {
-      u = window.prompt("What is the URL of the slides?");
+      //u = window.prompt("What is the URL of the slides?");
+      u = 'index.html';
       if (u) {
         window.location.hash = u.split("#")[0];
         return u;
