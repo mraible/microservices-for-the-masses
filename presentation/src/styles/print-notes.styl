@@ -1,0 +1,49 @@
+$real-margin-mm = 20mm
+
+$ratio = 3.7795       // I don't know why this value, but it works
+$slide-height-mm = unit($slide-height / $ratio, 'mm')
+$slide-width-mm = unit($slide-width / $ratio, 'mm')
+
+$zoom = unit( (210mm - 2 * $real-margin-mm) / $slide-width-mm, '')
+
+$margin-mm = $real-margin-mm / $zoom  
+$notes-height-mm = unit( 297mm / $zoom - $slide-height-mm - 3 * $margin-mm, 'mm')
+$bottom-margin-mm = $notes-height-mm + 2 * $margin-mm
+
+
+@page
+    size A4
+
+@media print
+  .bespoke-parent, .bespoke-scale-parent, .bespoke-slide
+    margin unset
+    position relative
+    overflow visible
+    top unset
+    right unset
+    bottom unset
+    left unset
+
+  .bespoke-parent
+    background-color #ffffff
+    color #000000
+
+  .bespoke-slide
+    opacity 1
+    zoom $zoom !important
+    border solid 1px black
+    margin $margin-mm auto $bottom-margin-mm auto      // Bottom margin is useful for "Emulate CSS Media : print" on Chrome
+    page-break-after always
+
+  .bespoke-bullet-inactive
+    visibility visible
+
+  .bespoke-slide aside[role=note]
+    display block
+    width $slide-width-mm
+    border solid 1px black
+    padding 32px
+    position absolute
+    top ($slide-height-mm + $margin-mm)
+    height $notes-height-mm
+    font-size 24px
