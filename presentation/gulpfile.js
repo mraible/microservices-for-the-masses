@@ -25,7 +25,8 @@ var pkg = require('./package.json'),
     if (isDist) throw e;
     gutil.log(e.stack);
     this.emit('end');
-  };
+  },
+  concat = require('gulp-concat');
 
 gulp.task('js', ['clean:js'], function() {
   // see https://wehavefaces.net/gulp-browserify-the-gulp-y-way-bb359b3f9623
@@ -56,7 +57,12 @@ gulp.task('html', ['clean:html', 'static'], function() {
 });
 
 gulp.task('css', ['clean:css'], function() {
-  return gulp.src('src/styles/main.styl')
+  return gulp.src([
+        'src/styles/main.styl', 
+        (process.argv.indexOf('-n') >= 0 ? 'src/styles/print-notes.styl' : 'src/styles/print.styl') 
+    ])
+    .pipe(isDist ? through() : plumber())
+    .pipe(concat('result.styl'))
     .pipe(isDist ? through() : plumber())
     .pipe(stylus({ 'include css': true, paths: ['./node_modules'] }))
     .pipe(autoprefixer({ browsers: ['last 2 versions'], cascade: false }))
