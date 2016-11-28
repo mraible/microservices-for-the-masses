@@ -1,26 +1,28 @@
+@require "./variables"
+
 @page
-  size $slide-width $slide-height+1px
+  size $slide-width $slide-height
   margin 0
-  border 0
 
 @media print
-  .bespoke-slide
-    opacity 1
+  .bespoke-parent, .bespoke-scale-parent, .bespoke-slide
+    margin unset
     position relative
-    top inherit
-    bottom inherit
-    left inherit
-    right inherit
-    margin inherit
-    zoom 1 !important
+    top unset
+    right unset
+    bottom unset
+    left unset
 
   .bespoke-parent
-    position relative
-    top inherit
-    bottom inherit
-    left inherit
-    right inherit
-    margin inherit
+    overflow visible
+
+  .bespoke-scale-parent
+    transform unset !important
+
+  .bespoke-slide
+    opacity unset
+    zoom unset !important
 
   .bespoke-bullet-inactive
+    opacity unset
     visibility visible
