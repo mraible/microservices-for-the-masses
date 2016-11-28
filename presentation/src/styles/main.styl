@@ -1,6 +1,6 @@
+@require './variables'
 @import './fonts.css'
 @import 'normalizecss/normalize.css'
-@require './print'
 
 *, ::before, ::after
   box-sizing inherit
@@ -111,10 +111,9 @@ span.underline
   position absolute
   top 50%
   left 50%
-  width 640px
+  width $slide-width
   margin-left -(@width / 2)
-  //height 480px
-  height 360px
+  height $slide-height
   margin-top -(@height / 2)
   display flex
   flex-direction column
