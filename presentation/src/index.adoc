@@ -378,9 +378,14 @@ in RFC 5849.
 
 video::hdSrT4yjS1g[youtube,300,169]
 
+[.video-link]
+--
+image::rest-api-design.png[width=300]
+https://www.youtube.com/watch?v=hdSrT4yjS1g
+--
+
 [.m-lg]
 include::{uri-script}[tag=securing-your-api-more]
-
 
 == !
 
@@ -428,7 +433,6 @@ String jwt = Jwts.builder()
     )
     .compact();
 ----
-// todo: why isn't this color coded?
 
 == Validating a JWT
 
@@ -467,8 +471,14 @@ String b64EncodedSecret =
 
 video::QSYK4OCmycI[youtube,300,169]
 
+[.video-link]
+--
+image::jwts-in-java-for-csrf.png[width=300]
+https://www.youtube.com/watch?v=QSYK4OCmycI
+--
+
 [.m-lg]
-By https://twitter.com/afitnerd[Micah Silverman]
+include::{uri-script}[tag=jwts-in-java-more]
 
 [.cue]
 ****
@@ -497,7 +507,6 @@ Microservices are JHipster-generated stateless applications that handle REST req
 To monitor this architecture you can use JHipster Console, which is based on the ELK Stack (Elasticsearch, Logstash, Kibana).
 ****
 
-[.white]
 == !
 
 image::jhipster-gen-microservice.png[JHipster Microservices Demo,width=400]
