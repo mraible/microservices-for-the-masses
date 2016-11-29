@@ -140,7 +140,7 @@ Sales of Spring Boot skyrocked in 2016!
 
 == !
 
-image::spring-boot-logo.png[Spring Boot, 200]
+image::spring-boot-logo.png[Spring Boot, width=200]
 
 [.cue]
 ****
@@ -204,7 +204,7 @@ Managing microservices requires a lot of organization changes and automation to 
 
 == Spring Boot Demo
 
-image::spring-boot-logo.png[Spring Boot Demo,width=200]
+image::spring-boot-logo.png[Spring Boot Demo,width=150]
 image::java-logo.png[Java,width=50]
 
 [.cue]
@@ -376,7 +376,7 @@ in RFC 5849.
 
 == How to Secure your API
 
-video::hdSrT4yjS1g[youtube]
+video::hdSrT4yjS1g[youtube,300,169]
 
 [.m-lg]
 include::{uri-script}[tag=securing-your-api-more]
@@ -465,7 +465,7 @@ String b64EncodedSecret =
 
 == JWTs in Java for CSRF and Microservices
 
-video::QSYK4OCmycI[youtube]
+video::QSYK4OCmycI[youtube,300,169]
 
 [.m-lg]
 By https://twitter.com/afitnerd[Micah Silverman]
