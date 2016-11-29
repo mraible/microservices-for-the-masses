@@ -1,0 +1,45 @@
+@require "./variables"
+
+@page
+  size $slide-width $slide-height
+  margin 0
+
+@media print
+  .bespoke-parent, .bespoke-scale-parent, .bespoke-slide
+    margin unset
+    position relative
+    top unset
+    right unset
+    bottom unset
+    left unset
+
+  .bespoke-parent
+    overflow visible
+
+  .bespoke-scale-parent
+    transform unset !important
+
+  .bespoke-slide
+    page-break-after always
+    opacity unset
+    zoom unset !important
+
+    figure.video
+      display none
+
+    .video-link
+      display block
+
+      figure.image
+        text-align center
+        margin-bottom 5px
+
+      p
+        font-size .9rem
+
+    .m-lg
+      margin-top 10px
+
+  .bespoke-bullet-inactive
+    opacity unset
+    visibility visible

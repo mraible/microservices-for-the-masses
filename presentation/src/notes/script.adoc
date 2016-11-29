@@ -436,6 +436,10 @@ include::{uri-demos}/jhipster-monolith/README.adoc[]
 Learn more https://stormpath.com/blog/secure-your-rest-api-right-way[on the Stormpath blog]
 // end::securing-your-api-more[]
 
+// tag::jwts-in-java-more[]
+Learn more https://stormpath.com/blog/csrf-protection-jwt-spring-security[on the Stormpath blog]
+// end::jwts-in-java-more[]
+
 === Microservices with JHipster
 
 // https://docs.google.com/document/d/1Wxo43oJgp4XP-C72pIbT-cjV0S4OlAHHAxxt7bgXFHw/edit#heading=h.ph7yfcmesusl

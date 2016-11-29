@@ -5,7 +5,8 @@ var bespoke = require('bespoke'),
   classes = require('bespoke-classes'),
   extern = require('bespoke-extern'),
   hash = require('bespoke-hash'),
-  multimedia = require('bespoke-multimedia'),
+  // comment out to prevent auto-play of youtube videos
+  //multimedia = require('bespoke-multimedia'),
   nav = require('bespoke-nav'),
   notes = require('bespoke-notes/dom'),
   onstage = require('bespoke-onstage'),
@@ -23,6 +24,6 @@ bespoke.from({ parent: 'article.deck', slides: 'section' }, [
   onstage(),
   progress(),
   hash(),
-  multimedia(),
+  //multimedia(),
   extern(bespoke)
 ]);
