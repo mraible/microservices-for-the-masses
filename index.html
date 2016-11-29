@@ -103,7 +103,7 @@ infinitely scalable. To get started <a href="https://api.stormpath.com/register"
 <p>We use the ecosystem integrations for Zookeeper, Kafka, Cassandra, JMS messaging, SMTP mail servers and many others. Historically, we’ve had to build, integrate and configure these services ourselves, but now we just drop in the necessary starter dependency, and boom: the starter is enabled and auto-configured!</p></aside></section>
 <section><figure class="quote"><blockquote><p>Microservices are awesome, but they&#8217;re not free.</p></blockquote><figcaption>Les Hazlewood <cite>Stormpath CTO</cite></figcaption></figure>
 <aside role="note"><p>Managing microservices requires a lot of organization changes and automation to be successful. Think of products, not projects!</p></aside></section>
-<section><h2>Spring Boot Demo</h2><figure class="image"><img src="images/spring-boot-logo.png" alt="Spring Boot Demo" width="200"></figure>
+<section><h2>Spring Boot Demo</h2><figure class="image"><img src="images/spring-boot-logo.png" alt="Spring Boot Demo" width="150"></figure>
 <figure class="image"><img src="images/java-logo.png" alt="Java" width="50"></figure>
 <aside role="note"><p>Let&#8217;s turn on some Java!</p>
 <ul><li><span class="primary">JPA, H2, REST API</span></li><li><span class="primary">Stormpath Authentication</span></li><li><span class="primary">Deploy to Cloud Foundry</span></li></ul>
@@ -157,7 +157,9 @@ between the resource owner and the HTTP service, or by allowing the
 third-party application to obtain access on its own behalf.  This
 specification replaces and obsoletes the OAuth 1.0 protocol described
 in RFC 5849.</p></aside></section>
-<section><h2>How to Secure your API</h2><figure class="video youtube"><iframe src="https://www.youtube.com/embed/hdSrT4yjS1g?enablejsapi=1&amp;rel=0&amp;showinfo=0&amp;controls=0&amp;disablekb=1" frameborder="0" allowfullscreen="true"></iframe></figure>
+<section><h2>How to Secure your API</h2><figure class="video youtube"><iframe src="https://www.youtube.com/embed/hdSrT4yjS1g?enablejsapi=1&amp;rel=0&amp;showinfo=0&amp;controls=0&amp;disablekb=1" width="300" height="169" frameborder="0" allowfullscreen="true"></iframe></figure>
+<div class="video-link"><figure class="image"><img src="images/rest-api-design.png" alt="rest api design" width="300"></figure>
+<p><a href="https://www.youtube.com/watch?v=hdSrT4yjS1g" class="bare">https://www.youtube.com/watch?v=hdSrT4yjS1g</a></p></div>
 <p class="m-lg">Learn more <a href="https://stormpath.com/blog/secure-your-rest-api-right-way">on the Stormpath blog</a></p></section>
 <section class="image" style="background-image: url(images/secure-UI-jwt.jpg); background-size: cover; background-repeat: no-repeat">
 <aside role="note"><p><strong>JSON Web Tokens</strong></p>
@@ -193,8 +195,10 @@ assertEquals(scope, <span style="background-color:hsla(0,100%,50%,0.05)"><span s
 
 .signWith(SignatureAlgorithm.HS256,
     TextCodec.BASE64.decode(b64EncodedSecret))</code></pre></section>
-<section><h2>JWTs in Java for CSRF and Microservices</h2><figure class="video youtube"><iframe src="https://www.youtube.com/embed/QSYK4OCmycI?enablejsapi=1&amp;rel=0&amp;showinfo=0&amp;controls=0&amp;disablekb=1" frameborder="0" allowfullscreen="true"></iframe></figure>
-<p class="m-lg">By <a href="https://twitter.com/afitnerd">Micah Silverman</a></p>
+<section><h2>JWTs in Java for CSRF and Microservices</h2><figure class="video youtube"><iframe src="https://www.youtube.com/embed/QSYK4OCmycI?enablejsapi=1&amp;rel=0&amp;showinfo=0&amp;controls=0&amp;disablekb=1" width="300" height="169" frameborder="0" allowfullscreen="true"></iframe></figure>
+<div class="video-link"><figure class="image"><img src="images/jwts-in-java-for-csrf.png" alt="jwts in java for csrf" width="300"></figure>
+<p><a href="https://www.youtube.com/watch?v=QSYK4OCmycI" class="bare">https://www.youtube.com/watch?v=QSYK4OCmycI</a></p></div>
+<p class="m-lg">Learn more <a href="https://stormpath.com/blog/csrf-protection-jwt-spring-security">on the Stormpath blog</a></p>
 <aside role="note"><p>If you&#8217;d like to see a in-depth presentation on JWTs and how you can
 use them to lock down communication between microservices, please
 checkout my colleague Micah Silverman&#8217;s video.</p>
@@ -205,7 +209,7 @@ checkout my colleague Micah Silverman&#8217;s video.</p>
 <p>The JHipster Registry is a standalone application that you install, rather than generate. All microservices register with this application and get their configuration from it. This application is based on Netflix’s Eureka and Spring Cloud Config.</p>
 <p>Microservices are JHipster-generated stateless applications that handle REST requests.</p>
 <p>To monitor this architecture you can use JHipster Console, which is based on the ELK Stack (Elasticsearch, Logstash, Kibana).</p></aside></section>
-<section class="white"><figure class="image"><img src="images/jhipster-gen-microservice.png" alt="JHipster Microservices Demo" width="400"></figure>
+<section><figure class="image"><img src="images/jhipster-gen-microservice.png" alt="JHipster Microservices Demo" width="400"></figure>
 <aside role="note"><p>Now the moment you&#8217;ve all been waiting for - creating microservices with JHipster!</p>
 <ul><li><span class="primary">Convert blog to gateway</span></li><li><span class="primary">Create store microservice</span></li><li><span class="primary">Product entity for store, generate UI on gateway</span></li><li><span class="primary">Deploy to Kubernetes and Docker</span></li></ul></aside></section>
 <section class="image" style="background-image: url(images/san-fran-night.jpg); background-size: cover; background-repeat: no-repeat">
