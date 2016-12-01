@@ -23,6 +23,10 @@ endif::[]
 :toc:
 :uri-demos: ./../../../demos
 
+ifdef::env-github[]
+TIP: It appears you're reading this document on GitHub. If you want a prettier view, install https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia[Asciidoctor.js Live Preview for Chrome], then view the https://raw.githubusercontent.com/mraible/microservices-for-the-masses/master/presentation/src/notes/script.adoc[raw document]. Another option is to use the http://gist.asciidoctor.org/?github-mraible%2Fmicroservices-for-the-masses%2F%2Fpresentation%2Fsrc%2Fnotes%2Fscript.adoc[DocGist view] a bit more.
+endif::[]
+
 // tag::title[]
 Welcome everyone!
 
