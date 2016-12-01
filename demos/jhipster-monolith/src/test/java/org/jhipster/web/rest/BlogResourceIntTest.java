@@ -1,31 +1,31 @@
 package org.jhipster.web.rest;
 
 import org.jhipster.BlogApp;
-
 import org.jhipster.domain.Blog;
 import org.jhipster.repository.BlogRepository;
+import org.jhipster.repository.UserRepository;
 import org.jhipster.repository.search.BlogSearchRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BlogApp.class)
+@WithMockUser
 public class BlogResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -51,13 +52,13 @@ public class BlogResourceIntTest {
     private BlogSearchRepository blogSearchRepository;
 
     @Inject
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Inject
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+    private UserRepository userRepository;
 
     @Inject
     private EntityManager em;
+
+    @Inject
+    private WebApplicationContext context;
 
     private MockMvc restBlogMockMvc;
 
@@ -69,9 +70,8 @@ public class BlogResourceIntTest {
         BlogResource blogResource = new BlogResource();
         ReflectionTestUtils.setField(blogResource, "blogSearchRepository", blogSearchRepository);
         ReflectionTestUtils.setField(blogResource, "blogRepository", blogRepository);
-        this.restBlogMockMvc = MockMvcBuilders.standaloneSetup(blogResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setMessageConverters(jacksonMessageConverter).build();
+        this.restBlogMockMvc = MockMvcBuilders.webAppContextSetup(context)
+            .apply(springSecurity()).build();
     }
 
     /**
@@ -82,8 +82,8 @@ public class BlogResourceIntTest {
      */
     public static Blog createEntity(EntityManager em) {
         Blog blog = new Blog()
-                .name(DEFAULT_NAME)
-                .handle(DEFAULT_HANDLE);
+            .name(DEFAULT_NAME)
+            .handle(DEFAULT_HANDLE);
         return blog;
     }
 
@@ -91,6 +91,7 @@ public class BlogResourceIntTest {
     public void initTest() {
         blogSearchRepository.deleteAll();
         blog = createEntity(em);
+        blog.setUser(userRepository.findOneByLogin("user").get());
     }
 
     @Test
@@ -99,11 +100,10 @@ public class BlogResourceIntTest {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
         // Create the Blog
-
         restBlogMockMvc.perform(post("/api/blogs")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog)))
-                .andExpect(status().isCreated());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isCreated());
 
         // Validate the Blog in the database
         List<Blog> blogs = blogRepository.findAll();
@@ -127,9 +127,9 @@ public class BlogResourceIntTest {
         // Create the Blog, which fails.
 
         restBlogMockMvc.perform(post("/api/blogs")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isBadRequest());
 
         List<Blog> blogs = blogRepository.findAll();
         assertThat(blogs).hasSize(databaseSizeBeforeTest);
@@ -145,9 +145,9 @@ public class BlogResourceIntTest {
         // Create the Blog, which fails.
 
         restBlogMockMvc.perform(post("/api/blogs")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(blog)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(blog)))
+            .andExpect(status().isBadRequest());
 
         List<Blog> blogs = blogRepository.findAll();
         assertThat(blogs).hasSize(databaseSizeBeforeTest);
@@ -161,11 +161,11 @@ public class BlogResourceIntTest {
 
         // Get all the blogs
         restBlogMockMvc.perform(get("/api/blogs?sort=id,desc"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].handle").value(hasItem(DEFAULT_HANDLE.toString())));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(blog.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].handle").value(hasItem(DEFAULT_HANDLE.toString())));
     }
 
     @Test
@@ -188,7 +188,7 @@ public class BlogResourceIntTest {
     public void getNonExistingBlog() throws Exception {
         // Get the blog
         restBlogMockMvc.perform(get("/api/blogs/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -202,13 +202,13 @@ public class BlogResourceIntTest {
         // Update the blog
         Blog updatedBlog = blogRepository.findOne(blog.getId());
         updatedBlog
-                .name(UPDATED_NAME)
-                .handle(UPDATED_HANDLE);
+            .name(UPDATED_NAME)
+            .handle(UPDATED_HANDLE);
 
         restBlogMockMvc.perform(put("/api/blogs")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedBlog)))
-                .andExpect(status().isOk());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(updatedBlog)))
+            .andExpect(status().isOk());
 
         // Validate the Blog in the database
         List<Blog> blogs = blogRepository.findAll();
@@ -232,8 +232,8 @@ public class BlogResourceIntTest {
 
         // Get the blog
         restBlogMockMvc.perform(delete("/api/blogs/{id}", blog.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
 
         // Validate ElasticSearch is empty
         boolean blogExistsInEs = blogSearchRepository.exists(blog.getId());
