@@ -5,8 +5,8 @@
       "store"
     ],
     "directoryPath": "../",
-    "jwtSecretKey": "3aacecf040240d1b0ff276cada0f3c72a073e77a",
-    "dockerRepositoryName": "mraible",
+    "jwtSecretKey": "d9a803335634775a305a89e4c1994227d8e64f26",
+    "dockerRepositoryName": "",
     "dockerPushCommand": "docker push",
     "kubernetesNamespace": "default"
   }

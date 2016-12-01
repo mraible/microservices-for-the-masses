@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: registry
-        image: jhipster/jhipster-registry:v2.5.4
+        image: jhipster/jhipster-registry:v2.5.5
         ports:
         - containerPort: 8761
         env:

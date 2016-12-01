@@ -29,7 +29,8 @@ spec:
     spec:
       containers:
       - name: blog
-        image: mraible/blog
+        image: blog
+        imagePullPolicy: IfNotPresent
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
