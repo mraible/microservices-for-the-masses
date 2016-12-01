@@ -34,30 +34,32 @@ To reproduce this demo, delete everything in this directory except for this file
 == Kubernetes
 . Install https://docs.docker.com/engine/installation/[Docker] and http://kubernetes.io/docs/user-guide/prereqs/[kubectl].
 . Install https://www.virtualbox.org/wiki/Downloads[VirtualBox] and https://github.com/kubernetes/minikube/releases[Minikube].
+. Start Minikube using `minikube start`.
+. To be able to work with the docker daemon, run the `docker-env` command in your shell:
+
+  eval $(minikube docker-env)
+
 . Create Docker images of the `blog` and `store` applications:
 * Maven: `./mvnw package -Pprod docker:build`
 * Gradle: `./gradlew bootRepackage -Pprod buildDocker`
-. Tag the images and push them to Docker Hub. Yes, it should be possible to deploy images locally, but I haven't figured how to yet. image:emojis/confused-face.png[confused-face,24]
-+
-----
-docker tag blog mraible/blog
-docker push mraible/blog
-docker tag store mraible/store
-docker push mraible/store
-----
 . Create a `kubernetes` directory and run `yo jhipster:kubernetes` from it.
-. Start Minikube using `minikube start`.
+. Modify `kubernetes/blog/blog-deployment.yml` to add `imagePullPolicy: IfNotPresent`.
+
+  image: blog
+  imagePullPolicy: IfNotPresent
+
+. Modify `kubernetes/store/store-deployment.yml` to add `imagePullPolicy: IfNotPresent`.
+
+  image: store
+  imagePullPolicy: IfNotPresent
+
 . Run the following commands to deploy to Minikube. Run `minikube dashboard` to see the deployed containers.
-----
-kubectl apply -f registry
-kubectl apply -f blog
-kubectl apply -f store
-----
-. To be able to work with the docker daemon, run the `docker-env` command in your shell:
-----
-eval $(minikube docker-env)
-----
-. Run `minikube service blog` to view the blog application.
+
+  kubectl apply -f registry
+  kubectl apply -f blog
+  kubectl apply -f store
+
+. Run `minikube service blog` to view the blog application. You can also run `kubectl get po -o wide --watch` to see the status of each pod.
 
 [TIP]
 If you run `minikube delete` and have trouble running `minikube start` afterward, run `rm -rf ~/.minikube`. See https://github.com/kubernetes/minikube/issues/290[this issue] for more information.
