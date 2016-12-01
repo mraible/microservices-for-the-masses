@@ -5,6 +5,7 @@ import org.jhipster.domain.Entry;
 
 import org.jhipster.repository.EntryRepository;
 import org.jhipster.repository.search.EntrySearchRepository;
+import org.jhipster.security.SecurityUtils;
 import org.jhipster.web.rest.util.HeaderUtil;
 import org.jhipster.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class EntryResource {
 
     private final Logger log = LoggerFactory.getLogger(EntryResource.class);
-        
+
     @Inject
     private EntryRepository entryRepository;
 
@@ -98,7 +99,7 @@ public class EntryResource {
     public ResponseEntity<List<Entry>> getAllEntries(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Entries");
-        Page<Entry> page = entryRepository.findAll(pageable);
+        Page<Entry> page = entryRepository.findByBlogUserLoginOrderByDateDesc(SecurityUtils.getCurrentUserLogin(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/entries");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -140,7 +141,7 @@ public class EntryResource {
      * SEARCH  /_search/entries?query=:query : search for the entry corresponding
      * to the query.
      *
-     * @param query the query of the entry search 
+     * @param query the query of the entry search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers

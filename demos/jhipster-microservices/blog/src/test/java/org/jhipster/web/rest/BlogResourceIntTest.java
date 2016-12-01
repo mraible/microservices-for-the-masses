@@ -1,31 +1,31 @@
 package org.jhipster.web.rest;
 
 import org.jhipster.BlogApp;
-
 import org.jhipster.domain.Blog;
 import org.jhipster.repository.BlogRepository;
+import org.jhipster.repository.UserRepository;
 import org.jhipster.repository.search.BlogSearchRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BlogApp.class)
+@WithMockUser
 public class BlogResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -51,13 +52,13 @@ public class BlogResourceIntTest {
     private BlogSearchRepository blogSearchRepository;
 
     @Inject
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Inject
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+    private UserRepository userRepository;
 
     @Inject
     private EntityManager em;
+
+    @Inject
+    private WebApplicationContext context;
 
     private MockMvc restBlogMockMvc;
 
@@ -69,9 +70,8 @@ public class BlogResourceIntTest {
         BlogResource blogResource = new BlogResource();
         ReflectionTestUtils.setField(blogResource, "blogSearchRepository", blogSearchRepository);
         ReflectionTestUtils.setField(blogResource, "blogRepository", blogRepository);
-        this.restBlogMockMvc = MockMvcBuilders.standaloneSetup(blogResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setMessageConverters(jacksonMessageConverter).build();
+        this.restBlogMockMvc = MockMvcBuilders.webAppContextSetup(context)
+            .apply(springSecurity()).build();
     }
 
     /**
@@ -91,6 +91,7 @@ public class BlogResourceIntTest {
     public void initTest() {
         blogSearchRepository.deleteAll();
         blog = createEntity(em);
+        blog.setUser(userRepository.findOneByLogin("user").get());
     }
 
     @Test
@@ -99,7 +100,6 @@ public class BlogResourceIntTest {
         int databaseSizeBeforeCreate = blogRepository.findAll().size();
 
         // Create the Blog
-
         restBlogMockMvc.perform(post("/api/blogs")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(blog)))

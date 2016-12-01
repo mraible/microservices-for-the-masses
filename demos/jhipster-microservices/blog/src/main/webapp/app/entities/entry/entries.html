@@ -31,51 +31,24 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-            <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
-                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="title"><span data-translate="blogApp.entry.title">Title</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="content"><span data-translate="blogApp.entry.content">Content</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="date"><span data-translate="blogApp.entry.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="blog.name"><span data-translate="blogApp.entry.blog">Blog</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
-                <tr ng-repeat="entry in vm.entries track by entry.id">
-                    <td><a ui-sref="entry-detail({id:entry.id})">{{entry.id}}</a></td>
-                    <td>{{entry.title}}</td>
-                    <td>{{entry.content}}</td>
-                    <td>{{entry.date | date:'medium'}}</td>
-                    <td>
-                        <a ui-sref="blog-detail({id:entry.blog.id})">{{entry.blog.name}}</a>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="entry-detail({id:entry.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="entry.edit({id:entry.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="entry.delete({id:entry.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+        <div ng-repeat="entry in vm.entries track by entry.id">
+            <h2>{{entry.title}}</h2>
+            <small>Posted on {{entry.date | date: 'short'}} by {{entry.blog.user.login}}</small>
+            <div ng-bind-html="entry.content"></div>
+            <div class="btn-group" style="margin-top: 10px">
+                <button type="submit"
+                        ui-sref="entry.edit({id:entry.id})"
+                        class="btn btn-xs btn-primary">
+                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                    translate="entity.action.edit"> Edit</span>
+                </button>
+                <button type="submit"
+                        ui-sref="entry.delete({id:entry.id})"
+                        class="btn btn-xs btn-danger">
+                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
