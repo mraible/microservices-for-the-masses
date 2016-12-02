@@ -10,7 +10,7 @@ To reproduce this demo, delete everything in this directory except for this file
 ----
 "applicationType": "gateway"
 ----
-. Regenerate application using `yo jhipster --yarn --with-entities.
+. Regenerate application using `yo jhipster --yarn --with-entities`.
 . Using Git, re-apply business logic changes.
 . Create a new directory called `store` and run `yo jhipster` in it to create a "store" microservice. Use a MongoDB database.
 . Generate a `product` entity with a name and a price.
