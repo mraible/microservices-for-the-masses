@@ -18,7 +18,7 @@ To reproduce this demo, delete everything in this directory except for this file
 . Generate the UI for the store using `yo jhipster:entity product` from the `blog` directory.
 . Clone JHipster Registry: `git clone git@github.com:jhipster/jhipster-registry.git`.
 . Start MongoDB and Kafka using Docker Compose.
-* Store: 
+* Store:
 ** `docker-compose -f src/main/docker/mondodb.yml up`
 ** `docker-compose -f src/main/docker/kafka.yml up`
 ** `./mvnw`
@@ -79,11 +79,14 @@ To find what's running on a port on OS, use `sudo lsof -i :9092 # checks port 90
 . Run `minikube service blog` to view the blog application. You can also run `kubectl get po -o wide --watch` to see the status of each pod.
 
 [TIP]
+****
+To remove all deployed containers, run the following command:
+----
+kubectl delete deployment --all
+----
 If you run `minikube delete` and have trouble running `minikube start` afterward, run `rm -rf ~/.minikube`. See https://github.com/kubernetes/minikube/issues/290[this issue] for more information.
+****
 // end::deploy[]
 
-// kubectl delete deployment --all
-
-// http://kubernetes.io/docs/user-guide/kubectl/kubectl_delete/
 // todo: figure out how to deploy Docker containers to Amazon ECS - https://aws.amazon.com/blogs/aws/cloud-container-management/
 // todo: figure out how to deploy with Kubernetes to Google Cloud - https://cloud.google.com/container-engine/docs/
