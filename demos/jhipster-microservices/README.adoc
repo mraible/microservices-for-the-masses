@@ -19,21 +19,12 @@ To reproduce this demo, delete everything in this directory except for this file
 . Clone JHipster Registry: `git clone git@github.com:jhipster/jhipster-registry.git`.
 . Start MongoDB and Kafka using Docker Compose.
 * Store:
-** `docker-compose -f src/main/docker/mondodb.yml up`
+** `docker-compose -f src/main/docker/mongodb.yml up`
 ** `docker-compose -f src/main/docker/kafka.yml up`
 ** `./mvnw`
 * Blog: `./gradlew`
 * Registry: `./mvnw`
 
-[TIP]
-====
-To remove all docker containers, run the following commands or do it manually using Kitematic.
-----
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-----
-To find what's running on a port on OS, use `sudo lsof -i :9092 # checks port 9092`.
-====
 // end::main[]
 
 // tag::deploy[]
@@ -47,6 +38,16 @@ To find what's running on a port on OS, use `sudo lsof -i :9092 # checks port 90
 . Run `docker-compose up -d` to run everything.
 . Start Kitematic and view Blog, Store and JHipster Console.
 . Run Gatling tests to create activity in JHipster Console charts.
+
+[TIP]
+====
+To remove all docker containers, run the following commands or do it manually using Kitematic.
+----
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+----
+To find what's running on a port on OS, use `sudo lsof -i :9092 # checks port 9092`.
+====
 
 == Kubernetes
 . Install https://docs.docker.com/engine/installation/[Docker] and http://kubernetes.io/docs/user-guide/prereqs/[kubectl].
