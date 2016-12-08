@@ -7,7 +7,7 @@
   http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,devtools,remote-shell,security -d
 +
 . Run application with `./mvnw spring-boot:run`.
-. Create an entity class.
+. Create a `Blog` entity class.
 +
 [source,java]
 ----

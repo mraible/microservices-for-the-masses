@@ -45,7 +45,8 @@ To find what's running on a port on OS, use `sudo lsof -i :9092 # checks port 90
 . Create a `docker-compose` directory and run `yo jhipster:docker-compose` from it.
 . Start Docker.
 . Run `docker-compose up -d` to run everything.
-. Start Kitematic and view Docker applications.
+. Start Kitematic and view Blog, Store and JHipster Console.
+. Run Gatling tests to create activity in JHipster Console charts.
 
 == Kubernetes
 . Install https://docs.docker.com/engine/installation/[Docker] and http://kubernetes.io/docs/user-guide/prereqs/[kubectl].
