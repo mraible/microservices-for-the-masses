@@ -9,6 +9,41 @@ To reproduce this demo, delete everything in this directory except for this file
 .Running yo jhipster
 image::yo-jhipster.png[Running yo jhipster, 1186, scaledwidth=100%, align=center]
 +
+////
+----
+[mraible:~/blog] 48m7s $ yo jhipster --yarn
+
+        ██  ██    ██  ████████  ███████    ██████  ████████  ████████  ███████
+        ██  ██    ██     ██     ██    ██  ██          ██     ██        ██    ██
+        ██  ████████     ██     ███████    █████      ██     ██████    ███████
+  ██    ██  ██    ██     ██     ██             ██     ██     ██        ██   ██
+   ██████   ██    ██  ████████  ██        ██████      ██     ████████  ██    ██
+
+                            http://jhipster.github.io
+
+Welcome to the JHipster Generator v3.12.0
+Documentation for creating an application: https://jhipster.github.io/creating-an-app/
+Application files will be generated in folder: /Users/mraible/blog
+? (1/14) Which *type* of application would you like to create? Monolithic application (recommended for simple projects)
+? (2/14) What is the base name of your application? blog
+? (3/14) Would you like to install other generators from the JHipster Market Place? No
+? (3/14) What is your default Java package name? org.jhipster
+? (4/14) Which *type* of authentication would you like to use? JWT authentication (stateless, with a token)
+? (5/14) Which *type* of database would you like to use? SQL (H2, MySQL, MariaDB, PostgreSQL, Oracle)
+? (6/14) Which *production* database would you like to use? MySQL
+? (7/14) Which *development* database would you like to use? H2 with disk-based persistence
+? (8/14) Do you want to use Hibernate 2nd level cache? Yes, with ehcache (local cache, for a single node)
+? (9/14) Would you like to use Maven or Gradle for building the backend? Gradle
+? (10/14) Which other technologies would you like to use? Search engine using ElasticSearch
+? (11/14) Would you like to use the LibSass stylesheet preprocessor for your CSS? Yes
+? (12/14) Would you like to enable internationalization support? Yes
+? Please choose the native language of the application? English
+? Please choose additional languages to install Spanish
+? (13/14) Which testing frameworks would you like to use? Gatling, Protractor
+----
+////
++
+. Run `git init` and add the project to Git using `git add .` followed by `git commit -m "First commit"`.
 . Open the application in IntelliJ and run it. Run `gulp itest` to prove everything works.
 // Give an overview of project structure and configuration
 . http://bit.ly/jhipster-blog-jdl[Download blog entities JDL] from https://jhipster.github.io/jdl-studio/[JDL-Studio].

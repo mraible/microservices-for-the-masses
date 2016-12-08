@@ -6,7 +6,7 @@
 +
   http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,devtools,remote-shell,security -d
 +
-. Run application with `mvn spring-boot:run`. If you'd like to use the Maven Wrapper, run `mvn -N io.takari:maven:wrapper`, followed by `./mvnw`.
+. Run application with `./mvnw spring-boot:run`.
 . Create an entity class.
 +
 [source,java]
@@ -145,7 +145,7 @@ applications:
     buildpack: java_buildpack
     path: target/demo-0.0.1-SNAPSHOT.jar
 ----
-. Run `cf push` to deploy.
+. Run `mvn package` and `cf push` to deploy.
 . This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
 . Restart your application and view it at https://blog-demo.cfapps.io/ (or something similar).
 
