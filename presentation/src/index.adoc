@@ -547,7 +547,7 @@ include::{uri-script}[tag=jhipster.next]
 
 [.cue]
 ****
-HTTP/2, Kafka, Spring 5, Angular 2 - we got it! We just need help - scratch - time.
+We have all the buzzwords! We just need help - scratch - time.
 ****
 
 // JHipster Book
@@ -558,7 +558,7 @@ image::jhipster-mini-book.jpg[JHipster Mini-Book,role=cover canvas]
 
 [.cue]
 ****
-Version 2.0 will be released on December 5th
+Version 2.0 was released December 5th!
 ****
 
 // Philosophy
@@ -566,6 +566,18 @@ Version 2.0 will be released on December 5th
 
 [quote, Unix philosophy]
 Do one thing and do it well.
+
+== This Presentation and Demos
+
+image::https://octodex.github.com/images/class-act.png[Class Act,width=200]
+
+[.m-lg]
+https://github.com/mraible/microservices-for-the-masses
+
+[.cue]
+****
+We have all the buzzwords! We just need help - scratch - time.
+****
 
 // Cheers!
 [.white]

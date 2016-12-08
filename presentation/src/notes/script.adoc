@@ -478,10 +478,12 @@ include::{uri-demos}/jhipster-microservices/README.adoc[tag=deploy]
 
 // tag::jhipster.next[]
 [build=items]
-* HTTP/2
-* Apache Kafka
+* Angular 2
+* JUnit 5
 * Spring 5 and Reactive
-* RxJava 2.0 and RxJS
-* Reactive Streams
-* Reactive Sockets
+* Apache Kafka
+* HTTP/2
+* Progressive Web App Support
+
+[.cue]
 // end::jhipster.next[]
