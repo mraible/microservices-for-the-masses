@@ -79,13 +79,13 @@ To find what's running on a port on OS, use `sudo lsof -i :9092 # checks port 90
 . Run `minikube service blog` to view the blog application. You can also run `kubectl get po -o wide --watch` to see the status of each pod.
 
 [TIP]
-****
+====
 To remove all deployed containers, run the following command:
 ----
 kubectl delete deployment --all
 ----
 If you run `minikube delete` and have trouble running `minikube start` afterward, run `rm -rf ~/.minikube`. See https://github.com/kubernetes/minikube/issues/290[this issue] for more information.
-****
+====
 // end::deploy[]
 
 // todo: figure out how to deploy Docker containers to Amazon ECS - https://aws.amazon.com/blogs/aws/cloud-container-management/
