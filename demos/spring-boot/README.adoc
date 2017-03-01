@@ -1,10 +1,9 @@
 = Spring Boot Demo
 
-//Steps to reproduce from scratch
-
 . Create application using https://start.spring.io[start.spring.io]
 +
-  http https://start.spring.io/starter.zip dependencies==data-jpa,data-rest,h2,web,devtools,remote-shell,security -d
+  http https://start.spring.io/starter.zip \
+  dependencies==data-jpa,data-rest,h2,web,devtools,security -d
 +
 . Run application with `./mvnw spring-boot:run`.
 . Create a `Blog` entity class.
@@ -59,14 +58,16 @@ interface BlogRepository extends JpaRepository<Blog, Long> {
 ----
 @Component
 class BlogCommandLineRunner implements CommandLineRunner {
+    private BlogRepository repository;
+
+    public BlogCommandLineRunner(BlogRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void run(String... strings) throws Exception {
         System.out.println(repository.findAll());
     }
-
-    @Autowired
-    private BlogRepository repository;
 }
 ----
 +
@@ -84,14 +85,16 @@ insert into blog (name) values ('Second');
 ----
 @RestController
 class BlogController {
+    private BlogRepository repository;
+
+    public BlogController(BlogRepository repository) {
+        this.repository = repository;
+    }
 
     @RequestMapping("/blogs")
     Collection<Blog> list() {
         return repository.findAll();
     }
-
-    @Autowired
-    BlogRepository repository;
 }
 ----
 +
@@ -102,17 +105,31 @@ You can change the user's password by adding `security.user.password=user` in `a
 . Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
 // change prefix with `spring.data.rest.basePath=/api`
 +
-. Integrate Stormpath with Spring Security by creating a `com.example.SecurityConfiguration` class.
+. Integrate Stormpath by adding the following dependency to `pom.xml`.
 +
-[source,java]
+[source,xml]
 ----
-@Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.apply(stormpath());
-    }
-}
+<dependency>
+    <groupId>com.stormpath.spring</groupId>
+    <artifactId>stormpath-default-spring-boot-starter</artifactId>
+</dependency>
+----
++
+. Add the `stormpath-bom` to the dependency management section to manage the versions imported by Stormpath.
++
+[source,xml]
+----
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.stormpath.sdk</groupId>
+            <artifactId>stormpath-bom</artifactId>
+            <version>1.5.4</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
 ----
 +
 Navigate to http://localhost:8080/blogs, login and see JSON in your browser. Can also view from the command line using:
@@ -137,15 +154,7 @@ http.apply(stormpath()).and()
 ----
 cf login -a api.run.pivotal.io
 ----
-. Create a `manifest.yml` in the root directory
-----
----
-applications:
-  - name: blog-demo
-    buildpack: java_buildpack
-    path: target/demo-0.0.1-SNAPSHOT.jar
-----
-. Run `mvn package` and `cf push` to deploy.
+. Run `mvn package` and `cf push -p target/*jar blog-demo` to deploy.
 . This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
 . Restart your application and view it at https://blog-demo.cfapps.io/ (or something similar).
 
