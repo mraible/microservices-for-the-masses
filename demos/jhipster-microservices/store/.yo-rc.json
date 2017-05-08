@@ -1,12 +1,15 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.11.0",
+    "promptValues": {
+      "packageName": "org.jhipster.store",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "4.3.0",
     "baseName": "store",
-    "packageName": "org.jhipster",
-    "packageFolder": "org/jhipster",
+    "packageName": "org.jhipster.store",
+    "packageFolder": "org/jhipster/store",
     "serverPort": "8081",
     "authenticationType": "jwt",
-    "uaaBaseName": "uaa",
     "hibernateCache": "no",
     "clusteredHttpSession": false,
     "websocket": false,
@@ -14,11 +17,11 @@
     "devDatabaseType": "mongodb",
     "prodDatabaseType": "mongodb",
     "searchEngine": false,
-    "messageBroker": "kafka",
+    "messageBroker": false,
     "serviceDiscoveryType": "eureka",
     "buildTool": "maven",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "70d1a72b65845e944318dfa14810cf98ced724d0",
+    "jwtSecretKey": "93f6128bb08c1b44b310de18d7b386a02542b60b",
     "enableTranslation": true,
     "applicationType": "microservice",
     "testFrameworks": [
@@ -30,7 +33,8 @@
     "nativeLanguage": "en",
     "languages": [
       "en",
-      "fr"
-    ]
+      "es"
+    ],
+    "clientPackageManager": "yarn"
   }
 }

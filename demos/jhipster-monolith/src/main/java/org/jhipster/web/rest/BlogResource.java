@@ -2,25 +2,20 @@ package org.jhipster.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.jhipster.domain.Blog;
+
 import org.jhipster.repository.BlogRepository;
-import org.jhipster.repository.search.BlogSearchRepository;
 import org.jhipster.web.rest.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * REST controller for managing Blog.
@@ -31,11 +26,13 @@ public class BlogResource {
 
     private final Logger log = LoggerFactory.getLogger(BlogResource.class);
 
-    @Inject
-    private BlogRepository blogRepository;
+    private static final String ENTITY_NAME = "blog";
 
-    @Inject
-    private BlogSearchRepository blogSearchRepository;
+    private final BlogRepository blogRepository;
+
+    public BlogResource(BlogRepository blogRepository) {
+        this.blogRepository = blogRepository;
+    }
 
     /**
      * POST  /blogs : Create a new blog.
@@ -49,12 +46,11 @@ public class BlogResource {
     public ResponseEntity<Blog> createBlog(@Valid @RequestBody Blog blog) throws URISyntaxException {
         log.debug("REST request to save Blog : {}", blog);
         if (blog.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("blog", "idexists", "A new blog cannot already have an ID")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new blog cannot already have an ID")).body(null);
         }
         Blog result = blogRepository.save(blog);
-        blogSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/blogs/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("blog", result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -75,9 +71,8 @@ public class BlogResource {
             return createBlog(blog);
         }
         Blog result = blogRepository.save(blog);
-        blogSearchRepository.save(result);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("blog", blog.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, blog.getId().toString()))
             .body(result);
     }
 
@@ -105,11 +100,7 @@ public class BlogResource {
     public ResponseEntity<Blog> getBlog(@PathVariable Long id) {
         log.debug("REST request to get Blog : {}", id);
         Blog blog = blogRepository.findOne(id);
-        return Optional.ofNullable(blog)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(blog));
     }
 
     /**
@@ -123,25 +114,7 @@ public class BlogResource {
     public ResponseEntity<Void> deleteBlog(@PathVariable Long id) {
         log.debug("REST request to delete Blog : {}", id);
         blogRepository.delete(id);
-        blogSearchRepository.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("blog", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     * SEARCH  /_search/blogs?query=:query : search for the blog corresponding
-     * to the query.
-     *
-     * @param query the query of the blog search
-     * @return the result of the search
-     */
-    @GetMapping("/_search/blogs")
-    @Timed
-    public List<Blog> searchBlogs(@RequestParam String query) {
-        log.debug("REST request to search Blogs for query {}", query);
-        return StreamSupport
-            .stream(blogSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
-
 
 }

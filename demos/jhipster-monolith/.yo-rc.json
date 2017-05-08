@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "3.11.0",
+    "jhipsterVersion": "4.3.0",
     "baseName": "blog",
     "packageName": "org.jhipster",
     "packageFolder": "org/jhipster",
@@ -11,13 +11,16 @@
     "websocket": false,
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
-    "prodDatabaseType": "mysql",
-    "searchEngine": "elasticsearch",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
     "messageBroker": false,
-    "buildTool": "gradle",
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
     "enableSocialSignIn": false,
-    "jwtSecretKey": "90ec1b493dcc638e1a27562f637e4ccd5f084830",
+    "jwtSecretKey": "a895eda190e4ddf6eba453aa725bb4da8a565dfc",
+    "clientFramework": "angular2",
     "useSass": true,
+    "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "testFrameworks": [
       "gatling",
@@ -28,7 +31,7 @@
     "nativeLanguage": "en",
     "languages": [
       "en",
-      "de"
+      "es"
     ]
   }
 }

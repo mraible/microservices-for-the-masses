@@ -2,6 +2,9 @@
 # Spring Boot configuration.
 #
 # This configuration is used for unit/integration tests.
+#
+# More information on profiles: https://jhipster.github.io/profiles/
+# More information on configuration properties: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 # ===================================================================
@@ -15,22 +18,15 @@ eureka:
         enabled: false
     instance:
         appname: store
-        instanceId: store:${spring.application.instance_id:${random.value}}
+        instanceId: store:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
         name: store
     jackson:
         serialization.write_dates_as_timestamps: false
-    cloud:
-        stream:
-            kafka:
-                binder:
-                    brokers: localhost
-                    zk-nodes: localhost
-            bindings:
-                output:
-                    destination: topic-jhipster
+    cache:
+        type: none
     data:
         mongodb:
             host: localhost
@@ -38,6 +34,8 @@ spring:
             database: store
     mail:
         host: localhost
+    messages:
+        basename: i18n/messages
     mvc:
         favicon:
             enabled: false
@@ -57,28 +55,31 @@ server:
 
 # ===================================================================
 # JHipster specific properties
+#
+# Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 jhipster:
     async:
-        corePoolSize: 2
-        maxPoolSize: 50
-        queueCapacity: 10000
+        core-pool-size: 1
+        max-pool-size: 50
+        queue-capacity: 10000
     security:
         authentication:
             jwt:
-                secret: 70d1a72b65845e944318dfa14810cf98ced724d0
+                secret: 93f6128bb08c1b44b310de18d7b386a02542b60b
                 # Token is valid 24 hours
-                tokenValidityInSeconds: 86400
+                token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
-    swagger:
-        title: store API
-        description: store API documentation
-        version: 0.0.1
-        termsOfServiceUrl:
-        contactName:
-        contactUrl:
-        contactEmail:
-        license:
-        licenseUrl:
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+application:

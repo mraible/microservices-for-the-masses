@@ -61,12 +61,12 @@ class ProductGatlingTest extends Simulation {
         .pause(10)
         .repeat(2) {
             exec(http("Get all products")
-            .get("/api/products")
+            .get("/store/api/products")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
             .exec(http("Create new product")
-            .post("/api/products")
+            .post("/store/api/products")
             .headers(headers_http_authenticated)
             .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "price":null}""")).asJSON
             .check(status.is(201))
@@ -74,12 +74,12 @@ class ProductGatlingTest extends Simulation {
             .pause(10)
             .repeat(5) {
                 exec(http("Get created product")
-                .get("${new_product_url}")
+                .get("/store${new_product_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
             .exec(http("Delete created product")
-            .delete("${new_product_url}")
+            .delete("/store${new_product_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

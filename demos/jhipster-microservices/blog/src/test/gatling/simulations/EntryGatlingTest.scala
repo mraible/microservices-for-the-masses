@@ -68,7 +68,7 @@ class EntryGatlingTest extends Simulation {
             .exec(http("Create new entry")
             .post("/api/entries")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "content":"SAMPLE_TEXT", "date":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "content":null, "date":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_entry_url"))).exitHereIfFailed
             .pause(10)

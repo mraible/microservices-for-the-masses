@@ -43,13 +43,20 @@
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
-            "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "email": "Email",
+            "email.placeholder": "Your email"
         },
         "messages": {
             "info": {
-                "authenticated": "If you want to <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\">sign in</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-                "register": "You don't have an account yet? <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Register a new account</a>"
+                "authenticated": {
+                    "prefix": "If you want to ",
+                    "link": "sign in",
+                    "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+                },
+                "register": {
+                    "noaccount": "You don't have an account yet?",
+                    "link": "Register a new account"
+                }
             },
             "error": {
                 "dontmatch": "The password and its confirmation do not match!"
@@ -67,10 +74,10 @@
                     "maxlength": "Your confirmation password cannot be longer than 50 characters."
                 },
                 "email": {
-                    "required": "Your e-mail is required.",
-                    "invalid": "Your e-mail is invalid.",
-                    "minlength": "Your e-mail is required to be at least 5 characters.",
-                    "maxlength": "Your e-mail cannot be longer than 50 characters."
+                    "required": "Your email is required.",
+                    "invalid": "Your email is invalid.",
+                    "minlength": "Your email is required to be at least 5 characters.",
+                    "maxlength": "Your email cannot be longer than 50 characters."
                 }
             }
         },
@@ -104,22 +111,23 @@
             "required": "This field is required.",
             "minlength": "This field is required to be at least {{ min }} characters.",
             "maxlength": "This field cannot be longer than {{ max }} characters.",
-            "min": "This field should be more than {{ min }}.",
+            "min": "This field should be at least {{ min }}.",
             "max": "This field cannot be more than {{ max }}.",
-            "minbytes": "This field should be more than {{ min }} bytes.",
+            "minbytes": "This field should be at least {{ min }} bytes.",
             "maxbytes": "This field cannot be more than {{ max }} bytes.",
-            "pattern": "This field should follow pattern {{ pattern }}.",
+            "pattern": "This field should follow pattern for {{ pattern }}.",
             "number": "This field should be a number.",
             "datetimelocal": "This field should be a date and time."
         }
     },
     "error": {
+        "internalServerError": "Internal server error",
         "server.not.reachable": "Server not reachable",
         "url.not.found": "Not found",
         "NotNull": "Field {{ fieldName }} cannot be empty!",
         "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
         "userexists": "Login name already used!",
-        "emailexists": "E-mail is already in use!",
+        "emailexists": "Email is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID"
     },
     "footer": "This is your footer"

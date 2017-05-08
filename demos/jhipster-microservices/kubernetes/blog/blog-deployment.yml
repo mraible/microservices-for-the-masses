@@ -1,21 +1,3 @@
-# Copyright 2016 Google Inc. All Rights Reserved.
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -28,18 +10,21 @@ spec:
         app: blog
     spec:
       containers:
-      - name: blog
-        image: blog
+      - name: blog-app
+        image: mraible/blog
         imagePullPolicy: IfNotPresent
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: prod
-        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-          value: http://admin:admin@jhipster-registry.default.svc.cluster.local:8761/eureka/
         - name: SPRING_CLOUD_CONFIG_URI
-          value: http://admin:admin@jhipster-registry.default.svc.cluster.local:8761/config
+          value: http://admin:${jhipster.registry.password}@jhipster-registry.default.svc.cluster.local:8761/config
+        - name: JHIPSTER_REGISTRY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: registry-secret
+              key: registry-admin-password
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:mysql://blog-mysql.default.svc.cluster.local:3306/blog?useUnicode=true&characterEncoding=utf8&useSSL=false
+          value: jdbc:postgresql://blog-postgresql.default.svc.cluster.local:5432/blog
         - name: SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES
           value: blog-elasticsearch.default.svc.cluster.local:9300
         ports:

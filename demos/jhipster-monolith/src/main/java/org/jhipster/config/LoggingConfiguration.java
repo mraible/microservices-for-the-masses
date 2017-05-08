@@ -1,5 +1,7 @@
 package org.jhipster.config;
 
+import io.github.jhipster.config.JHipsterProperties;
+
 import ch.qos.logback.classic.AsyncAppender;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
@@ -12,9 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 @Configuration
 public class LoggingConfiguration {
 
@@ -22,18 +21,17 @@ public class LoggingConfiguration {
 
     private LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
-    @Value("${spring.application.name}")
-    private String appName;
+    private final String appName;
 
-    @Value("${server.port}")
-    private String serverPort;
+    private final String serverPort;
 
+    private final JHipsterProperties jHipsterProperties;
 
-    @Inject
-    private JHipsterProperties jHipsterProperties;
-
-    @PostConstruct
-    private void init() {
+    public LoggingConfiguration(@Value("${spring.application.name}") String appName, @Value("${server.port}") String serverPort,
+         JHipsterProperties jHipsterProperties) {
+        this.appName = appName;
+        this.serverPort = serverPort;
+        this.jHipsterProperties = jHipsterProperties;
         if (jHipsterProperties.getLogging().getLogstash().isEnabled()) {
             addLogstashAppender(context);
 
@@ -76,7 +74,6 @@ public class LoggingConfiguration {
         context.getLogger("ROOT").addAppender(asyncLogstashAppender);
     }
 
-
     /**
      * Logback configuration is achieved by configuration file and API.
      * When configuration file change is detected, the configuration is reset.
@@ -101,10 +98,12 @@ public class LoggingConfiguration {
 
         @Override
         public void onStop(LoggerContext context) {
+            // Nothing to do.
         }
 
         @Override
         public void onLevelChange(ch.qos.logback.classic.Logger logger, Level level) {
+            // Nothing to do.
         }
     }
 

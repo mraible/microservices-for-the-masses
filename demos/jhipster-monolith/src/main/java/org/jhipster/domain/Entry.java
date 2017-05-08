@@ -2,7 +2,6 @@ package org.jhipster.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,13 +17,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "entry")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "entry")
 public class Entry implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @NotNull
@@ -32,6 +31,7 @@ public class Entry implements Serializable {
     private String title;
 
     @NotNull
+    @Lob
     @Column(name = "content", nullable = false)
     private String content;
 
@@ -45,8 +45,8 @@ public class Entry implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "entry_tag",
-               joinColumns = @JoinColumn(name="entries_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="ID"))
+               joinColumns = @JoinColumn(name="entries_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="id"))
     private Set<Tag> tags = new HashSet<>();
 
     public Long getId() {
@@ -119,13 +119,13 @@ public class Entry implements Serializable {
     }
 
     public Entry addTag(Tag tag) {
-        tags.add(tag);
+        this.tags.add(tag);
         tag.getEntries().add(this);
         return this;
     }
 
     public Entry removeTag(Tag tag) {
-        tags.remove(tag);
+        this.tags.remove(tag);
         tag.getEntries().remove(this);
         return this;
     }
@@ -143,7 +143,7 @@ public class Entry implements Serializable {
             return false;
         }
         Entry entry = (Entry) o;
-        if(entry.id == null || id == null) {
+        if (entry.id == null || id == null) {
             return false;
         }
         return Objects.equals(id, entry.id);

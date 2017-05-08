@@ -2,7 +2,6 @@ package org.jhipster.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,13 +14,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "blog")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "blog")
 public class Blog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @NotNull
@@ -93,7 +92,7 @@ public class Blog implements Serializable {
             return false;
         }
         Blog blog = (Blog) o;
-        if(blog.id == null || id == null) {
+        if (blog.id == null || id == null) {
             return false;
         }
         return Objects.equals(id, blog.id);

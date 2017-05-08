@@ -1,28 +1,27 @@
 package org.jhipster.service;
 
-import org.jhipster.config.JHipsterProperties;
 import org.jhipster.domain.User;
+
+import io.github.jhipster.config.JHipsterProperties;
 
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
-
-import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import java.util.Locale;
 
 /**
- * Service for sending e-mails.
+ * Service for sending emails.
  * <p>
- * We use the @Async annotation to send e-mails asynchronously.
+ * We use the @Async annotation to send emails asynchronously.
  * </p>
  */
 @Service
@@ -34,21 +33,26 @@ public class MailService {
 
     private static final String BASE_URL = "baseUrl";
 
-    @Inject
-    private JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-    @Inject
-    private JavaMailSenderImpl javaMailSender;
+    private final JavaMailSender javaMailSender;
 
-    @Inject
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
-    @Inject
-    private SpringTemplateEngine templateEngine;
+    private final SpringTemplateEngine templateEngine;
+
+    public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
+            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+
+        this.jHipsterProperties = jHipsterProperties;
+        this.javaMailSender = javaMailSender;
+        this.messageSource = messageSource;
+        this.templateEngine = templateEngine;
+    }
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
-        log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
+        log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
             isMultipart, isHtml, to, subject, content);
 
         // Prepare message using a Spring helper
@@ -60,43 +64,43 @@ public class MailService {
             message.setSubject(subject);
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);
-            log.debug("Sent e-mail to User '{}'", to);
+            log.debug("Sent email to User '{}'", to);
         } catch (Exception e) {
-            log.warn("E-mail could not be sent to user '{}'", to, e);
+            log.warn("Email could not be sent to user '{}'", to, e);
         }
     }
 
     @Async
-    public void sendActivationEmail(User user, String baseUrl) {
-        log.debug("Sending activation e-mail to '{}'", user.getEmail());
+    public void sendActivationEmail(User user) {
+        log.debug("Sending activation email to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
-        context.setVariable(BASE_URL, baseUrl);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process("activationEmail", context);
         String subject = messageSource.getMessage("email.activation.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
     @Async
-    public void sendCreationEmail(User user, String baseUrl) {
-        log.debug("Sending creation e-mail to '{}'", user.getEmail());
+    public void sendCreationEmail(User user) {
+        log.debug("Sending creation email to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
-        context.setVariable(BASE_URL, baseUrl);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process("creationEmail", context);
         String subject = messageSource.getMessage("email.activation.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
     @Async
-    public void sendPasswordResetMail(User user, String baseUrl) {
-        log.debug("Sending password reset e-mail to '{}'", user.getEmail());
+    public void sendPasswordResetMail(User user) {
+        log.debug("Sending password reset email to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
-        context.setVariable(BASE_URL, baseUrl);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process("passwordResetEmail", context);
         String subject = messageSource.getMessage("email.reset.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);

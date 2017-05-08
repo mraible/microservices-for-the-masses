@@ -1,7 +1,6 @@
 version: '2'
 services:
     blog-cassandra-migration:
-        container_name: blog-cassandra-migration
         environment:
             - CASSANDRA_CONTACT_POINT=blog-cassandra
             - USER=docker-cassandra-migration

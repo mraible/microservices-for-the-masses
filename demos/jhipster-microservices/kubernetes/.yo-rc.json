@@ -5,8 +5,9 @@
       "store"
     ],
     "directoryPath": "../",
-    "jwtSecretKey": "d9a803335634775a305a89e4c1994227d8e64f26",
-    "dockerRepositoryName": "",
+    "serviceDiscoveryType": "eureka",
+    "jwtSecretKey": "808abc183cb9acf2ab8c4a2bc6b34335161b76e3",
+    "dockerRepositoryName": "mraible",
     "dockerPushCommand": "docker push",
     "kubernetesNamespace": "default"
   }

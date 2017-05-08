@@ -3,7 +3,6 @@ package org.jhipster.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,13 +17,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "tag")
 public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @NotNull
@@ -68,13 +67,13 @@ public class Tag implements Serializable {
     }
 
     public Tag addEntry(Entry entry) {
-        entries.add(entry);
+        this.entries.add(entry);
         entry.getTags().add(this);
         return this;
     }
 
     public Tag removeEntry(Entry entry) {
-        entries.remove(entry);
+        this.entries.remove(entry);
         entry.getTags().remove(this);
         return this;
     }
@@ -92,7 +91,7 @@ public class Tag implements Serializable {
             return false;
         }
         Tag tag = (Tag) o;
-        if(tag.id == null || id == null) {
+        if (tag.id == null || id == null) {
             return false;
         }
         return Objects.equals(id, tag.id);

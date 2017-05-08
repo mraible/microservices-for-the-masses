@@ -105,7 +105,7 @@ You can change the user's password by adding `security.user.password=user` in `a
 . Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
 // change prefix with `spring.data.rest.basePath=/api`
 +
-. Integrate Stormpath by adding the following dependency to `pom.xml`.
+. Integrate Stormpath's SDK for Okta by adding the following dependency to `pom.xml`.
 +
 [source,xml]
 ----
@@ -124,7 +124,7 @@ You can change the user's password by adding `security.user.password=user` in `a
         <dependency>
             <groupId>com.stormpath.sdk</groupId>
             <artifactId>stormpath-bom</artifactId>
-            <version>1.5.4</version>
+            <version>2.0.0-okta-rc1</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -151,9 +151,9 @@ http.apply(stormpath()).and()
 . Sign up for https://run.pivotal.io/[Pivotal Web Services].
 . Download and install the https://console.run.pivotal.io/tools[Cloud Foundry CLI].
 . Login from the command line:
-----
-cf login -a api.run.pivotal.io
-----
+
+    cf login -a api.run.pivotal.io
+
 . Run `mvn package` and `cf push -p target/*jar blog-demo` to deploy.
 . This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
 . Restart your application and view it at https://blog-demo.cfapps.io/ (or something similar).

@@ -17,11 +17,10 @@
             ]
         }
     ],
-    "changelogDate": "20161118071511",
     "dto": "no",
     "service": "no",
     "entityTableName": "product",
-    "pagination": "no",
+    "pagination": "pagination",
     "microserviceName": "store",
     "searchEngine": false
 }

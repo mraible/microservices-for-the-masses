@@ -1,7 +1,6 @@
 version: '2'
 services:
     store-mongodb:
-        container_name: store-mongodb
         image: mongo:3.2.10
         ports:
             - "27017:27017"
