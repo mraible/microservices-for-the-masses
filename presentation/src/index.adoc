@@ -1,8 +1,8 @@
 = Microservices for the Masses: Spring Boot &middot; JWT &middot; JHipster
 :author: Matt Raible
-:position: Developer Evangelist
-:email: matt.raible@stormpath.com
-:organization: Stormpath
+:position: Developer Advocate
+:email: matt.raible@okta.com
+:organization: Okta
 :twitter: https://twitter.com/mraible
 :!sectids:
 :icons: font
@@ -12,9 +12,10 @@
 :uri-demos: ../../../demos
 :uri-script: notes/script.adoc
 
-image::fountain-of-colors.jpg[Fountain of colors,1024,400,role=cover canvas]
+image::jspring-title.jpg[J-Spring,1024,400,role=cover canvas]
+//image::devoxxuk-title.jpg[Devoxx UK,1024,400,role=cover canvas]
 
-Brought to you by {twitter}[{author}] and https://stormpath.com[Stormpath]
+//Brought to you by {twitter}[{author}] and https://okta.com[Okta]
 
 [duration=5m]
 // Intro
@@ -38,7 +39,9 @@ water. My sister and I had to walk two miles to school everyday, and yes, it was
 I've lived in Denver since 1992 ... went to DU, wife, kids, etc. Like to ski, like to mountain bike, love the good beer.
 
 What about you?
-Where are you from?
+How many people are doing microservices?
+How many people are using Java 8? Spring Boot?
+What about Lagom/Play, Dropwizard, or Vert.x?
 ****
 
 == !
@@ -140,7 +143,7 @@ Sales of Spring Boot skyrocked in 2016!
 
 == !
 
-image::spring-boot-logo.png[Spring Boot, width=200]
+image::spring-boot-logo.png[Spring Boot, width=100]
 
 [.cue]
 ****
@@ -177,6 +180,15 @@ image::stormpath-white-logo.png[Stormpath,width=400]
 [.cue]
 ****
 include::{uri-script}[tag=stormpath]
+****
+
+== !
+
+image::okta-white-logo.png[Okta,width=400]
+
+[.cue]
+****
+Stormpath joined forces with Okta in February. Why? So we could move faster!
 
 include::{uri-script}[tag=plug]
 ****
@@ -209,154 +221,42 @@ image::java-logo.png[Java,width=50]
 
 [.cue]
 ****
-Let's turn on some Java!
+Let's look at some Java!
 
-* JPA, H2, REST API
-* Stormpath Authentication
-* Deploy to Cloud Foundry
-
-Spring Boot is pretty hip. You know what another hot framework is/was? AngularJS!
+* Show JPA, H2, REST API
+* Show Okta Authentication
+* Talk about how to deploy to Cloud Foundry
 ****
 
 [.white]
 == !
 
-image::hip-if.jpg[Wouldn't it be hip if...?,role=cover canvas]
+image::spring-microservices-diagram.png[Spring Microservices Diagram,width=400]
 
 [.cue]
 ****
-Wouldn't it be hip if someone combined these two frameworks? And if they added in another hot framework: Bootstrap!
+Microservices with Spring Boot and Spring Cloud
+
+Spring Cloud Netflix provides Netflix OSS integrations for Spring Boot apps through autoconfiguration.
+The patterns provided include Service Discovery (Eureka), Circuit Breaker (Hystrix), Intelligent Routing (Zuul)
+and Client Side Load Balancing (Ribbon).
+
+Show spring-boot-microservices-example
 ****
 
 [.white]
 == !
 
-image::greetings-jhipster.jpg[Greetings, Java JHipster!,role=cover canvas]
+image::spring-secure-microservices-diagram.png[Spring Secure Microservices Diagram,width=400]
 
 [.cue]
 ****
-include::{uri-script}[tag=jhipster]
+Securing Your Microservices with Spring Security and Okta
+
+Show spring-boot-microservices-example, okta branch
 ****
 
-== JHipster by the numbers
-
-include::{uri-script}[tag=jhipster-stats]
-
-== How to use JHipster
-
-include::{uri-script}[tag=jhipster-usage]
-
-== What's Generated?
-
-include::{uri-script}[tag=jhipster-generates]
-
-== Security Screens
-
-include::{uri-script}[tag=jhipster-screens]
-
-== Admin Screens
-
-include::{uri-script}[tag=jhipster-admin]
-
-[.cue]
-****
-Many other features!
-
-include::{uri-script}[tag=jhipster-other-features]
-****
-
-[.title-top]
-== Liquibase
-
-image::spring-runoff.jpg[Spring Runoff,role=cover canvas]
-
-[.cue]
-****
-To keep things flowing!
-
-include::{uri-script}[tag=jhipster-liquibase]
-****
-
-[.white]
-== !
-
-image::jhipster-server.png[JHipster server-side frameworks,width=500]
-[.cue]
-****
-JHipster has many server-side frameworks to choose from.
-****
-
-[.white]
-== !
-
-image::jhipster-client.png[JHipster client-side frameworks,width=500]
-
-[.cue]
-****
-And many client-side frameworks to choose from.
-****
-
-== !
-
-image::jhipster-demo.jpg[JHipster Demo,role=cover canvas]
-
-== !
-
-image::jhipster-demo-goals.jpg[Demo Goals,role=cover canvas]
-
-== !
-
-image::jhipster-demo-diagram.jpg[Demo Entity Diagram,role=cover canvas]
-
-
-== ThoughtWorks Radar
-
-image::radar.jpg[The memory Seeker, Santa Monica Pier, CA,role=cover canvas]
-
-[.cue]
-****
-**November 2016:** ThoughtWorks Radar recently came out and had a bit to say about languages, platforms, techniques, and tools.
-Let's see how JHipster stacks up!
-****
-
-[.white]
-== !
-
-image::radar-2016-11-languages.png[ThoughtWorks Radar, November 2016, Languages and Frameworks,width=350]
-
-[.cue]
-****
-Notice who's at the top? Spring Boot baby! JHipster has that!
-It's interesting there's no Angular on this list.
-****
-
-[.white]
-== !
-
-image::radar-2016-11-platforms.png[ThoughtWorks Radar, November 2016, Platforms,width=350]
-
-[.cue]
-****
-JHipster has support for Docker, Kubernetes, Cloud Foundry, Cassandra (carefully?)
-****
-
-[.white]
-== !
-
-image::radar-2016-11-techniques.png[ThoughtWorks Radar, November 2016, Techniques,width=350]
-
-[.white]
-== !
-
-image::radar-2016-11-tools.png[ThoughtWorks Radar, November 2016, Tools,width=350]
-
-[.cue]
-****
-JHipster has support for Consul, Kafka, Let's Encrypt, and Webpack.
-Not too bad, eh?
-****
-
-== Securing your API
+== Securing Your API
 
 include::{uri-script}[tag=securing-your-api]
 
@@ -373,35 +273,8 @@ specification replaces and obsoletes the OAuth 1.0 protocol described
 in RFC 5849.
 ****
 
-
-== How to Secure your API
-
-video::hdSrT4yjS1g[youtube,300,169]
-
-[.video-link]
---
-image::rest-api-design.png[width=300]
-https://www.youtube.com/watch?v=hdSrT4yjS1g
---
-
-[.m-lg]
-include::{uri-script}[tag=securing-your-api-more]
-
-== !
-
-image::secure-UI-jwt.jpg[Secure UIs with JWT,role=cover canvas]
-
-[.cue]
-****
-**JSON Web Tokens**
-
-What is a JSON Web Token, or JWT (pronounced “jot”)?
-
-In a nutshell, a JWT is a secure and trustworthy standard for token authentication. JWTs allow you to digitally sign information (referred to as claims) with a signature and can be verified at a later time with a secret signing key.
-****
-
 [.white]
-== Anatomy of a JWT
+== JSON Web Tokens
 
 image::jwt.png[Typical JWT,width=600]
 
@@ -409,6 +282,11 @@ image::jwt-decoded.png[Decoded JWT,width=600]
 
 [.cue]
 ****
+**JSON Web Tokens**
+
+A JWT is a secure and trustworthy standard for token authentication. JWTs allow you to digitally sign information
+(referred to as claims) with a signature and can be verified at a later time with a secret signing key.
+
 In this example, Section 1 is a header which describes the token. Section 2 is the payload, which contains the JWT’s claims, and Section 3 is the signature hash that can be used to verify the integrity of the token (if you have the secret key that was used to sign it).
 
 The claims tell you, at minimum:
@@ -467,26 +345,68 @@ String b64EncodedSecret =
     TextCodec.BASE64.decode(b64EncodedSecret))
 ----
 
-== JWTs in Java for CSRF and Microservices
+[.white]
+== !
 
-video::QSYK4OCmycI[youtube,300,169]
-
-[.video-link]
---
-image::jwts-in-java-for-csrf.png[width=300]
-https://www.youtube.com/watch?v=QSYK4OCmycI
---
-
-[.m-lg]
-include::{uri-script}[tag=jwts-in-java-more]
+image::angular-springboot-bootstrap.png[Wouldn't it be hip if...?,width=400]
 
 [.cue]
 ****
-If you'd like to see a in-depth presentation on JWTs and how you can
-use them to lock down communication between microservices, please
-checkout my colleague Micah Silverman's video.
+Spring Boot is pretty hip. And so are microservices and JWTs! But what about the UI?
 
-I could go into depth about JWT, but I'd rather code!
+You know what another hot framework is/was? Angular!
+
+Wouldn't it be hip if someone combined these two frameworks? And if they added in another hot framework: Bootstrap!
+
+include::{uri-script}[tag=jhipster]
+****
+
+== !
+
+image::greetings-jhipster.png[Greetings JHipster!,role=cover canvas]
+
+[.cue]
+****
+include::{uri-script}[tag=jhipster]
+****
+
+== JHipster by the numbers
+
+include::{uri-script}[tag=jhipster-stats]
+
+== How to use JHipster
+
+include::{uri-script}[tag=jhipster-usage]
+
+== What's Generated?
+
+include::{uri-script}[tag=jhipster-generates]
+
+== Security Screens
+
+include::{uri-script}[tag=jhipster-screens]
+
+== Admin Screens
+
+include::{uri-script}[tag=jhipster-admin]
+
+[.cue]
+****
+Many other features!
+
+include::{uri-script}[tag=jhipster-other-features]
+****
+
+[.title-top]
+== Liquibase
+
+image::spring-runoff.jpg[Spring Runoff,role=cover canvas]
+
+[.cue]
+****
+To keep things flowing!
+
+include::{uri-script}[tag=jhipster-liquibase]
 ****
 
 [.white]
@@ -515,17 +435,21 @@ image::jhipster-gen-microservice.png[JHipster Microservices Demo,width=400]
 ****
 Now the moment you've all been waiting for - creating microservices with JHipster!
 
-* Convert blog to gateway
+* Create a blog app as gateway
 * Create store microservice
 * Product entity for store, generate UI on gateway
 * Deploy to Kubernetes and Docker
 ****
 
+
+////
 == !
 
 image::san-fran-night.jpg[Stormpath Lessons Learned,role=cover canvas]
 
 image::stormpath-sticker.png[Never Build Auth Again,width=200,role="left"]
+////
+
 
 [.cue]
 ****

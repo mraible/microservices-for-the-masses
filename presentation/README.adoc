@@ -21,7 +21,7 @@ https://mraible.github.io/microservices-for-the-masses[Slides]
 
 * https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/spring-boot/README.adoc[Spring Boot]
 * https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/jhipster-monolith/README.adoc[JHipster Monolith]
-* https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/jhipster-microservices/README.adoc[JHipster Microservices]
+* https://github.com/mraible/microservices-for-the-masses/blob/{branch}/demos/jhipster-microservices/TUTORIAL.md[JHipster Microservices]
 
 == Build and view slides locally
 

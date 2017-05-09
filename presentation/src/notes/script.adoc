@@ -154,12 +154,12 @@ https://www.oreilly.com/ideas/4-reasons-why-microservices-resonate
 
 == Personal Story: Stormpath’s Microservices Migration
 
-.What Is Stormpath?
+.What Is Okta?
 ****
 // tag::plug[]
-Stormpath is an API service that allows developers to create, edit, and securely store user accounts and user account data,
+Okta provides an API service that allows developers to create, edit, and securely store user accounts and user account data,
 and connect them with one or multiple applications.  We make user account management a lot easier, more secure, and
-infinitely scalable. To get started https://api.stormpath.com/register[register for a free account].
+infinitely scalable. To get started http://developer.okta.com[register for a free account].
 // end::plug[]
 ****
 
@@ -272,9 +272,9 @@ Async Messaging or other non-blocking with automatic back pressure
 // tag::jhipster[]
 https://jhipster.github.io/[JHipster] is one of those open-source projects you stumble upon and immediately think, "`Of course!`" It combines three very successful frameworks in web development: Bootstrap, AngularJS, and Spring Boot. Bootstrap was one of the first dominant web-component frameworks. Its largest appeal was that it only required a bit of HTML and it worked! All the efforts we made in the Java community to develop web components were shown a better path by Bootstrap. It leveled the playing field in HTML/CSS development, much like Apple's Human Interface Guidelines did for iOS apps.
 
-JHipster was started by Julien Dubois in October 2013 (Julien's first commit was on https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436[October 21, 2013]). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 110 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 16 developers and over 250 contributors. You can find its homepage at http://jhipster.github.io/[http://jhipster.github.io]. Its https://www.openhub.net/p/generator-jhipster[Open HUB profile] shows it's mostly written in JavaScript (50%) and Java (35%).
+JHipster was started by Julien Dubois in October 2013 (Julien's first commit was on https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436[October 21, 2013]). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 130 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 18 developers and over 320 contributors. You can find its homepage at http://jhipster.github.io/[http://jhipster.github.io]. Its https://www.openhub.net/p/generator-jhipster[Open HUB profile] shows it's mostly written in JavaScript (50%) and Java (35%).
 
-At its core, JHipster is a http://yeoman.io/[Yeoman] generator. Yeoman is a code generator that you run with a `yo` command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the "`Yeoman workflow`". This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.
+At its core, JHipster is a http://yeoman.io/[Yeoman] generator. Yeoman is a code generator that you run with a `yo` command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the "Yeoman workflow". This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.
 // end::jhipster[]
 
 ////
@@ -288,9 +288,11 @@ The Yeoman workflow is made up of three types of tools to enhance your productiv
 ==== JHipster Statistics
 // tag::jhipster-stats[]
 * +250 contributors
-* +5400 Github stars
-* +320,000 installations
-* +100 companies officially using it
+* +6800 Github stars
+* +480,000 installations
+// http://www.npm-stats.com/~packages/generator-jhipster
+* +150 companies officially using it
+// https://jhipster.github.io/companies-using-jhipster/
 // end::jhipster-stats[]
 
 === JHipster Toolchain / Workflow
@@ -331,7 +333,7 @@ To learn about profiling a Java application, I recommend you watch Nitsan Wakart
 // tag::jhipster-generates[]
 [build=items]
 * Spring Boot application
-* AngularJS application
+* Angular application
 * Liquibase changelog files
 * Configuration files
 // end::jhipster-generates[]
@@ -428,8 +430,8 @@ include::{uri-demos}/jhipster-monolith/README.adoc[]
 // tag::securing-your-api[]
 [build=items]
 * Choose the Right API Security Protocol
-** Basic API Authentication w/ TLS (formlerly known as SSL)
-** OAuth1.0a, OAuth2
+** Basic API Authentication with TLS (aka SSL)
+** OAuth 1.0a, OAuth 2.0, OpenID Connect
 * API Keys vs. Username/Password Authentication
 ** Store Your API Security Key securely
 * Use globally unique IDs (e.g. Url62)
@@ -478,12 +480,11 @@ include::{uri-demos}/jhipster-microservices/README.adoc[tag=deploy]
 
 // tag::jhipster.next[]
 [build=items]
-* Angular 2
-* JUnit 5
+* JHipster CLI
+* gRPC Support
+* React Support
 * Spring 5 and Reactive
-* Apache Kafka
-* HTTP/2
-* Progressive Web App Support
+* Improved Kafka Support
 
 [.cue]
 // end::jhipster.next[]
