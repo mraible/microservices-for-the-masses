@@ -493,7 +493,7 @@ Do one thing and do it well.
 
 == This Presentation and Demos
 
-image::https://octodex.github.com/images/class-act.png[Class Act,width=200]
+image::class-act.png[Class Act,width=200]
 
 [.m-lg]
 https://github.com/mraible/microservices-for-the-masses
