@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -26,6 +27,12 @@ class Blog {
     @GeneratedValue
     private Long id;
     private String name;
+
+    public Blog() {}
+
+    public Blog (String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -65,6 +72,7 @@ class BlogCommandLineRunner implements CommandLineRunner {
     }
     @Override
     public void run(String... strings) throws Exception {
-        System.out.println(repository.findAll());
+        Stream.of("First", "Second").forEach(b -> repository.save(new Blog(b)));
+        repository.findAll().forEach(System.out::println);
     }
 }
