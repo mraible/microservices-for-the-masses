@@ -66,4 +66,4 @@ You can publish to GitHub pages by running the following command:
 
 == Tips and Tricks
 
-You can create a PDF of this presentation by using Chrome and choosing "Save as PDF" as the destination.
+You can create a PDF of this presentation by using Chrome and choosing "Save as PDF" as the destination. If you have issues with images centering vertically, open Chrome Dev Tools before printing. 
