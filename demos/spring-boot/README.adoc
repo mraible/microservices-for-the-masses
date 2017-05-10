@@ -105,6 +105,9 @@ You can change the user's password by adding `security.user.password=user` in `a
 . Delete BlogController and change `BlogRepository` to extend `PagingAndSortingRepository`. Annotate with `@RepositoryRestResource`.
 // change prefix with `spring.data.rest.basePath=/api`
 +
+. https://www.okta.com/developer/signup/[Signup for an Okta Developer account] and setup environment variables as recommended in
+https://github.com/stormpath/stormpath-sdk-java/blob/okta/OktaGettingStarted.md[Getting Started with Okta].
+
 . Integrate Stormpath's SDK for Okta by adding the following dependency to `pom.xml`.
 +
 [source,xml]
@@ -155,7 +158,8 @@ http.apply(stormpath()).and()
     cf login -a api.run.pivotal.io
 
 . Run `mvn package` and `cf push -p target/*jar blog-demo` to deploy.
-. This will fail because you don't have Stormpath API keys defined. Remove Stormpath and redeploy or add `STORMPATH_API_KEY_ID` and `STORMPATH_API_KEY_SECRET` environment variables with the appropriate values.
+. This will fail because you don't have Okta API variables defined. Remove the Stormpath Java SDK and redeploy
+or add `STORMPATH_CLIENT_BASEURL`, `OKTA_APPLICATION_ID`, and `OKTA_API_TOKEN` environment variables with the appropriate values.
 . Restart your application and view it at https://blog-demo.cfapps.io/ (or something similar).
 
 [CAUTION]
