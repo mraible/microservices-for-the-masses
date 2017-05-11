@@ -12,8 +12,7 @@
 :uri-demos: ../../../demos
 :uri-script: notes/script.adoc
 
-image::jspring-title.jpg[J-Spring,1024,400,role=cover canvas]
-//image::devoxxuk-title.jpg[Devoxx UK,1024,400,role=cover canvas]
+image::devoxxuk-title.jpg[Devoxx UK,1024,400,role=cover canvas]
 
 //Brought to you by {twitter}[{author}] and https://okta.com[Okta]
 
@@ -214,18 +213,28 @@ Microservices are awesome, but they're not free.
 Managing microservices requires a lot of organization changes and automation to be successful. Think of products, not projects!
 ****
 
-== Spring Boot Demo
+[.white]
+== !
 
-image::spring-boot-logo.png[Spring Boot Demo,width=150]
-image::java-logo.png[Java,width=50]
+image::entity-rest-repo.png[Entity Rest Repository, width=600]
 
 [.cue]
 ****
-Let's look at some Java!
+Spring Boot: REST API
+****
 
-* Show JPA, H2, REST API
-* Show Okta Authentication
-* Talk about how to deploy to Cloud Foundry
+[.white]
+== !
+
+image::entity-default-data.png[Entity Default Data, width=600]
+
+[.cue]
+****
+Spring Boot: Default Data
+
+* This uses JPA, H2, REST API
+* You can also use Okta for Authentication
+* And deploy to Cloud Foundry
 ****
 
 [.white]
@@ -501,6 +510,19 @@ https://github.com/mraible/microservices-for-the-masses
 [.cue]
 ****
 We have all the buzzwords! We just need help - scratch - time.
+****
+
+== !
+
+image::developer-blog.jpg[Okta Developer Blog, role=cover canvas]
+
+[.cue]
+****
+Current: Bootiful development with Spring Boot and Angular, Angular PWA
+
+Upcoming tutorials: Spring Boot/Cloud Microservices (Josh), Ionic App, JHipster Microservices
+
+Summer: Spring Microservice Architectures with Okta, Okta Module for JHipster (OIDC/JWT)
 ****
 
 // Cheers!
