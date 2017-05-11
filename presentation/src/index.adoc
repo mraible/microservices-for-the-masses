@@ -450,15 +450,23 @@ Now the moment you've all been waiting for - creating microservices with JHipste
 * Deploy to Kubernetes and Docker
 ****
 
+== JHipster on Google Cloud
 
-////
+[link=https://youtu.be/dgVQOYEwleA]
+image::jhipster-google-cloud.png[JHipster, Kubernetes, and Google Cloud Demo,width=400]
+
+https://youtu.be/dgVQOYEwleA
+
+[.cue]
+****
+This screencast shows you how to create microservices architecture with JHipster and
+deploy to Google Cloud with Kubernetes.
+****
+
 == !
 
 image::san-fran-night.jpg[Stormpath Lessons Learned,role=cover canvas]
-
 image::stormpath-sticker.png[Never Build Auth Again,width=200,role="left"]
-////
-
 
 [.cue]
 ****
