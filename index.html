@@ -1,14 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Microservices for the Masses: Spring Boot &middot; JWT &middot; JHipster</title><meta name="author" content="Matt Raible"><meta name="generator" content="Asciidoctor 1.5.5 (Bespoke.js converter)"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="build/build.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"></head><body><article class="deck"><section class="title image" style="background-image: url(images/fountain-of-colors.jpg); background-size: cover; background-repeat: no-repeat" data-title=""><header><h1>Microservices for the Masses</h1><h2>Spring Boot &middot; JWT &middot; JHipster</h2></header>
-<p>Brought to you by <a href="https://twitter.com/mraible">Matt Raible</a> and <a href="https://stormpath.com">Stormpath</a></p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Microservices for the Masses: Spring Boot &middot; JWT &middot; JHipster</title><meta name="author" content="Matt Raible"><meta name="generator" content="Asciidoctor 1.5.5 (Bespoke.js converter)"><meta name="mobile-web-app-capable" content="yes"><link rel="stylesheet" href="build/build.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"></head><body><article class="deck"><section class="title image" style="background-image: url(images/devoxxuk-title.jpg); background-size: cover; background-repeat: no-repeat" data-title=""><header><h1>Microservices for the Masses</h1><h2>Spring Boot &middot; JWT &middot; JHipster</h2></header>
 <aside role="note"><p>Welcome everyone!</p>
 <p>Today, we&#8217;re going to learn about microservices, their history, how to create them, and communicate between them.</p>
-<p>But first, let&#8217;s learn a little more about each other.</p></aside><footer><p class="author"><span class="personname"><span class="firstname">Matt</span> <span class="surname">Raible</span></span><span class="affiliation"><span class="position">Developer Evangelist</span> <span class="organization">Stormpath</span></span><span class="contact"><span class="twitter">https://twitter.com/mraible</span> <span class="email">matt.raible@stormpath.com</span></span></p></footer></section>
+<p>But first, let&#8217;s learn a little more about each other.</p></aside><footer><p class="author"><span class="personname"><span class="firstname">Matt</span> <span class="surname">Raible</span></span><span class="affiliation"><span class="position">Developer Advocate</span> <span class="organization">Okta</span></span><span class="contact"><span class="twitter">https://twitter.com/mraible</span> <span class="email">matt.raible@okta.com</span></span></p></footer></section>
 <section class="image" style="background-image: url(images/good-morning-denver.jpg); background-size: cover; background-repeat: no-repeat">
 <aside role="note"><p>My name is Matt Raible and I&#8217;m a hick from the sticks. I grew up in the backwoods of Montana with no electricity or running
 water. My sister and I had to walk two miles to school everyday, and yes, it was uphill both ways.</p>
 <p>I&#8217;ve lived in Denver since 1992 &#8230;&#8203; went to DU, wife, kids, etc. Like to ski, like to mountain bike, love the good beer.</p>
 <p>What about you?
-Where are you from?</p></aside></section>
+How many people are doing microservices?
+How many people are using Java 8? Spring Boot?
+What about Lagom/Play, Dropwizard, or Vert.x?</p></aside></section>
 <section class="image" style="background-image: url(images/venice.jpg); background-size: cover; background-repeat: no-repeat">
 <aside role="note"><p>According to <a href="https://en.wikipedia.org/wiki/Microservices#History">Wikipedia</a>, the term "microservice" was first used a
 common architecture style at a workshop of software architects near Venice in May 2011. In May 2012, the same group
@@ -74,7 +75,7 @@ it allows you to create highly configurable applications that deploy easily.</p>
 <section class="white"><figure class="image"><img src="images/spring-boot-2016.png" alt="Spring Boot Downloads 2016" width="300"></figure>
 <aside role="note"><p>Everyone is using it!</p>
 <p>Sales of Spring Boot skyrocked in 2016!</p></aside></section>
-<section><figure class="image"><img src="images/spring-boot-logo.png" alt="Spring Boot" width="200"></figure>
+<section><figure class="image"><img src="images/spring-boot-logo.png" alt="Spring Boot" width="100"></figure>
 <aside role="note"><p>Spring Boot has become the on/off switch of Enterprise Java. Everyone&#8217;s using it and loves it.</p>
 <ul><li><span class="primary">Create stand-along Spring applications</span></li><li><span class="primary">Embeds Tomcat, Jetty, or Undertow</span></li><li><span class="primary">Provides opinionated, pre-configured starter poms</span></li><li><span class="primary">Maven/Gradle and devtools</span></li></ul></aside></section>
 <section class="image" style="background-image: url(images/tis-spring.jpg); background-size: cover; background-repeat: no-repeat">
@@ -90,10 +91,12 @@ a new app, maybe playing with new technology. Whee!</p></aside></section>
 served up using <a href="https://projects.spring.io/spring-boot/">Spring Boot</a> and have been from day one.</p>
 <p>Had to rewrite a lot of Samza to work because it was based on Yarn for deployment and used Kafka for its coordination. Changed
 it to use Spring Boot and Zookeeper. Samza is better than Spring&#8217;s Kafka consumer because it has local storage. Spring&#8217;s
-Kafka consumer support didn&#8217;t exist when Stormpath was building their system.</p>
-<p>Stormpath is an API service that allows developers to create, edit, and securely store user accounts and user account data,
+Kafka consumer support didn&#8217;t exist when Stormpath was building their system.</p></aside></section>
+<section><figure class="image"><img src="images/okta-white-logo.png" alt="Okta" width="400"></figure>
+<aside role="note"><p>Stormpath joined forces with Okta in February. Why? So we could move faster!</p>
+<p>Okta provides an API service that allows developers to create, edit, and securely store user accounts and user account data,
 and connect them with one or multiple applications.  We make user account management a lot easier, more secure, and
-infinitely scalable. To get started <a href="https://api.stormpath.com/register">register for a free account</a>.</p></aside></section>
+infinitely scalable. To get started <a href="http://developer.okta.com">register for a free account</a>.</p></aside></section>
 <section><figure class="image"><img src="images/spring-boot-in-3-weeks.png" alt="How We Migrated Our Backend to Spring Boot in 3 Weeks" width="500"></figure>
 <aside role="note"><p>Our application was a traditional Spring app secured by Apache Shiro and configured with both XML and Java Config. When we added Spring Boot, it didn&#8217;t replace Spring of course (since Spring Boot is built on top of Spring), but it simplified much of our architecture by adding a layer that helps automate configuration and deployment while making it easier to implement features, as well as prime our architecture for modular microservices (more on that later).</p>
 <p>Because we have thousands of customers in production and are constantly developing new features, we did extensive testing to make sure everything still worked as expected. We also built some custom Spring Boot Starters, including a nifty one for real-time stream messaging with Apache Samza. And even though our software stack is a few years old and involves a lot of business edge cases and intricate code paths, we were able to make the transition in just three weeks.</p>
@@ -103,52 +106,21 @@ infinitely scalable. To get started <a href="https://api.stormpath.com/register"
 <p>We use the ecosystem integrations for Zookeeper, Kafka, Cassandra, JMS messaging, SMTP mail servers and many others. Historically, we’ve had to build, integrate and configure these services ourselves, but now we just drop in the necessary starter dependency, and boom: the starter is enabled and auto-configured!</p></aside></section>
 <section><figure class="quote"><blockquote><p>Microservices are awesome, but they&#8217;re not free.</p></blockquote><figcaption>Les Hazlewood <cite>Stormpath CTO</cite></figcaption></figure>
 <aside role="note"><p>Managing microservices requires a lot of organization changes and automation to be successful. Think of products, not projects!</p></aside></section>
-<section><h2>Spring Boot Demo</h2><figure class="image"><img src="images/spring-boot-logo.png" alt="Spring Boot Demo" width="150"></figure>
-<figure class="image"><img src="images/java-logo.png" alt="Java" width="50"></figure>
-<aside role="note"><p>Let&#8217;s turn on some Java!</p>
-<ul><li><span class="primary">JPA, H2, REST API</span></li><li><span class="primary">Stormpath Authentication</span></li><li><span class="primary">Deploy to Cloud Foundry</span></li></ul>
-<p>Spring Boot is pretty hip. You know what another hot framework is/was? AngularJS!</p></aside></section>
-<section class="white image" style="background-image: url(images/hip-if.jpg); background-size: cover; background-repeat: no-repeat">
-<aside role="note"><p>Wouldn&#8217;t it be hip if someone combined these two frameworks? And if they added in another hot framework: Bootstrap!</p></aside></section>
-<section class="white image" style="background-image: url(images/greetings-jhipster.jpg); background-size: cover; background-repeat: no-repeat">
-<aside role="note"><p><a href="https://jhipster.github.io/">JHipster</a> is one of those open-source projects you stumble upon and immediately think, &#8220;Of course!&#8221; It combines three very successful frameworks in web development: Bootstrap, AngularJS, and Spring Boot. Bootstrap was one of the first dominant web-component frameworks. Its largest appeal was that it only required a bit of HTML and it worked! All the efforts we made in the Java community to develop web components were shown a better path by Bootstrap. It leveled the playing field in HTML/CSS development, much like Apple&#8217;s Human Interface Guidelines did for iOS apps.</p>
-<p>JHipster was started by Julien Dubois in October 2013 (Julien&#8217;s first commit was on <a href="https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436">October 21, 2013</a>). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 110 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 16 developers and over 250 contributors. You can find its homepage at <a href="http://jhipster.github.io/">http://jhipster.github.io</a>. Its <a href="https://www.openhub.net/p/generator-jhipster">Open HUB profile</a> shows it&#8217;s mostly written in JavaScript (50%) and Java (35%).</p>
-<p>At its core, JHipster is a <a href="http://yeoman.io/">Yeoman</a> generator. Yeoman is a code generator that you run with a <code>yo</code> command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the &#8220;Yeoman workflow&#8221;. This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.</p></aside></section>
-<section><h2>JHipster by the numbers</h2><ul><li><span class="primary">+250 contributors</span></li><li><span class="primary">+5400 Github stars</span></li><li><span class="primary">+320,000 installations</span></li><li><span class="primary">+100 companies officially using it</span></li></ul></section>
-<section><h2>How to use JHipster</h2><p>To <a href="https://jhipster.github.io/installation/">install</a> JHipster, you run an npm command:</p>
-<pre><code>$ npm install -g generator-jhipster</code></pre>
-<pre><code>$ mkdir myapp &amp;&amp; cd myapp
-$ yo jhipster</code></pre></section>
-<section><h2>What&#8217;s Generated?</h2><ul class="build-items"><li><span class="primary">Spring Boot application</span></li><li><span class="primary">AngularJS application</span></li><li><span class="primary">Liquibase changelog files</span></li><li><span class="primary">Configuration files</span></li></ul></section>
-<section><h2>Security Screens</h2><ul class="build-items"><li><span class="primary">Several generated screens</span><ul><li><span class="primary">Login, logout, forgot password</span></li><li><span class="primary">Account management</span></li><li><span class="primary">User management</span></li></ul></li><li><span class="primary">Useful for most applications</span><ul><li><span class="primary">Pages must be tweaked</span></li><li><span class="primary">User roles will be added/extended</span></li></ul></li><li><span class="primary">Provides good examples of working screens</span><ul><li><span class="primary">Forms, directives, validation&#8230;&#8203;</span></li></ul></li></ul></section>
-<section><h2>Admin Screens</h2><ul class="build-items"><li><span class="primary">Monitoring</span></li><li><span class="primary">Health</span><ul><li><span class="primary">Spring Boot configuration</span></li><li><span class="primary">Spring Security audits</span></li><li><span class="primary">Log management</span></li></ul></li><li><span class="primary">Very useful in production</span></li></ul>
-<aside role="note"><p>Many other features!</p>
-<ul><li><span class="primary">Maven or Gradle</span></li><li><span class="primary">Docker and Docker Compose</span></li><li><span class="primary">SQL and NoSQL databases</span></li><li><span class="primary">MongoDB and Cassandra</span></li><li><span class="primary">Elasticsearch</span></li><li><span class="primary">Kafka</span></li><li><span class="primary">Internationalization</span></li><li><span class="primary">Swagger</span></li><li><span class="primary">WebSockets</span></li><li><span class="primary">CRUD Generation</span></li><li><span class="primary">Modules and Marketplace</span></li></ul>
-<p>Be Productive with JHipster by Julien Dubois and Deepu K
-<a href="https://www.youtube.com/watch?v=dzdjP3CPOCs" class="bare">https://www.youtube.com/watch?v=dzdjP3CPOCs</a></p></aside></section>
-<section class="title-top image" style="background-image: url(images/spring-runoff.jpg); background-size: cover; background-repeat: no-repeat"><h2>Liquibase</h2>
-<aside role="note"><p>To keep things flowing!</p>
-<ul><li><span class="primary">Liquibase manages database updates</span><ul><li><span class="primary">Using changelogs</span></li></ul></li><li><span class="primary">Great for working in team</span><ul><li><span class="primary">After a “git pull”, your database is always up-to-date!</span></li></ul></li><li><span class="primary">Tables, relationships, data are created by JHipster at generation time; applied when the application starts</span></li></ul></aside></section>
-<section class="white"><figure class="image"><img src="images/jhipster-server.png" alt="JHipster server-side frameworks" width="500"></figure>
-<aside role="note"><p>JHipster has many server-side frameworks to choose from.</p></aside></section>
-<section class="white"><figure class="image"><img src="images/jhipster-client.png" alt="JHipster client-side frameworks" width="500"></figure>
-<aside role="note"><p>And many client-side frameworks to choose from.</p></aside></section>
-<section class="image" style="background-image: url(images/jhipster-demo.jpg); background-size: cover; background-repeat: no-repeat"></section>
-<section class="image" style="background-image: url(images/jhipster-demo-goals.jpg); background-size: cover; background-repeat: no-repeat"></section>
-<section class="image" style="background-image: url(images/jhipster-demo-diagram.jpg); background-size: cover; background-repeat: no-repeat"></section>
-<section class="image" style="background-image: url(images/radar.jpg); background-size: cover; background-repeat: no-repeat"><h2>ThoughtWorks Radar</h2>
-<aside role="note"><p><strong>November 2016:</strong> ThoughtWorks Radar recently came out and had a bit to say about languages, platforms, techniques, and tools.
-Let&#8217;s see how JHipster stacks up!</p></aside></section>
-<section class="white"><figure class="image"><img src="images/radar-2016-11-languages.png" alt="ThoughtWorks Radar" width="350" height="Languages and Frameworks"></figure>
-<aside role="note"><p>Notice who&#8217;s at the top? Spring Boot baby! JHipster has that!
-It&#8217;s interesting there&#8217;s no Angular on this list.</p></aside></section>
-<section class="white"><figure class="image"><img src="images/radar-2016-11-platforms.png" alt="ThoughtWorks Radar" width="350" height="Platforms"></figure>
-<aside role="note"><p>JHipster has support for Docker, Kubernetes, Cloud Foundry, Cassandra (carefully?)</p></aside></section>
-<section class="white"><figure class="image"><img src="images/radar-2016-11-techniques.png" alt="ThoughtWorks Radar" width="350" height="Techniques"></figure></section>
-<section class="white"><figure class="image"><img src="images/radar-2016-11-tools.png" alt="ThoughtWorks Radar" width="350" height="Tools"></figure>
-<aside role="note"><p>JHipster has support for Consul, Kafka, Let&#8217;s Encrypt, and Webpack.
-Not too bad, eh?</p></aside></section>
-<section><h2>Securing your API</h2><ul class="build-items"><li><span class="primary">Choose the Right API Security Protocol</span><ul><li><span class="primary">Basic API Authentication w/ TLS (formlerly known as SSL)</span></li><li><span class="primary">OAuth1.0a, OAuth2</span></li></ul></li><li><span class="primary">API Keys vs. Username/Password Authentication</span><ul><li><span class="primary">Store Your API Security Key securely</span></li></ul></li><li><span class="primary">Use globally unique IDs (e.g. Url62)</span></li><li><span class="primary">Avoid sessions, especially in URLs</span></li></ul>
+<section class="white"><figure class="image"><img src="images/entity-rest-repo.png" alt="Entity Rest Repository" width="600"></figure>
+<aside role="note"><p>Spring Boot: REST API</p></aside></section>
+<section class="white"><figure class="image"><img src="images/entity-default-data.png" alt="Entity Default Data" width="600"></figure>
+<aside role="note"><p>Spring Boot: Default Data</p>
+<ul><li><span class="primary">This uses JPA, H2, REST API</span></li><li><span class="primary">You can also use Okta for Authentication</span></li><li><span class="primary">And deploy to Cloud Foundry</span></li></ul></aside></section>
+<section class="white"><figure class="image"><img src="images/spring-microservices-diagram.png" alt="Spring Microservices Diagram" width="400"></figure>
+<aside role="note"><p>Microservices with Spring Boot and Spring Cloud</p>
+<p>Spring Cloud Netflix provides Netflix OSS integrations for Spring Boot apps through autoconfiguration.
+The patterns provided include Service Discovery (Eureka), Circuit Breaker (Hystrix), Intelligent Routing (Zuul)
+and Client Side Load Balancing (Ribbon).</p>
+<p>Show spring-boot-microservices-example</p></aside></section>
+<section class="white"><figure class="image"><img src="images/spring-secure-microservices-diagram.png" alt="Spring Secure Microservices Diagram" width="400"></figure>
+<aside role="note"><p>Securing Your Microservices with Spring Security and Okta</p>
+<p>Show spring-boot-microservices-example, okta branch</p></aside></section>
+<section><h2>Securing Your API</h2><ul class="build-items"><li><span class="primary">Choose the Right API Security Protocol</span><ul><li><span class="primary">Basic API Authentication with TLS (aka SSL)</span></li><li><span class="primary">OAuth 1.0a, OAuth 2.0, OpenID Connect</span></li></ul></li><li><span class="primary">API Keys vs. Username/Password Authentication</span><ul><li><span class="primary">Store Your API Security Key securely</span></li></ul></li><li><span class="primary">Use globally unique IDs (e.g. Url62)</span></li><li><span class="primary">Avoid sessions, especially in URLs</span></li></ul>
 <aside role="note"><p>Transport Layer Security (TLS) and its predecessor, Secure Sockets Layer (SSL), both frequently referred to as "SSL", are cryptographic protocols that provide communications security over a computer network.</p>
 <p><strong>OAuth2:</strong> The OAuth 2.0 authorization framework enables a third-party
 application to obtain limited access to an HTTP service, either on
@@ -157,17 +129,12 @@ between the resource owner and the HTTP service, or by allowing the
 third-party application to obtain access on its own behalf.  This
 specification replaces and obsoletes the OAuth 1.0 protocol described
 in RFC 5849.</p></aside></section>
-<section><h2>How to Secure your API</h2><figure class="video youtube"><iframe src="https://www.youtube.com/embed/hdSrT4yjS1g?enablejsapi=1&amp;rel=0&amp;showinfo=0&amp;controls=0&amp;disablekb=1" width="300" height="169" frameborder="0" allowfullscreen="true"></iframe></figure>
-<div class="video-link"><figure class="image"><img src="images/rest-api-design.png" alt="rest api design" width="300"></figure>
-<p><a href="https://www.youtube.com/watch?v=hdSrT4yjS1g" class="bare">https://www.youtube.com/watch?v=hdSrT4yjS1g</a></p></div>
-<p class="m-lg">Learn more <a href="https://stormpath.com/blog/secure-your-rest-api-right-way">on the Stormpath blog</a></p></section>
-<section class="image" style="background-image: url(images/secure-UI-jwt.jpg); background-size: cover; background-repeat: no-repeat">
-<aside role="note"><p><strong>JSON Web Tokens</strong></p>
-<p>What is a JSON Web Token, or JWT (pronounced “jot”)?</p>
-<p>In a nutshell, a JWT is a secure and trustworthy standard for token authentication. JWTs allow you to digitally sign information (referred to as claims) with a signature and can be verified at a later time with a secret signing key.</p></aside></section>
-<section class="white"><h2>Anatomy of a JWT</h2><figure class="image"><img src="images/jwt.png" alt="Typical JWT" width="600"></figure>
+<section class="white"><h2>JSON Web Tokens</h2><figure class="image"><img src="images/jwt.png" alt="Typical JWT" width="600"></figure>
 <figure class="image"><img src="images/jwt-decoded.png" alt="Decoded JWT" width="600"></figure>
-<aside role="note"><p>In this example, Section 1 is a header which describes the token. Section 2 is the payload, which contains the JWT’s claims, and Section 3 is the signature hash that can be used to verify the integrity of the token (if you have the secret key that was used to sign it).</p>
+<aside role="note"><p><strong>JSON Web Tokens</strong></p>
+<p>A JWT is a secure and trustworthy standard for token authentication. JWTs allow you to digitally sign information
+(referred to as claims) with a signature and can be verified at a later time with a secret signing key.</p>
+<p>In this example, Section 1 is a header which describes the token. Section 2 is the payload, which contains the JWT’s claims, and Section 3 is the signature hash that can be used to verify the integrity of the token (if you have the secret key that was used to sign it).</p>
 <p>The claims tell you, at minimum:</p>
 <p>Who this person is and the URI to their user resource (the sub claim)
 What this person can access with this token (the scope claim)
@@ -195,14 +162,32 @@ assertEquals(scope, <span style="background-color:hsla(0,100%,50%,0.05)"><span s
 
 .signWith(SignatureAlgorithm.HS256,
     TextCodec.BASE64.decode(b64EncodedSecret))</code></pre></section>
-<section><h2>JWTs in Java for CSRF and Microservices</h2><figure class="video youtube"><iframe src="https://www.youtube.com/embed/QSYK4OCmycI?enablejsapi=1&amp;rel=0&amp;showinfo=0&amp;controls=0&amp;disablekb=1" width="300" height="169" frameborder="0" allowfullscreen="true"></iframe></figure>
-<div class="video-link"><figure class="image"><img src="images/jwts-in-java-for-csrf.png" alt="jwts in java for csrf" width="300"></figure>
-<p><a href="https://www.youtube.com/watch?v=QSYK4OCmycI" class="bare">https://www.youtube.com/watch?v=QSYK4OCmycI</a></p></div>
-<p class="m-lg">Learn more <a href="https://stormpath.com/blog/csrf-protection-jwt-spring-security">on the Stormpath blog</a></p>
-<aside role="note"><p>If you&#8217;d like to see a in-depth presentation on JWTs and how you can
-use them to lock down communication between microservices, please
-checkout my colleague Micah Silverman&#8217;s video.</p>
-<p>I could go into depth about JWT, but I&#8217;d rather code!</p></aside></section>
+<section class="white"><figure class="image"><img src="images/angular-springboot-bootstrap.png" alt="Wouldn't it be hip if...?" width="400"></figure>
+<aside role="note"><p>Spring Boot is pretty hip. And so are microservices and JWTs! But what about the UI?</p>
+<p>You know what another hot framework is/was? Angular!</p>
+<p>Wouldn&#8217;t it be hip if someone combined these two frameworks? And if they added in another hot framework: Bootstrap!</p>
+<p><a href="https://jhipster.github.io/">JHipster</a> is one of those open-source projects you stumble upon and immediately think, &#8220;Of course!&#8221; It combines three very successful frameworks in web development: Bootstrap, AngularJS, and Spring Boot. Bootstrap was one of the first dominant web-component frameworks. Its largest appeal was that it only required a bit of HTML and it worked! All the efforts we made in the Java community to develop web components were shown a better path by Bootstrap. It leveled the playing field in HTML/CSS development, much like Apple&#8217;s Human Interface Guidelines did for iOS apps.</p>
+<p>JHipster was started by Julien Dubois in October 2013 (Julien&#8217;s first commit was on <a href="https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436">October 21, 2013</a>). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 130 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 18 developers and over 320 contributors. You can find its homepage at <a href="http://jhipster.github.io/">http://jhipster.github.io</a>. Its <a href="https://www.openhub.net/p/generator-jhipster">Open HUB profile</a> shows it&#8217;s mostly written in JavaScript (50%) and Java (35%).</p>
+<p>At its core, JHipster is a <a href="http://yeoman.io/">Yeoman</a> generator. Yeoman is a code generator that you run with a <code>yo</code> command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the "Yeoman workflow". This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.</p></aside></section>
+<section class="image" style="background-image: url(images/greetings-jhipster.png); background-size: cover; background-repeat: no-repeat">
+<aside role="note"><p><a href="https://jhipster.github.io/">JHipster</a> is one of those open-source projects you stumble upon and immediately think, &#8220;Of course!&#8221; It combines three very successful frameworks in web development: Bootstrap, AngularJS, and Spring Boot. Bootstrap was one of the first dominant web-component frameworks. Its largest appeal was that it only required a bit of HTML and it worked! All the efforts we made in the Java community to develop web components were shown a better path by Bootstrap. It leveled the playing field in HTML/CSS development, much like Apple&#8217;s Human Interface Guidelines did for iOS apps.</p>
+<p>JHipster was started by Julien Dubois in October 2013 (Julien&#8217;s first commit was on <a href="https://github.com/jhipster/generator-jhipster/commit/c8630ab7af7b6a99db880b3b0e2403806b7d2436">October 21, 2013</a>). The first public release (version 0.3.1) was launched December 7, 2013. Since then, the project has had over 130 releases! It is an open-source, Apache 2.0-licensed project on GitHub. It has a core team of 18 developers and over 320 contributors. You can find its homepage at <a href="http://jhipster.github.io/">http://jhipster.github.io</a>. Its <a href="https://www.openhub.net/p/generator-jhipster">Open HUB profile</a> shows it&#8217;s mostly written in JavaScript (50%) and Java (35%).</p>
+<p>At its core, JHipster is a <a href="http://yeoman.io/">Yeoman</a> generator. Yeoman is a code generator that you run with a <code>yo</code> command to generate complete applications or useful pieces of an application. Yeoman generators promote what the Yeoman team calls the "Yeoman workflow". This is an opinionated client-side stack of tools that can help developers quickly build beautiful web applications. It takes care of providing everything needed to get working without the normal pains associated with a manual setup.</p></aside></section>
+<section><h2>JHipster by the numbers</h2><ul><li><span class="primary">+250 contributors</span></li><li><span class="primary">+6800 Github stars</span></li><li><span class="primary">+480,000 installations</span></li><li><span class="primary">+150 companies officially using it</span></li></ul></section>
+<section><h2>How to use JHipster</h2><p>To <a href="https://jhipster.github.io/installation/">install</a> JHipster, you run an npm command:</p>
+<pre><code>$ npm install -g generator-jhipster</code></pre>
+<pre><code>$ mkdir myapp &amp;&amp; cd myapp
+$ yo jhipster</code></pre></section>
+<section><h2>What&#8217;s Generated?</h2><ul class="build-items"><li><span class="primary">Spring Boot application</span></li><li><span class="primary">Angular application</span></li><li><span class="primary">Liquibase changelog files</span></li><li><span class="primary">Configuration files</span></li></ul></section>
+<section><h2>Security Screens</h2><ul class="build-items"><li><span class="primary">Several generated screens</span><ul><li><span class="primary">Login, logout, forgot password</span></li><li><span class="primary">Account management</span></li><li><span class="primary">User management</span></li></ul></li><li><span class="primary">Useful for most applications</span><ul><li><span class="primary">Pages must be tweaked</span></li><li><span class="primary">User roles will be added/extended</span></li></ul></li><li><span class="primary">Provides good examples of working screens</span><ul><li><span class="primary">Forms, directives, validation&#8230;&#8203;</span></li></ul></li></ul></section>
+<section><h2>Admin Screens</h2><ul class="build-items"><li><span class="primary">Monitoring</span></li><li><span class="primary">Health</span><ul><li><span class="primary">Spring Boot configuration</span></li><li><span class="primary">Spring Security audits</span></li><li><span class="primary">Log management</span></li></ul></li><li><span class="primary">Very useful in production</span></li></ul>
+<aside role="note"><p>Many other features!</p>
+<ul><li><span class="primary">Maven or Gradle</span></li><li><span class="primary">Docker and Docker Compose</span></li><li><span class="primary">SQL and NoSQL databases</span></li><li><span class="primary">MongoDB and Cassandra</span></li><li><span class="primary">Elasticsearch</span></li><li><span class="primary">Kafka</span></li><li><span class="primary">Internationalization</span></li><li><span class="primary">Swagger</span></li><li><span class="primary">WebSockets</span></li><li><span class="primary">CRUD Generation</span></li><li><span class="primary">Modules and Marketplace</span></li></ul>
+<p>Be Productive with JHipster by Julien Dubois and Deepu K
+<a href="https://www.youtube.com/watch?v=dzdjP3CPOCs" class="bare">https://www.youtube.com/watch?v=dzdjP3CPOCs</a></p></aside></section>
+<section class="title-top image" style="background-image: url(images/spring-runoff.jpg); background-size: cover; background-repeat: no-repeat"><h2>Liquibase</h2>
+<aside role="note"><p>To keep things flowing!</p>
+<ul><li><span class="primary">Liquibase manages database updates</span><ul><li><span class="primary">Using changelogs</span></li></ul></li><li><span class="primary">Great for working in team</span><ul><li><span class="primary">After a “git pull”, your database is always up-to-date!</span></li></ul></li><li><span class="primary">Tables, relationships, data are created by JHipster at generation time; applied when the application starts</span></li></ul></aside></section>
 <section class="white"><h2>Microservices with JHipster</h2><figure class="image"><img src="images/jhipster-microservices-architecture.png" alt="JHipster Microservice Architecture" width="400"></figure>
 <aside role="note"><p>In this diagram, green represents JHipster-generated components while blue are the registry and console applications.</p>
 <p>You first generate a gateway that handles web traffic and serves up an Angular UI.</p>
@@ -211,7 +196,11 @@ checkout my colleague Micah Silverman&#8217;s video.</p>
 <p>To monitor this architecture you can use JHipster Console, which is based on the ELK Stack (Elasticsearch, Logstash, Kibana).</p></aside></section>
 <section><figure class="image"><img src="images/jhipster-gen-microservice.png" alt="JHipster Microservices Demo" width="400"></figure>
 <aside role="note"><p>Now the moment you&#8217;ve all been waiting for - creating microservices with JHipster!</p>
-<ul><li><span class="primary">Convert blog to gateway</span></li><li><span class="primary">Create store microservice</span></li><li><span class="primary">Product entity for store, generate UI on gateway</span></li><li><span class="primary">Deploy to Kubernetes and Docker</span></li></ul></aside></section>
+<ul><li><span class="primary">Create a blog app as gateway</span></li><li><span class="primary">Create store microservice</span></li><li><span class="primary">Product entity for store, generate UI on gateway</span></li><li><span class="primary">Deploy to Kubernetes and Docker</span></li></ul></aside></section>
+<section><h2>JHipster on Google Cloud</h2><figure class="image"><img src="images/jhipster-google-cloud.png" alt="JHipster" width="400" height="and Google Cloud Demo"></figure>
+<p><a href="https://youtu.be/dgVQOYEwleA" class="bare">https://youtu.be/dgVQOYEwleA</a></p>
+<aside role="note"><p>This screencast shows you how to create microservices architecture with JHipster and
+deploy to Google Cloud with Kubernetes.</p></aside></section>
 <section class="image" style="background-image: url(images/san-fran-night.jpg); background-size: cover; background-repeat: no-repeat">
 <figure class="image left"><img src="images/stormpath-sticker.png" alt="Never Build Auth Again" width="200"></figure>
 <aside role="note"><p>Automation and orchestration are key for deployment.</p>
@@ -221,13 +210,17 @@ checkout my colleague Micah Silverman&#8217;s video.</p>
 <p>Async Messaging or other non-blocking with automatic back pressure</p></aside></section>
 <section><figure class="quote"><blockquote><p>Microservices are not free, but you get a deep discount on microservices with JHipster.</p></blockquote><figcaption>Matt Raible <cite>2016</cite></figcaption></figure>
 <aside role="note"><p><em>It&#8217;s like a 50% off sale!</em></p></aside></section>
-<section><h2>JHipster.next</h2><ul class="build-items"><li><span class="primary">Angular 2</span></li><li><span class="primary">JUnit 5</span></li><li><span class="primary">Spring 5 and Reactive</span></li><li><span class="primary">Apache Kafka</span></li><li><span class="primary">HTTP/2</span></li><li><span class="primary">Progressive Web App Support</span></li></ul>
+<section><h2>JHipster.next</h2><ul class="build-items"><li><span class="primary">JHipster CLI</span></li><li><span class="primary">gRPC Support</span></li><li><span class="primary">React Support</span></li><li><span class="primary">Spring 5 and Reactive</span></li><li><span class="primary">Improved Kafka Support</span></li></ul>
 <aside role="note"><p>We have all the buzzwords! We just need help - scratch - time.</p></aside></section>
 <section class="white image" style="background-image: url(images/jhipster-mini-book.jpg); background-size: cover; background-repeat: no-repeat">
 <aside role="note"><p>Version 2.0 was released December 5th!</p></aside></section>
 <section><figure class="quote"><blockquote><p>Do one thing and do it well.</p></blockquote><figcaption>Unix philosophy</figcaption></figure></section>
-<section><h2>This Presentation and Demos</h2><figure class="image"><img src="https://octodex.github.com/images/class-act.png" alt="Class Act" width="200"></figure>
+<section><h2>This Presentation and Demos</h2><figure class="image"><img src="images/class-act.png" alt="Class Act" width="200"></figure>
 <p class="m-lg"><a href="https://github.com/mraible/microservices-for-the-masses" class="bare">https://github.com/mraible/microservices-for-the-masses</a></p>
 <aside role="note"><p>We have all the buzzwords! We just need help - scratch - time.</p></aside></section>
+<section class="image" style="background-image: url(images/developer-blog.jpg); background-size: cover; background-repeat: no-repeat">
+<aside role="note"><p>Current: Bootiful development with Spring Boot and Angular, Angular PWA</p>
+<p>Upcoming tutorials: Spring Boot/Cloud Microservices (Josh), Ionic App, JHipster Microservices</p>
+<p>Summer: Spring Microservice Architectures with Okta, Okta Module for JHipster (OIDC/JWT)</p></aside></section>
 <section class="white image" style="background-image: url(images/questions.jpg); background-size: cover; background-repeat: no-repeat"></section>
 <section class="image-credits"><h2>Image Credits</h2><ul><li><span class="primary">Fountain of colours - <a href="https://www.flickr.com/photos/134741223@N04/23393614091">Paulius Malinovskis on Flickr</a></span></li><li><span class="primary">Ponte dell&#8217;Accademia at Sunrise - <a href="https://stuckincustoms.smugmug.com/Portfolio/i-ZQRWmQf/A">Trey Ratcliff on Stuck in Customs</a></span></li><li><span class="primary">Conway&#8217;s Law - <a href="http://martinfowler.com/articles/microservices.html#OrganizedAroundBusinessCapabilities">Martin Fowler and James Lewis on Microservices</a></span></li><li><span class="primary">Good Morning Denver - <a href="https://www.flickr.com/photos/sheila_sund/8903465080">Sheila Sund on Flickr</a></span></li><li><span class="primary">Monoliths - <a href="https://www.flickr.com/photos/archesnps/9565405646">Arches National Park on Flickr</a></span></li><li><span class="primary">Mexico - <a href="http://www.mcginityphoto.com/Portfolio/TravelandLeisure/Mexico/i-3VbXnWW/A">Trish McGinity on McGinity Photo</a></span></li><li><span class="primary">Future - <a href="https://www.flickr.com/photos/vivianhir/4484911909">vivianhir on Flickr</a></span></li><li><span class="primary">Spring Runoff - <a href="https://www.flickr.com/photos/31246066@N04/4620052369">Ian Sane on Flickr</a></span></li><li><span class="primary">The memory Seeker, Santa Monica Pier, CA - <a href="https://www.flickr.com/photos/pachecophotography/11087502255">Pacheco on Flickr</a></span></li><li><span class="primary">San Francisco By Night - <a href="http://www.mcginityphoto.com/Portfolio/TravelandLeisure/California/i-PNzRJZj/A">Trish McGinity on McGinity Photo</a></span></li></ul></section></article><script src="build/build.js"></script></body></html>
